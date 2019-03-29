@@ -1,21 +1,67 @@
-/**index.wxss**/
-.userinfo {
+/* pages/index1/index1.wxss */
+.box1{
+  width:50px;
+  height:50px;
+  background-color: blue;
+}
+
+.hover_class{
+  background-color: aqua;
+  opacity: .5;
+}
+
+.section{
+    background-color:rgba(119, 180, 250, 0.342);
+    padding:0;
+}
+
+.contain{
+  margin: 10rpx;
+}
+
+image{
+  width: 20%;
+  height: 90px;
+}
+
+.acti-image{
+  align-items: left;
+  position:relative;
+  left:20px;
+  top:0px;
+}
+
+#acti-title{
+  width:250px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: left;
+  word-wrap: break-word;
+  font-family:"Times New Roman",Georgia,Serif;
+  font-size:120%;
+  position:relative;
+  left:100px;
+  top:-90px;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+#acti-time{
+  display: list-item;
+  position:relative;
+  left:110px;
+  top:-80px;
+  font-size:80%;
+  font-family: "Courier New", Courier, monospace;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.section__title{
+  font-family: "Times New Roman", Times, serif;
 }
 
-.usermotto {
-  margin-top: 200px;
+#white{
+    background-color: rgb(255, 255, 255);
+    height:110px;
+    margin: 10rpx;
+    top:10rpx;
+    border:2px solid;
+    border-radius:10px;
+    border-color:  rgba(255,255,255,0.8);
 }

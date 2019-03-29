@@ -1,3 +1,30 @@
 <view>这里是成聚前端的开发页面</view>
 <view>后端已确定选用Node.js</view>
 <view>期待下周与大家再讨论</view>
+<view class="section">
+  <block wx:if="{{true}}">
+  <scroll-view
+    scroll-y
+    style="height: 2000px;"
+    bindscrolltoupper="upper"
+    bindscrolltolower="lower"
+    bindscroll="scroll"
+    scroll-into-view="{{toView}}"
+    scroll-top="{{scrollTop}}"
+  >
+
+    <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName">
+      <view id="white" bindtap="viewDetail">
+        <view class="acti-image">
+          <image src="{{itemName.image}}" mode="aspectFit"></image>
+        </view>
+        <view class="acti-info">
+          <text id="acti-title">{{itemName.title}}</text>
+          <text id="acti-time">{{itemName.time}}</text>
+        </view>
+      </view>
+    </block>
+  
+  </scroll-view>
+  </block>
+</view>
