@@ -1,6 +1,8 @@
 {
   "pages":[
-    "pages/index/index",
+    "pages/acti_list/acti_list",
+    "pages/submit/submit",
+    "pages/mine/mine",
     "pages/logs/logs"
   ],
   "window":{
