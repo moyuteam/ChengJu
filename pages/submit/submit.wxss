@@ -1,20 +1,21 @@
 .body{
-  padding-top: 15px;
-  padding-left: 10px;
+  background-color:rgba(255,160,0,0.6);
+  padding: 25rpx;
 }
 .input_text{
-  padding-top: 5px;
   display: flex;
 }
 .input_title{
-  padding-left: 10px;
-  padding-right: 10px;
-  color: #212121;
+  margin: 20rpx;
+  color:white;
+  font-weight: bolder;
 }
 .input_content{
-  border: 1px solid;
-  border-color: #757575;
-  border-radius: 1;
-  width: 150px;
+  background-color:rgba(255, 255, 255, 0.6);
+  margin:20rpx;
   border-radius: 5px;
+  color: #757575;
+  padding-left: 15rpx;
+  font-size: 10pt;
+  width: 400rpx;
 }
