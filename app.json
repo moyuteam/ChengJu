@@ -2,32 +2,41 @@
   "pages":[
     "pages/acti_list/acti_list",
     "pages/submit/submit",
-    "pages/mine/mine",
+    "pages/mine/mine"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black",
+    "navigationBarTextStyle":"black"
+  },
     "tabBar": {
-      "list": [{
+      "borderStyle": "white",
+      "color": "#8a8a8a",
+      "selectedColor": "#FFA000",
+      "list": [
+      {
         "pagePath": "pages/acti_list/acti_list",
         "text": "广场",
-        "iconPath": "iconPath",
-        "selectedIconPath": "selectedIconPath"
+        
+        "iconPath": "pages/icon/acti-before.png",
+        "selectedIconPath": "pages/icon/acti-after.png"
       },
       {
         "pagePath": "pages/submit/submit",
         "text": "发布",
-        "iconPath": "iconPath",
-        "selectedIconPath": "selectedIconPath"
+        "color": "#8a8a8a",
+        "selectedColor": "#FFA000",
+        "iconPath": "pages/icon/submit-before.png",
+        "selectedIconPath": "pages/icon/submit-after.png"
       },
       {
        "pagePath": "pages/mine/mine",
        "text": "我的",
-       "iconPath": "iconPath",
-       "selectedIconPath": "selectedIconPath"
+       "color": "#8a8a8a",
+       "selectedColor": "#FFA000",
+       "iconPath": "pages/icon/mine-before.png",
+       "selectedIconPath": "pages/icon/mine-after.png"
       }]
     }
-  }
 }
