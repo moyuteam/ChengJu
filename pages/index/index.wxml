@@ -1,6 +1,5 @@
 <view>这里是成聚前端的开发页面</view>
 <view>后端已确定选用Node.js</view>
-<view>期待下周与大家再讨论</view>
 <view class="section">
   <block wx:if="{{true}}">
   <scroll-view
