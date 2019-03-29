@@ -11,7 +11,7 @@
 }
 
 .section{
-    background-color:rgba(119, 180, 250, 0.342);
+    background-color:rgba(255,160,0,0.4);
     padding:0;
 }
 
@@ -62,6 +62,5 @@ image{
     margin: 10rpx;
     top:10rpx;
     border:2px solid;
-    border-radius:10px;
     border-color:  rgba(255,255,255,0.8);
 }
