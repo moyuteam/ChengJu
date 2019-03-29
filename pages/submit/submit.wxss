@@ -1,1 +1,20 @@
-/* pages/submit/submit.wxss */
+.body{
+  padding-top: 15px;
+  padding-left: 10px;
+}
+.input_text{
+  padding-top: 5px;
+  display: flex;
+}
+.input_title{
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #212121;
+}
+.input_content{
+  border: 1px solid;
+  border-color: #757575;
+  border-radius: 1;
+  width: 150px;
+  border-radius: 5px;
+}

@@ -1,1 +1,16 @@
+<view class="body">
+  <view class="input_text">
+    <view class="input_title">活动名称：</view>
+    <input class="input_content" ></input>
+  </view>
 
+  <view class="input_text">
+    <view class="input_title">活动时间： </view>
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange"             bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <input value='{{time}}'  class="input_content"/>
+    </picker>
+
+  </view>
+
+  
+</view>
