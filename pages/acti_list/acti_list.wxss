@@ -11,7 +11,7 @@
 }
 
 .section{
-    background-color:rgba(119, 180, 250, 0.342);
+    background-color:rgba(255,160,0,0.4);
     padding:0;
 }
 
@@ -36,20 +36,20 @@ image{
   display: flex;
   justify-content: left;
   word-wrap: break-word;
-  font-family:"Times New Roman",Georgia,Serif;
-  font-size:120%;
+  font-size:100%;
+  font-weight: normal;
+  color:#212121;
   position:relative;
-  left:100px;
+  left:97px;
   top:-90px;
 }
 
 #acti-time{
-  display: list-item;
   position:relative;
-  left:110px;
-  top:-80px;
+  left:-20px;
+  top:-43px;
   font-size:80%;
-  font-family: "Courier New", Courier, monospace;
+  color:#757575;
 }
 
 .section__title{
@@ -58,10 +58,25 @@ image{
 
 #white{
     background-color: rgb(255, 255, 255);
-    height:110px;
+    height:90px;
     margin: 10rpx;
     top:10rpx;
     border:2px solid;
-    border-radius:10px;
+    border-radius: 10px;
     border-color:  rgba(255,255,255,0.8);
+}
+
+#timeClock{
+  position:relative;
+  top:-43px;
+  width: 20%;
+  height: 20px;
+}
+
+.time{
+  position:relative;
+  top:-43px;
+  left:70px;
+  align-items: center;
+  display:flex;
 }
