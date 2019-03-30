@@ -25,7 +25,7 @@ var User = require('./modules/user.js');
 //  });
 //});
 app.post('/user', function (req, res) {
-    var b = req.body.name;
+    // var b = req.body.name;
     //console.log(b);
     //console.log(req);
     var a = new User({
@@ -37,12 +37,12 @@ app.post('/user', function (req, res) {
     });
     a.save(function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
-        res.send(req.body.name);
+        res.send("success!");
 
     });
 });
 app.get('/user', function (req, res) {
-    User.findOne({stuID: req.query.stuid}, function (err, a) {
+    User.findOne({ stuID: req.query.stuid }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
@@ -52,5 +52,28 @@ app.get('/user', function (req, res) {
         });
     });
 });
+
+
+var Act = require('./modules/activity.js');
+app.post('/act', function (req, res) {
+    var a = new Act({
+        name: req.body.name,
+        des: req.body.des,
+        actID: req.body.actID,
+        date: req.body.date,
+        time: req.body.time,
+        capacity: req.body.capacity,
+        tags: req.body.tags,
+    });
+    a.save(function (err, a) {
+        if (err) return res.send(500, 'Error occurred: database error.');
+        res.send("success!");
+    });
+});
+
+
+
+
+
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'));
