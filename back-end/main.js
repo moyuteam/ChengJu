@@ -70,6 +70,20 @@ app.post('/act', function (req, res) {
         res.send("success!");
     });
 });
+app.get('/act', function (req, res) {
+    Act.findOne({ actID: req.query.actid }, function (err, a) {
+        if (err) return res.send(500, 'Error occurred: database error.');
+        res.json({
+            name: a.name,
+            des: a.des,
+            actID: a.actID,
+            date: a.date,
+            time: a.time,
+            capacity: a.capacity,
+            tags: a.tags,
+        });
+    });
+});
 
 
 
