@@ -1,20 +1,62 @@
 .body{
-  padding-top: 15px;
-  padding-left: 10px;
+  padding: 20rpx;
+  align-items: center;
 }
-.input_text{
-  padding-top: 5px;
+.name{
+  height: 100rpx;
+  font-size:60rpx;
+  margin-top:20rpx;
+  margin-left: 20rpx;
+  margin-bottom: 15rpx;
+  color: #757575;
+}
+.divLine{
+  background: #EEEEEE;
+  height: 5rpx;
+}
+.description{
+  margin: 20rpx;
+}
+.input{
   display: flex;
 }
+.icon{
+  width: 20%;
+  height: 20px;
+  position:relative;
+  right:40rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.icon1{
+  width: 20%;
+  height: 20px;
+  position:relative;
+  right:35rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
 .input_title{
-  padding-left: 10px;
-  padding-right: 10px;
-  color: #212121;
+  margin: 20rpx;
+  color:#212121;
+  position:relative;
+  right:80rpx;
 }
 .input_content{
-  border: 1px solid;
-  border-color: #757575;
-  border-radius: 1;
-  width: 150px;
-  border-radius: 5px;
+  margin:20rpx;
+  color: #212121;
+
+}
+.tag{
+
+}
+.submit_btn{
+  color: white;
+  background: rgba(255, 162, 0, 0.788);
+  border-color:rgba(255, 162, 0, 0.788);
+  border-radius: 100rpx;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

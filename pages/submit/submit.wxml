@@ -1,16 +1,49 @@
 <view class="body">
-  <view class="input_text">
-    <view class="input_title">活动名称：</view>
-    <input class="input_content" ></input>
-  </view>
 
-  <view class="input_text">
-    <view class="input_title">活动时间： </view>
-    <picker mode="multiSelector" bindchange="bindMultiPickerChange"             bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-        <input value='{{time}}'  class="input_content"/>
+
+  <input class="name" placeholder='活动名称'/>
+
+  <view class="divLine"></view>
+  <textarea class="description" placeholder='活动描述' maxlength='200'></textarea>
+
+  <view class="divLine"></view>
+  <view class="divLine"></view>
+  <view class="input">
+    <image src='../image/Calendar.png' class='icon' mode='aspectFit'></image>
+    <view class="input_title">活动日期</view>
+    <picker mode="date" value="{{date}}" start="2019-04-01" end="2020-12-31" bindchange="bindTimeChange">
+        <view class="input_content">{{time}}</view>
     </picker>
-
   </view>
 
+  <view class="divLine"></view>
+  <view class="input">
+    <image src='../image/Time.png' class='icon' mode='aspectFit'></image>
+    <view class="input_title">活动时间</view>
+    <picker mode="time" value="{{time}}" start="00:00" end="23:59"       bindchange="bindTimeChange">
+        <view class="input_content">{{time}}</view>
+    </picker>
+  </view>
+
+  <view class="divLine"></view>
+  <view class='input'>
+    <image src='../image/Place.png' class='icon1' mode='aspectFit'></image>
+    <view class='input_title'>活动地点</view>
+    <input class='input_content'></input>
+  </view>
+
+  <view class="divLine"></view>
+  <view class="input">
+    <image src='../image/User.png' class='icon1' mode='aspectFit'></image>
+    <view class="input_title">活动人数</view>
+    <input class="input_content" placeholder='只接受数字,例如:“20”' />
+  </view>
+
+  <view class="divLine"></view>
+  <view class="input">
+    <image src='../image/Tag.png' class='icon' mode='aspectFit'></image>
+    <view class="input_title">添加标签</view>
+  </view>
   
+  <button class='submit_btn'>发布活动</button>
 </view>
