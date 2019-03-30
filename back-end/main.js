@@ -11,20 +11,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var User = require('./modules/user.js');
-app.get('/api/user', function (req, res) {
-    User.find({ approved: true }, function (err, attractions) {
-        if (err) return res.send(500, 'Error occurred: database error.');
-        res.json(User.map(function (a) {
-            return {
-                name: a.name,
-                stuID: a.stuID,
-                sex: a.sex,
-                campus: a.campus,
-            }
-        }));
-    });
-});
-app.post('/api/user', function (req, res) {
+//app.get('/api/user', function (req, res) {
+//  User.find({ approved: true }, function (err, attractions) {
+//    if (err) return res.send(500, 'Error occurred: database error.');
+//    res.json(User.map(function (a) {
+// return {
+//  name: a.name,
+//    stuID: a.stuID,
+//      sex: a.sex,
+//        campus: a.campus,
+//      }
+//    }));
+//  });
+//});
+app.post('/user', function (req, res) {
     var b = req.body.name;
     //console.log(b);
     //console.log(req);
@@ -33,7 +33,7 @@ app.post('/api/user', function (req, res) {
         stuID: req.body.stuID,
         sex: req.body.sex,
         campus: req.body.campus,
-     
+
     });
     a.save(function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
@@ -41,8 +41,8 @@ app.post('/api/user', function (req, res) {
 
     });
 });
-app.get('/api/user/:stuid', function (req, res) {
-    user.findById(req.params.stuid, function (err, a) {
+app.get('/user', function (req, res) {
+    User.findOne({stuID: req.query.stuid}, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
