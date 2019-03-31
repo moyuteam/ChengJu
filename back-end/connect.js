@@ -11,6 +11,7 @@ mongoose.connect(DB_URL);
   */
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connection open to ' + DB_URL);
+    console.log('=====================================================');
 });
 
 /**

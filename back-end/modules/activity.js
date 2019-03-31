@@ -2,17 +2,18 @@ var mongoose = require('../connect.js');
 var Schema = mongoose.Schema;
 
 var activitySchema = Schema({
-    name:{type:String},
-    des:{type:String},
-    actID:{type:String},
-    date:{type:String},
-    time:{type:String},
-    capacity:{type:String},
-    tags:{type:String},
+    name:String,
+    des:String,
+    actID:String,
+    date:String,
+    time:String,
+    capacity:String,
+    tags:String,
     createTime: {
         type: Date,
         default: Date.now
-    }
+    },
+    ownerID:String
     
 },{versionKey: false});
 

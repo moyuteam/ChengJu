@@ -2,10 +2,11 @@ var mongoose = require('../connect.js');
 var Schema = mongoose.Schema;
 
 var userSchema = Schema({
-    name:{type:String},
-    stuID:{type:String},
-    sex:{type:String},
-    campus:{type:String},
+    name:String,
+    stuID:String,
+    sex:String,
+    campus:String,
+    verifyUser:Boolean,
     createTime: {
         type: Date,
         default: Date.now
