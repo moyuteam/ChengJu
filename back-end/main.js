@@ -103,6 +103,7 @@ app.delete('/user', function (req, res) {
 
 
 var Act = require('./modules/activity.js');
+//使用POST方法来对活动数据库做增加操作
 app.post('/act', function (req, res) {
     var a = new Act({
         name: req.body.name,
@@ -118,6 +119,8 @@ app.post('/act', function (req, res) {
         res.send("success!");
     });
 });
+
+//使用GET方法来对活动数据库做查询操作
 app.get('/act', function (req, res) {
     Act.findOne({ actID: req.body.actid }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
@@ -133,6 +136,7 @@ app.get('/act', function (req, res) {
     });
 });
 
+//使用PUT方法来对活动数据库做修改操作
 app.put('/act', function (req, res) {
     var a = new Act({
         name: req.body.name,
@@ -145,7 +149,7 @@ app.put('/act', function (req, res) {
     });
     console.log(a);
     if (a.actID == undefined) {
-        res.send("空的actID!");
+        res.send("Error 101 : not found 'actID'!");
     }
     if (a.name !== undefined) {
         Act.update({ actID: a.actID }, { name: a.name }).exec();
@@ -168,10 +172,11 @@ app.put('/act', function (req, res) {
     res.send("success!")
 
 });
+
 //使用DELETE方法对活动数据库做删除操作
 app.delete('/user', function (req, res) {
 
-    User.findOne({ actID: req.body.actID }, function (err, doc) {
+    Act.findOne({ actID: req.body.actID }, function (err, doc) {
         if (doc != null) {
             User.remove({ actID: req.body.actID }).exec();
             res.send("success!");
@@ -181,7 +186,29 @@ app.delete('/user', function (req, res) {
 });
 
 
+var ChangeAct = require('./modules/changeact');
+//使用PUT方法来对用户活动做修改操作
+app.put('/user/change', function (req, res) {
+    var a = new ChangeAct({
+        stuID: req.body.stuID,
+        changeAct: req.body.changeAct,
+        change: req.body.change
+    })
+    User.findOne({ stuID: req.body.stuID}, function (err, doc){
+        if(doc != null) {
+            var bool = a.cge(doc);
+            if(bool === True){
+                res.send("success!")
+            }
+            else{
+                res.send("fail!");
+            }
+        }
+
+    })
+
+});
 
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 app.listen(app.get('port'));
