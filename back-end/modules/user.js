@@ -10,7 +10,8 @@ var userSchema = Schema({
     createTime: {
         type: Date,
         default: Date.now
-    }
+    },
+    joinAct:Array
     
 },{versionKey: false});
 

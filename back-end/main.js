@@ -35,6 +35,7 @@ app.post('/user', function (req, res) {
         stuID: req.body.stuID,
         sex: req.body.sex,
         campus: req.body.campus,
+        joinAct: req.body.joinAct
 
     });
     //查重操作，如果stuID有重复的就不会增加用户
@@ -63,6 +64,7 @@ app.get('/user', function (req, res) {
             id: a.stuID,
             sex: a.sex,
             campus: a.campus,
+            joinAct: a.joinAct
         });
     });
 });
@@ -73,7 +75,8 @@ app.put('/user', function (req, res) {
         name: req.body.name,
         stuID: req.body.stuID,
         sex: req.body.sex,
-        campus: req.body.campus
+        campus: req.body.campus,
+        joinAct: req.body.joinAct
     });
     //console.log(a);
     if (a.name !== undefined) {
@@ -194,15 +197,35 @@ app.put('/user/change', function (req, res) {
         changeAct: req.body.changeAct,
         change: req.body.change
     })
-    User.findOne({ stuID: req.body.stuID}, function (err, doc){
+    User.findOne({ stuID: req.body.stuID }, function (err, doc) {
         if(doc != null) {
-            var bool = a.cge(doc);
-            if(bool === True){
-                res.send("success!")
+            var cge = a.change;
+            var acts = doc.joinAct;
+            if(cge === true){
+                a.changeAct.forEach(function(item, index, arr) {
+                    var idx = acts.indexOf(item);
+                    if(idx === -1){
+                        acts.push(item);
+                    }
+                })
+                if(acts[0] === ''){
+                    acts.splice(0, 1);
+                }
             }
             else{
-                res.send("fail!");
+                a.changeAct.forEach(function(item, index, arr) {
+                    var idx = acts.indexOf(item);
+                    if(idx !== -1){
+                        acts.splice(idx, 1);
+                    }
+                    else{
+                        res.send("活动不存在！");
+                    }
+                })
             }
+            console.log(doc);
+            User.update({stuID : a.stuID},{joinAct : acts}).exec();
+            res.send("success!");
         }
 
     })
@@ -210,5 +233,5 @@ app.put('/user/change', function (req, res) {
 });
 
 
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'));
