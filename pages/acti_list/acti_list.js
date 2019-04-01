@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    inputValue:'',
     message: 'Hello Minia~',
     toView: 'red',
     scrollTop: 100,
@@ -84,5 +85,18 @@ Page({
     this.setData({
       scrollTop: this.data.scrollTop + 10
     })
+  },
+  //搜索框文本内容显示
+  inputBind: function (event) {
+    this.setData({
+      inputValue: event.detail.value
+    })
+    console.log('bindInput' + this.data.inputValue)
+  },
+
+  //搜索执行按钮
+  query: function (event) {
+    var that = this
+    console.log(this.detail.value)
   }
 })

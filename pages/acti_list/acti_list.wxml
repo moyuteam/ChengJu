@@ -1,3 +1,8 @@
+<view class='search'>
+  <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
+  <image class="" src='../image/Search.png' bindtap='query'></image>
+</view>
+
 <view class="section">
   <block wx:if="{{true}}">
   <scroll-view
