@@ -3,3 +3,5 @@
 
 - [GitHub项目地址](https://github.com/moyuteam/ChengJu)
 - [项目主页（建设中）](http://diaosudev.cn)
+
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
