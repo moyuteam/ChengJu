@@ -56,7 +56,7 @@ app.post('/user', function (req, res) {
 
 //使用GET方法来对数据库做查询操作
 app.get('/user', function (req, res) {
-    User.findOne({ stuID: req.query.stuid }, function (err, a) {
+    User.findOne({ stuID: req.body.stuID }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
@@ -89,6 +89,18 @@ app.put('/user', function (req, res) {
     res.send("success!");
 });
 
+//使用DELETE方法对数据库做删除操作
+app.delete('/user', function (req, res) {
+
+    User.findOne({ stuID: req.body.stuID }, function (err, doc) {
+        if (doc != null) {
+            User.remove({ stuID: req.body.stuID }).exec();
+            res.send("success!");
+        }
+        else res.send("记录不存在,删除失败... ...");
+    });
+});
+
 
 var Act = require('./modules/activity.js');
 app.post('/act', function (req, res) {
@@ -107,7 +119,7 @@ app.post('/act', function (req, res) {
     });
 });
 app.get('/act', function (req, res) {
-    Act.findOne({ actID: req.query.actid }, function (err, a) {
+    Act.findOne({ actID: req.body.actid }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
@@ -121,6 +133,52 @@ app.get('/act', function (req, res) {
     });
 });
 
+app.put('/act', function (req, res) {
+    var a = new Act({
+        name: req.body.name,
+        des: req.body.des,
+        actID: req.body.actID,
+        date: req.body.date,
+        time: req.body.time,
+        capacity: req.body.capacity,
+        tags: req.body.tags,
+    });
+    console.log(a);
+    if (a.actID == undefined) {
+        res.send("空的actID!");
+    }
+    if (a.name !== undefined) {
+        Act.update({ actID: a.actID }, { name: a.name }).exec();
+    }
+    if (a.des !== undefined) {
+        Act.update({ actID: a.actID }, { des: a.des }).exec();
+    }
+    if (a.date !== undefined) {
+        Act.update({ actID: a.actID }, { date: a.date }).exec();
+    }
+    if (a.time !== undefined) {
+        Act.update({ actID: a.actID }, { time: a.time }).exec();
+    }
+    if (a.capacity !== undefined) {
+        Act.update({ actID: a.actID }, { capacity: a.capacity }).exec();
+    }
+    if (a.tags !== undefined) {
+        Act.update({ actID: a.actID }, { tags: a.tags }).exec();
+    }
+    res.send("success!")
+
+});
+//使用DELETE方法对活动数据库做删除操作
+app.delete('/user', function (req, res) {
+
+    User.findOne({ actID: req.body.actID }, function (err, doc) {
+        if (doc != null) {
+            User.remove({ actID: req.body.actID }).exec();
+            res.send("success!");
+        }
+        else res.send("记录不存在,删除失败... ...");
+    });
+});
 
 
 
