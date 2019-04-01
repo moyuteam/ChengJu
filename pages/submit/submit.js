@@ -1,11 +1,69 @@
 // pages/submit/submit.js
+var util = require('../../utils/util.js');
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {
-    
+  data: util.json2Form({
+    name:'活动名称',
+    des:'活动描述',
+    date:'2019-4-1',
+    time:'16:00',
+    allValue:''
+  }),
+
+  formReset:function(e){
+    console.log('form发生了reset事件',e.detail.value)
+    this.setData({
+      allValue:''
+    })
+  },
+  formSubmit:function(e){
+    console.log('form 发生了submit事件', e.detail.value)
+    this.setData({
+      allValue:e.detail.value
+    })
+    if (e.detail.value.name == 0) {
+      wx.showToast({
+        title: '活动名称不能为空',
+        icon: 'loading',
+        duration: 1500
+      })
+    } else {
+      wx.request({
+        url: 'http://dannydiao.com:3000/act',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method: "POST",
+        data: {
+          name: e.detail.value.name,
+          des: e.detail.value.des,
+          date:e.detail.date,
+          time:e.detail.time,
+          capacity:e.detail.capacity
+        },
+        success: function(res) {
+          console.log(res.data.status);
+          if (res.data.status == 0) {
+            wx.showToast({
+              title:'fail',
+              icon: 'loading',
+              duration: 1500
+            })
+          } else {
+            wx.showToast({
+              title:'success',
+              icon: 'success',
+              duration: 1000
+            })
+          }
+        }
+      })
+    }
   },
 
 //日期时间选择器
@@ -14,6 +72,7 @@ Page({
       date: e.detail.value
     })
   },
+  
   bindTimeChange(e) {
     this.setData({
       time: e.detail.value
