@@ -30,18 +30,6 @@
   padding-right:20rpx;
 }
 
-
-.box1{
-  width:50px;
-  height:50px;
-  background-color: blue;
-}
-
-.hover_class{
-  background-color: aqua;
-  opacity: .5;
-}
-
 .section{
     background-color:rgba(255,160,0,0.4);
     padding:0;
@@ -91,11 +79,13 @@ image{
 #white{
     background-color: rgb(255, 255, 255);
     height:90px;
-    margin: 10rpx;
+    margin: 24rpx 0;
+    padding: 24rpx;
     top:10rpx;
     border:2px solid;
-    border-radius: 10px;
+    border-radius: 18rpx;
     border-color:  rgba(255,255,255,0.8);
+    box-shadow: 0 6rpx 24rpx rgba(25,118,210,0.08);
 }
 
 #timeClock{
