@@ -31,7 +31,7 @@
 }
 
 .section{
-    background-color:rgba(255,160,0,0.4);
+    background-color:#FFF;
     padding:0;
 }
 
@@ -57,7 +57,7 @@ image{
   justify-content: left;
   word-wrap: break-word;
   font-size:100%;
-  font-weight: normal;
+  font-weight: bold;
   color:#212121;
   position:relative;
   left:97px;
@@ -79,13 +79,13 @@ image{
 #white{
     background-color: rgb(255, 255, 255);
     height:90px;
-    margin: 24rpx 0;
-    padding: 24rpx;
+    margin: 18rpx;
+    padding: 18rpx;
     top:10rpx;
     border:2px solid;
     border-radius: 18rpx;
     border-color:  rgba(255,255,255,0.8);
-    box-shadow: 0 6rpx 24rpx rgba(25,118,210,0.08);
+    box-shadow: 0 6rpx 24rpx rgba(54, 125, 196, 0.12);
 }
 
 #timeClock{

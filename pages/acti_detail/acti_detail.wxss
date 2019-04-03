@@ -1,1 +1,58 @@
 /* pages/acti_detail/acti_detail.wxss */
+.section{
+    background-color:rgba(255, 255, 255,0.5);
+    margin: 4rpx;
+}
+
+.line{
+  background: #EEEEEE;
+  height: 2rpx;
+}
+
+.white{
+  flex-direction: column;
+    background-color: rgba(255, 255, 255,0.5);
+    height: 800px;
+    margin: 18rpx;
+    padding: 18rpx;
+    border:2px solid;
+    border-radius: 10px;
+    border-color:  rgba(255,255,255,0.8);
+    box-shadow: 0 6rpx 24rpx rgba(54, 125, 196, 0.12);
+}
+
+#word_title{
+  position: static;
+  font-size: 200%;
+  font-weight: bold;
+}
+
+#timeClock{
+  position:relative;
+  top:0px;
+  width: 20%;
+  height: 20px;
+}
+
+#word_time{
+  color: #757575;
+}
+
+#word_calendar{
+  color: #757575;
+}
+
+.time{
+    position:static;
+  line-height: 40px;
+  top:-43px;
+  left:70px;
+  align-items: center;
+  display:flex;
+}
+
+#word_detail{
+  padding:40rpx;
+  line-height: 30px;
+  text-indent: 40px;
+}

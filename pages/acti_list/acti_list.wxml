@@ -15,8 +15,9 @@
     scroll-top="{{scrollTop}}"
   >
 
-    <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName">
-      <view id="white" bindtap="viewDetail">
+    <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+      <navigator url="{{itemName.url}}">
+      <view id="white">
         <view class="acti-image">
           <image src="{{itemName.image}}" mode="aspectFit"></image>
         </view>
@@ -30,6 +31,7 @@
           </view>
         </view>
       </view>
+      </navigator>
     </block>
   
   </scroll-view>

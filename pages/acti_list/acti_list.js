@@ -17,48 +17,56 @@ Page({
         title: '食堂约饭',
         time: '12:00~13:00',
         calendar:'4/1',
+        url: '/pages/acti_detail/acti_detail',
       }, {
         color: 'yellow',
         image: '../image/Activity.png',
         title: '风筝-不一样的六一',
         time: '14:30~17:00',
         calendar:'6/1',
+        url: '/pages/acti_detail/acti_detail',
       }, {
         color: 'blue',
         image: '../image/Meeting.png',
         title: '有关人工智能的讲座',
         time: '16:00~17:00',
         calendar:'5/23~5/25',
+        url: '/pages/acti_detail/acti_detail',
       }, {
         color: 'green',
         image: '../image/Sing.png',
         title: '放声歌唱',
         time: '20:00~22:00',
         calendar:'5/2',
+        url: '/pages/acti_detail/acti_detail',
       }, {
         color: 'red',
         image: '../image/Sport.png',
         title: '夜跑-点亮生命',
         time: '16:00~17:00',
         calendar:'4/6',
+        url: '/pages/acti_detail/acti_detail',
       }, {
         color: 'white',
         image: '../image/Study.png',
         title: '周末图书馆约学习',
         time: '8:00~22:00',
         calendar:'3/30',
+        url: '/pages/acti_detail/acti_detail',
       }, {
         color: 'white',
         image: '../image/Eat.png',
         title: '寻找成都的美食',
         time: '8:00~12:00',
         calendar:'4/12',
+        url: '/pages/acti_detail/acti_detail',
       }, {
         color: 'white',
         image: '../image/Meeting.png',
         title: '班长会议',
         time: '14:00~16:00',
         calendar:'4/15',
+        url: '/pages/acti_detail/acti_detail',
       }
     ]
   },
@@ -98,5 +106,6 @@ Page({
   query: function (event) {
     var that = this
     console.log(this.detail.value)
-  }
+  },
+
 })
