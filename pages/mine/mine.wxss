@@ -1,1 +1,18 @@
-/* pages/mine/mine.wxss */
+.my_information{
+  height: 100rpx;
+  position: flex;
+}
+.information{
+  width: 500rpx;
+  background-color: grey;
+}
+.fixed{
+    position: fixed;
+    top: 0;
+    left:0;
+    right:0; 
+}
+.menu{
+  position: flex;
+}
+

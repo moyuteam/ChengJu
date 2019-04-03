@@ -7,7 +7,7 @@
   <textarea class="description" placeholder='活动描述' maxlength='200' name='des'></textarea>
 
   <view>
-    <image src='../image/add_photo.png' class="add_photo" bindtap="uploadImage"></image> 
+    <image src='../image/add_photo.png' class="add_photo" bindtap="uploadImage" />
   </view>
 
   <view class="divLine"></view>
@@ -39,18 +39,18 @@
   <view class="input">
     <image src='../image/User.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">活动人数</view>
-    <input name='capacity' class="input_content" placeholder='只接受数字,例如:“20”' type='number' />
+    <input name='capacity' class="input_content"  ype='number' />
   </view>
 
   <view class="divLine"></view>
   <view class="input">
     <image src='../image/Tag.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">添加标签</view>
-    <view></view>
   </view>
   
   <button form-type="submit" class='submit_btn' >发布活动</button>
-  <button form-type="reset" class='submit_btn'>reset</button>
+  <view style='height:40rpx'></view>
+  <button form-type="reset" class='submit_btn'>重置</button>
 </view>
 
 </form>

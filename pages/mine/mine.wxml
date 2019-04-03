@@ -1,2 +1,18 @@
-<!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class='my_information'>
+  <image>头像</image>
+  <view class='information'>
+    <view class='my_name'>姓名</view>
+    <view class='my_ID'>学号</view>
+  </view>
+</view>
+
+<view class=" {{menuFixed ? 'fixed': ''}}" id="fix">
+  <view class='menu'>
+    <view class='choose'>已报名</view>
+    <view class='choose'>已发布</view>
+  </view>
+</view>
+
+<view class='activity'>
+
+</view>
