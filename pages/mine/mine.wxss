@@ -1,18 +1,92 @@
-.my_information{
-  height: 100rpx;
-  position: flex;
-}
-.information{
-  width: 500rpx;
-  background-color: grey;
-}
-.fixed{
-    position: fixed;
-    top: 0;
-    left:0;
-    right:0; 
-}
-.menu{
-  position: flex;
+/* 用户信息显示 */
+.user-info-container {
+  margin: 60rpx;
+  display: flex;
 }
 
+.user-info-container .avatar {
+  width: 150rpx;
+  height: 150rpx;
+  border: 5rpx solid white;
+  border-radius: 50%;
+  box-shadow: 0 6rpx 16rpx rgba(25, 118, 210, 0.3);
+}
+
+.info {
+  margin: 40rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.info > .name {
+  color: black;
+  font-weight: bold;
+  font-size: inherit;
+}
+
+.info > .statistics {
+  color: black;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+
+.fixed{
+  position: fixed;
+  top: 0;
+  left:0;
+  right:0;
+  z-index: 1000; 
+}
+.menu{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choose_left_unselect{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  color: #FFA000;
+  background-color: white;
+  border-top-left-radius: 15rpx;
+  border-bottom-left-radius: 15rpx;
+  border: 5rpx solid #FFA000;
+}
+.choose_right_unselect{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  color: #FFA000;
+  background-color: white;
+  border-top-right-radius: 15rpx;
+  border-bottom-right-radius: 15rpx;
+  border: 5rpx solid #FFA000;
+}
+.choose_left_select{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  color: #FFFFFF;
+  background-color: #FFA000;
+  border-top-left-radius: 15rpx;
+  border-bottom-left-radius: 15rpx;
+  border: 5rpx solid #FFA000;
+}
+.choose_right_select{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  color: #FFFFFF;
+  background-color: #FFA000;
+  border-top-right-radius: 15rpx;
+  border-bottom-right-radius: 15rpx;
+  border: 5rpx solid #FFA000;
+}
+.activity{
+  height: 5000rpx;
+  z-index: 999;
+}
