@@ -98,7 +98,7 @@ uploadImage: function () {
         })
 
         wx.uploadFile({
-          url: '67.216.202.115',
+          url: 'http://dannydiao.com:3000/pic',
           filePath: tempFilePaths[0],
           name: 'uploadfile_ant',
           formData: {
