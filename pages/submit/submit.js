@@ -1,7 +1,7 @@
 // pages/submit/submit.js
 var util = require('../../utils/util.js');
 const app = getApp();
-
+var time 
 Page({
 
   /**
@@ -28,7 +28,7 @@ Page({
     })
     if (e.detail.value.name == 0) {
       wx.showToast({
-        title: '活动名称不能为空',
+        title: '名称不能为空',
         icon: 'loading',
         duration: 1500
       })
@@ -42,12 +42,12 @@ Page({
         data: {
           name: e.detail.value.name,
           des: e.detail.value.des,
-          date:e.detail.date,
-          time:e.detail.time,
-          capacity:e.detail.capacity
+          date:e.detail.value.date,
+          time:e.detail.value.time,
+          capacity:e.detail.value.capacity
         },
         success: function(res) {
-          console.log(res.data.status);
+          console.log(res.data);
           if (res.data.status == 0) {
             wx.showToast({
               title:'fail',

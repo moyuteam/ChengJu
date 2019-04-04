@@ -7,9 +7,13 @@ Page({
    */
   data: {
     inputValue:'',
-    message: 'Hello Minia~',
     toView: 'red',
     scrollTop: 100,
+    title:'',
+    time:'',
+    date:'',
+    Pics:[],
+
     imageArray: [
       {
         color: 'white',
@@ -107,5 +111,37 @@ Page({
     var that = this
     console.log(this.detail.value)
   },
-
+  
+  //获取后台信息
+  onLoad: function(options){
+    var that = this;
+    var actID = '1';
+    wx.request({
+      url:'http://dannydiao.com:3000/act',
+      method: 'GET',
+      data:{
+        actID: actID
+      },
+      header:{
+        "Content-Type": "application/json"
+      },
+      success: function(res){
+        console.log(res.data);
+        var PIC=[];
+        for(var i=0;i < res.data.data.type.length;i++){
+          for (var j = 0; j < res.data.data.type[i].length; j++){
+            PIC.push(Pic)
+          }
+        } 
+        console.log(res)
+        that.setData({
+          Pics:PIC
+        });
+      },
+      fail: function(res){
+        console.log("....fail....");
+        console.log(res.data);
+      }
+    })
+  }
 })
