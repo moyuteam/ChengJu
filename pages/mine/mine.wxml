@@ -1,2 +1,90 @@
-<!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class='user-info-container'>
+  <image class='avatar' src='{{userInfo.avatarUrl}}' mode='aspectFit'></image>
+  <view class='info'>
+    <view class='name' >StudentName</view>
+    <view class="statistics">StudentID</view>
+  </view>
+</view>
+
+
+<view class=" {{menuFixed ? 'fixed': ''}}" id="fix">
+  <view class='menu'>
+    <view class='{{currentData == 0 ? "choose_left_select" : "choose_left_unselect"}}'  data-current = "0" bindtap='checkCurrent'>已报名</view>
+    <view class='{{currentData == 1 ? "choose_middle_select" : "choose_middle_unselect"}}'  data-current = "1" bindtap='checkCurrent'>已发布</view>
+    <view class='{{currentData == 2 ? "choose_right_select" : "choose_right_unselect"}}'  data-current = "2" bindtap='checkCurrent'>已收藏</view>
+  </view>
+</view>
+
+<swiper style="height:1000px" current="{{currentData}}" duration="300" bindchange="bindchange">
+    
+  <swiper-item>
+    <view class="section">
+    <block wx:if="{{true}}">
+
+      <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+        <navigator url="{{itemName.url}}">
+        <view id="white">
+          <view class="acti-image">
+            <image src="{{itemName.image}}" mode="aspectFit"></image>
+          </view>
+          <view class="acti-info">
+            <text id="acti-title">{{itemName.title}}</text>
+            <view class="time">
+              <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+              <text id="acti-time">{{itemName.calendar}}</text>
+              <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+              <text id="acti-time">{{itemName.time}}</text>
+            </view>
+          </view>
+        </view>
+        </navigator>
+      </block>
+
+      </block>
+    </view>
+  </swiper-item> 
+
+    <swiper-item>
+    <view class="section">
+    <block wx:if="{{true}}">
+    <scroll-view
+      scroll-y
+      style="height: 2000px;"
+      bindscrolltoupper="upper"
+      bindscrolltolower="lower"
+      bindscroll="scroll"
+      scroll-into-view="{{toView}}"
+      scroll-top="{{scrollTop}}"
+    >
+
+      <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+        <navigator url="{{itemName.url}}">
+        <view id="white">
+          <view class="acti-image">
+            <image src="{{itemName.image}}" mode="aspectFit"></image>
+          </view>
+          <view class="acti-info">
+            <text id="acti-title">{{itemName.title}}</text>
+            <view class="time">
+              <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+              <text id="acti-time">{{itemName.calendar}}</text>
+              <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+              <text id="acti-time">{{itemName.time}}</text>
+            </view>
+          </view>
+        </view>
+        </navigator>
+      </block>
+  
+      </scroll-view>
+      </block>
+    </view>
+  </swiper-item> 
+  
+</swiper>
+
+
+
+
+
+

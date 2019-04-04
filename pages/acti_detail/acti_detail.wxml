@@ -1,0 +1,40 @@
+<!--pages/acti_detail/acti_detail.wxml-->
+<view class="section">
+    <scroll-view
+    scroll-y
+    style="height: 2000px;"
+    bindscrolltoupper="upper"
+    bindscrolltolower="lower"
+    bindscroll="scroll"
+    scroll-into-view="{{toView}}"
+    scroll-top="{{scrollTop}}"
+  >
+ 
+  <view class="white">
+    <text id="word_title">| {{content.title}}</text>
+    <view class="line"></view>
+    <view class="time">
+      <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+      <text id="word_time">{{content.time}}</text>
+    </view>
+    <view class="line"></view>
+    <view class="time">
+      <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+      <text id="word_calendar">{{content.calendar}}</text>
+    </view>
+    <view class="line"></view>
+    <view class="time"> 
+      <image id="timeClock" src="../image/place.png" mode="aspectFit"></image>
+      <text id="word_place">{{content.place}}</text>
+    </view>
+    <view class="line"></view>
+    <view class="time">
+      <image id="timeClock" src="../image/user.png" mode="aspectFit"></image>
+      <text id="word_number">{{content.number}}</text>
+    </view>
+    <view class="line"></view>
+    <text id="word_detail">{{content.detail}}</text>
+  </view>
+
+  </scroll-view>
+</view>

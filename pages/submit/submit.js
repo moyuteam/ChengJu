@@ -1,11 +1,69 @@
 // pages/submit/submit.js
+var util = require('../../utils/util.js');
+const app = getApp();
+var time 
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {
-    
+  data: util.json2Form({
+    name:'活动名称',
+    des:'活动描述',
+    date:'2019-4-1',
+    time:'16:00',
+    allValue:''
+  }),
+
+  formReset:function(e){
+    console.log('form发生了reset事件',e.detail.value)
+    this.setData({
+      allValue:''
+    })
+  },
+  formSubmit:function(e){
+    console.log('form 发生了submit事件', e.detail.value)
+    this.setData({
+      allValue:e.detail.value
+    })
+    if (e.detail.value.name == 0) {
+      wx.showToast({
+        title: '名称不能为空',
+        icon: 'loading',
+        duration: 1500
+      })
+    } else {
+      wx.request({
+        url: 'http://dannydiao.com:3000/act',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method: "POST",
+        data: {
+          name: e.detail.value.name,
+          des: e.detail.value.des,
+          date:e.detail.value.date,
+          time:e.detail.value.time,
+          capacity:e.detail.value.capacity
+        },
+        success: function(res) {
+          console.log(res.data);
+          if (res.data.status == 0) {
+            wx.showToast({
+              title:'fail',
+              icon: 'loading',
+              duration: 1500
+            })
+          } else {
+            wx.showToast({
+              title:'success',
+              icon: 'success',
+              duration: 1000
+            })
+          }
+        }
+      })
+    }
   },
 
 //日期时间选择器
@@ -14,6 +72,7 @@ Page({
       date: e.detail.value
     })
   },
+  
   bindTimeChange(e) {
     this.setData({
       time: e.detail.value
@@ -25,7 +84,7 @@ uploadImage: function () {
     var that = this;
     wx.chooseImage({
       count: 1,  //最多可以选择的图片总数
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['original','compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
@@ -39,7 +98,7 @@ uploadImage: function () {
         })
 
         wx.uploadFile({
-          url: '67.216.202.115',
+          url: 'http://dannydiao.com:3000/pic',
           filePath: tempFilePaths[0],
           name: 'uploadfile_ant',
           formData: {
@@ -65,4 +124,5 @@ uploadImage: function () {
       }
     });
   }
+
 })

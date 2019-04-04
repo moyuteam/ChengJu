@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/acti_list/acti_list",
+    "pages/acti_detail/acti_detail",
     "pages/submit/submit",
     "pages/mine/mine"
   ],
