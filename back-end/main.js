@@ -4,6 +4,7 @@ var express = require('express');
 
 var app = express();
 
+
 var path = require('path');
 var bodyParser = require('body-parser');//用于req.body获取值的
 app.use(bodyParser.json());
@@ -253,6 +254,27 @@ app.put('/user/change', function (req, res) {
     })
 
 });
+
+//测试图片上传功能
+var formidable = require('formidable');
+var targetFile = path.join(__dirname,'./upload_file');
+
+
+app.post('/pic',function(req,res){
+    var form = new formidable.IncomingForm();
+    form.encoding = 'utf-8';
+    form.uploadDir = targetFile; 
+    form.keepExtensions = true;   
+    form.parse(req, function(err, fields, files){
+        if(err) return res.redirect(303, '/error');
+        console.log('received fields:');
+        console.log(fields);
+        console.log('received files:');
+        console.log(files);
+        res.send('done.');
+    });
+});
+
 
 
 app.set('port', process.env.PORT || 3000);
