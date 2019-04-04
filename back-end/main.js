@@ -34,7 +34,7 @@ app.post('/user', function (req, res) {
         name: req.body.name,
         stuID: req.body.stuID,
         sex: req.body.sex,
-        campus: req.body.campus,
+        colAct: req.body.colAct,
         joinAct: req.body.joinAct
 
     });
@@ -63,7 +63,7 @@ app.get('/user', function (req, res) {
             name: a.name,
             id: a.stuID,
             sex: a.sex,
-            campus: a.campus,
+            colAct: req.body.colAct,
             joinAct: a.joinAct
         });
     });
@@ -75,7 +75,7 @@ app.put('/user', function (req, res) {
         name: req.body.name,
         stuID: req.body.stuID,
         sex: req.body.sex,
-        campus: req.body.campus,
+        colAct: req.body.colAct,
         joinAct: req.body.joinAct
     });
     //console.log(a);
@@ -110,6 +110,7 @@ var Act = require('./modules/activity.js');
 app.post('/act', function (req, res) {
     var a = new Act({
         name: req.body.name,
+        place: req.body.place,
         des: req.body.des,
         actID: req.body.actID,
         date: req.body.date,
@@ -120,15 +121,17 @@ app.post('/act', function (req, res) {
     a.save(function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.send("success!");
+        console.log(a);
     });
 });
 
 //使用GET方法来对活动数据库做查询操作
 app.get('/act', function (req, res) {
-    Act.findOne({ actID: req.body.actid }, function (err, a) {
+    Act.findOne({ actID: req.body.actID }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
+            place: a.place,
             des: a.des,
             actID: a.actID,
             date: a.date,
@@ -143,6 +146,7 @@ app.get('/act', function (req, res) {
 app.put('/act', function (req, res) {
     var a = new Act({
         name: req.body.name,
+        place: req.body.place,
         des: req.body.des,
         actID: req.body.actID,
         date: req.body.date,
@@ -188,6 +192,24 @@ app.delete('/user', function (req, res) {
     });
 });
 
+//使用GET方法来查询活动数据库中所有活动
+app.get('/act/all',function(req, res){
+    var all = [];
+    Act.find(function(err, docs){
+        docs.forEach(function(item, index, arr){
+            all.push({
+                name: item.name,
+                actID: req.body.actID,
+                date: req.body.date,
+                time: req.body.time,
+                capacity: req.body.capacity,
+                tags: req.body.tags,
+                //该处为新加项"图片"
+            })
+        })
+    })
+    res.send(all);
+})
 
 var ChangeAct = require('./modules/changeact');
 //使用PUT方法来对用户活动做修改操作
