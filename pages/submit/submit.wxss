@@ -43,9 +43,7 @@
   margin:20rpx;
   color: #212121;
 }
-.tag{
-  
-}
+
 .submit_btn{
   color: white;
   background: rgba(255, 162, 0, 0.788);

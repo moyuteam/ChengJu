@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    signIn:false,
     content: {
       image: '../image/Kites.PNG',
       title: '风筝-不一样的六一',
@@ -70,5 +71,23 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onSignIn() {
+    this.setData({
+      signIn: true
+    })
+  },
+
+  onCancelCreate(){
+    this.setData({
+      signIn: false
+    })
+  },
+
+  onAddActi(){
+    this.setData({
+      signIn: false
+    })
   }
 })
