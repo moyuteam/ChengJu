@@ -258,6 +258,7 @@ app.put('/user/change', function (req, res) {
 //测试图片上传功能
 var formidable = require('formidable');
 var targetFile = path.join(__dirname,'./upload_file');
+var fs = require('fs');
 
 
 app.post('/pic',function(req,res){
@@ -265,11 +266,15 @@ app.post('/pic',function(req,res){
     form.encoding = 'utf-8';
     form.uploadDir = targetFile; 
     form.keepExtensions = true;   
+
+
     form.parse(req, function(err, fields, files){
         if(err) return res.redirect(303, '/error');
         console.log('received fields:');
         console.log(fields);
         console.log('received files:');
+        fs.renameSync(files.upload.path,"test.png");
+        //files.name = "test";
         console.log(files);
         res.send('done.');
     });
