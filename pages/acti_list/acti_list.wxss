@@ -6,18 +6,21 @@
   justify-content:space-between;
   align-items: center;
   width:100%;
-  height:60rpx;
-  background-color:whitesmoke;
-  margin-top: 0%;
-  border:1rpx solid whitesmoke;
+  height:70rpx;
+  background-color:rgba(245,245,245,0.8);
+  margin-top:10rpx;
+  margin-left: 15rpx;
+  margin-right: 50rpx;
+  border:1rpx;
+  border-color: #FFF;
   border-radius: 5rpx;
-
+  /*box-shadow:  0 6rpx 24rpx rgba(54, 125, 196, 0.12);*/
 }
 
 /* 搜索框提示文字样式 */
 .search input
 {
-  font-size:27rpx;
+  font-size:30rpx;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding-left:30rpx; 
 }
@@ -25,9 +28,9 @@
 /* 搜索框小图标 */
 .search image
 { 
-  width:40rpx;
-  height:40rpx;
-  padding-right:20rpx;
+  width:50rpx;
+  height:50rpx;
+  padding-right:40rpx;
 }
 
 .section{
@@ -101,4 +104,11 @@ image{
   left:70px;
   align-items: center;
   display:flex;
+}
+
+.acti-tag{
+  display: flex;
+  position: relative;
+  top:-80px;
+  left:95px;
 }
