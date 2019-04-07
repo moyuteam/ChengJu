@@ -259,20 +259,29 @@ app.put('/user/change', function (req, res) {
 
 //测试图片上传功能
 var formidable = require('formidable');
-var targetFile = path.join(__dirname,'./upload_file');
+var fs = require('fs');
 
 
 app.post('/pic',function(req,res){
     var form = new formidable.IncomingForm();
+    var targetFile = path.join(__dirname,'./upload_file');
+    
     form.encoding = 'utf-8';
     form.uploadDir = targetFile; 
-    form.keepExtensions = true;   
+    form.keepExtensions = true;  
+    
+
+
     form.parse(req, function(err, fields, files){
         if(err) return res.redirect(303, '/error');
-        console.log('received fields:');
-        console.log(fields);
-        console.log('received files:');
-        console.log(files);
+        //随图片上传的数据放在fileds中
+        console.log(fields.pic_id);
+        console.log(files.Pic.path);
+        //图片重命名逻辑
+        //相同名字的图片将会被新的覆盖
+        var oldpath = files.Pic.path;
+        var newpath = path.join(path.dirname(oldpath),files.Pic.name);
+        fs.rename(oldpath,newpath);
         res.send('done.');
     });
 });
