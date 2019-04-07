@@ -58,7 +58,7 @@ app.post('/user', function (req, res) {
 
 //使用GET方法来对数据库做查询操作
 app.get('/user', function (req, res) {
-    User.findOne({ stuID: req.body.stuID }, function (err, a) {
+    User.findOne({ stuID: req.query.stuID }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
@@ -128,7 +128,7 @@ app.post('/act', function (req, res) {
 
 //使用GET方法来对活动数据库做查询操作
 app.get('/act', function (req, res) {
-    Act.findOne({ actID: req.body.actID }, function (err, a) {
+    Act.findOne({ actID: req.query.actID }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
@@ -195,22 +195,24 @@ app.delete('/user', function (req, res) {
 
 //使用GET方法来查询活动数据库中所有活动
 app.get('/act/all',function(req, res){
-    var all = [];
+    var all = new Array(0);
     Act.find(function(err, docs){
         docs.forEach(function(item, index, arr){
-            all.push({
+            var act = {
                 name: item.name,
-                actID: req.body.actID,
-                date: req.body.date,
-                time: req.body.time,
-                capacity: req.body.capacity,
-                tags: req.body.tags,
-                //该处为新加项"图片"
-            })
-        })
-    })
-    res.send(all);
-})
+                actID: item.actID,
+                date: item.date,
+                time: item.time,
+                tags: item.tags,
+            };
+            all.push(act);
+            //该处为新加项"图片"
+        });
+        res.json({
+            allAct : all
+        });
+    }); 
+});
 
 var ChangeAct = require('./modules/changeact');
 //使用PUT方法来对用户活动做修改操作
