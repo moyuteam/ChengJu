@@ -6,9 +6,19 @@
   <view class="divLine"></view>
   <textarea class="description" placeholder='活动描述' maxlength='200' name='des'></textarea>
 
-  <view>
-    <image src='../image/add_photo.png' class="add_photo" bindtap="uploadImage" />
-  </view>
+
+    <view class="item">
+      <!-- 添加按钮 -->
+      <image src='../image/add_photo.png'  class="add_photo" bindtap="chooseImage" wx:if="{{imgBoolean}}">
+      </image>
+      <!-- 上传的图 -->
+      <view class='itemImg' >
+        <image src="{{item}}" data-src="{{item}}" bindtap="previewImage"  mode="aspectFill" />
+        <!-- 删除按钮 -->
+        <view class="delete" bindtap="deleteImg" data-index="{{index}}">X</view>
+      </view>
+    </view>
+
 
   <view class="divLine"></view>
   <view class="input">

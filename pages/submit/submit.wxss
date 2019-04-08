@@ -17,13 +17,57 @@
 .description{
   margin: 20rpx;
 }
-.add_photo{
-  position: relative;
-  margin-left: 30rpx;
-  margin-bottom: 20rpx;
-  height: 200rpx;
-  width:200rpx;
+
+.item {    
+  position:relative;
+  width:180rpx;
+  height:180rpx;
+  margin: 25rpx;
+  /* overflow:hidden; */
 }
+.itemImg{
+  position: absolute;
+  left: 0;
+  top:0; 
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index:1;
+}
+.itemImg image{
+  width: 100%;
+  height: 100%;
+}
+/*add按钮*/
+ .add_photo{
+  position:absolute;
+  left: 0;
+  top: 0; 
+  width: 100%;
+  height: 100%;
+  background: #fff;
+
+  z-index:2;
+}
+
+/*删除按钮*/
+.delete {    
+  position:absolute;
+  right:0;
+  top:0;
+  /* background:#ccc; */
+  opacity:1;
+  height: 36rpx;
+  font-size:22rpx;
+  font-weight:700;
+  padding:0 8rpx 0 10rpx;
+  color: #999;
+}
+
+
+
+
+
 .input{
   display: flex;
 }
