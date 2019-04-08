@@ -7,6 +7,7 @@ var app = express();
 
 var path = require('path');
 var bodyParser = require('body-parser');//用于req.body获取值的
+var formidable = require('formidable');
 app.use(bodyParser.json());
 // 创建 application/x-www-form-urlencoded 编码解析
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,7 +38,6 @@ app.post('/user', function (req, res) {
         sex: req.body.sex,
         colAct: req.body.colAct,
         joinAct: req.body.joinAct
-
     });
     //查重操作，如果stuID有重复的就不会增加用户
     User.findOne({ stuID: a.stuID }, function (err, doc) {
@@ -113,13 +113,21 @@ app.post('/act', function (req, res) {
         name: req.body.name,
         place: req.body.place,
         des: req.body.des,
-        actID: req.body.actID,
         date: req.body.date,
         time: req.body.time,
         capacity: req.body.capacity,
         tags: req.body.tags,
+        ownerID: req.body.ownerID
     });
     a.save(function (err, a) {
+        User.findOne({stuID: a.ownerID}, function(err, doc){
+            console.log(a)
+            doc.releasedAct.push(a._id.str);
+            doc.save();
+        })
+        User.findOne({stuID: a.ownerID}, function(err, doc){
+            console.log(doc)
+        })
         if (err) return res.send(500, 'Error occurred: database error.');
         res.send("success!");
         console.log(a);
@@ -252,13 +260,12 @@ app.put('/user/change', function (req, res) {
             User.update({stuID : a.stuID},{joinAct : acts}).exec();
             res.send("success!");
         }
-
     })
 
 });
 
 //测试图片上传功能
-var formidable = require('formidable');
+
 var fs = require('fs');
 
 
