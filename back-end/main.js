@@ -1,8 +1,9 @@
+//添加依赖
 var mongoose = require('mongoose');
 var express = require('express');
-
-
 var app = express();
+//增加静态文件访问的中间件
+app.use(express.static('resources'));
 
 
 var path = require('path');
@@ -48,7 +49,7 @@ app.post('/user', function (req, res) {
             });
         }
         else {
-            console.log("用户重复，未能成功添加记录... ...");
+            //console.log("用户重复，未能成功添加记录... ...");
             res.send("用户重复，未能成功添加记录... ...");
 
         }
@@ -99,7 +100,7 @@ app.delete('/user', function (req, res) {
     User.findOne({ stuID: req.body.stuID }, function (err, doc) {
         if (doc != null) {
             User.remove({ stuID: req.body.stuID }).exec();
-            res.send("success!");
+            res.send("200 OK");
         }
         else res.send("记录不存在,删除失败... ...");
     });
@@ -271,24 +272,22 @@ var fs = require('fs');
 
 app.post('/pic',function(req,res){
     var form = new formidable.IncomingForm();
-    var targetFile = path.join(__dirname,'./upload_file');
+    var targetFile = path.join(__dirname,'./resources/pic/act_pic');
     
     form.encoding = 'utf-8';
     form.uploadDir = targetFile; 
     form.keepExtensions = true;  
-    
-
-
     form.parse(req, function(err, fields, files){
         if(err) return res.redirect(303, '/error');
         //随图片上传的数据放在fileds中
-        console.log(fields.pic_id);
-        console.log(files.Pic.path);
+        //console.log(fields.pic_id);
+        //console.log(files.Pic.path);
         //图片重命名逻辑
         //相同名字的图片将会被新的覆盖
         var oldpath = files.Pic.path;
         var newpath = path.join(path.dirname(oldpath),files.Pic.name);
         fs.rename(oldpath,newpath);
+        console.log(newpath);
         res.send('done.');
     });
 });
