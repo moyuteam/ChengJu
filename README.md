@@ -5,3 +5,7 @@
 - [项目主页（建设中）](http://diaosudev.cn)
 
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
+![GitHub repo size](https://img.shields.io/github/repo-size/moyuteam/ChengJu.svg)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/moyuteam/ChengJu.svg)
