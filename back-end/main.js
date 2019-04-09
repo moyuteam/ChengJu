@@ -200,6 +200,7 @@ app.delete('/user', function (req, res) {
 var Act = require('./modules/activity.js');
 //使用POST方法来对活动数据库做增加操作
 app.post('/act', function (req, res) {
+    console.log(req.body);
     var a = new Act({
         name: req.body.name,
         place: req.body.place,
