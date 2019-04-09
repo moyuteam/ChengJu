@@ -12,8 +12,16 @@ Page({
     des:'活动描述',
     date:'2019-4-1',
     time:'16:00',
+    palce:'活动地点',
+    capacity:'20',
+    img_url:'',
     allValue:''
   }),
+
+  data:{
+    uploadedImages: [],
+    imgBoolean: true
+  },
 
   formReset:function(e){
     console.log('form发生了reset事件',e.detail.value)
@@ -36,10 +44,12 @@ Page({
       wx.request({
         url: 'http://dannydiao.com:3000/act',
         header: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/form-data"
         },
         method: "POST",
         data: {
+          image: e.detail.value.image,
           name: e.detail.value.name,
           des: e.detail.value.des,
           date:e.detail.value.date,
@@ -79,23 +89,25 @@ Page({
     })
   },
 
-//上传图片
-uploadImage: function () {
+  //上传图片
+  onLoad: function (options) {
     var that = this;
+  },
+  chooseImage: function () {
+    var that = this;
+    // 选择图片
     wx.chooseImage({
-      count: 1,  //最多可以选择的图片总数
-      sizeType: ['original','compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths;
-        //启动上传等待中...
-        wx.showToast({
-          title: '正在上传...',
-          icon: 'loading',
-          mask: true,
-          duration: 10000
-        })
+        var tempFilePaths = res.tempFilePaths
+
+        that.setData({
+          item: tempFilePaths[0],
+          imgBoolean: false
+        });
 
         wx.uploadFile({
           url: 'http://dannydiao.com:3000/pic',
@@ -103,11 +115,9 @@ uploadImage: function () {
           name: 'uploadfile_ant',
           formData: {
           },
-          header: {
-            "Content-Type": "multipart/form-data"
-          },
+
           success: function (res) {
-            var data = JSON.parse(res.data);
+            //var data = JSON.parse(res.data);
             //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }
             console.log(data);
           },
@@ -123,6 +133,23 @@ uploadImage: function () {
         });
       }
     });
-  }
+  },
 
+  // 图片预览
+  previewImage: function (e) {
+    var current = e.target.dataset.src
+    wx.previewImage({
+      current: current,
+      urls: [current]
+    })
+  },
+  //删除图片
+  deleteImg: function (e) {
+    var that = this;
+    var images = that.data.uploadedImages;
+    that.setData({
+      uploadedImages: images,
+      imgBoolean: true
+    });
+  },
 })

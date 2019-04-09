@@ -93,6 +93,22 @@ Page({
       scrollTop: this.data.scrollTop + 10
     })
   },
+
+  getUserInfo: function () {
+    var that = this
+    _getUserInfo();
+    function _getUserInfo() {
+      wx.getUserInfo({
+        success: function (res) {
+          that.setData({
+            userInfo: res.userInfo
+          })
+          that.update()
+        }
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

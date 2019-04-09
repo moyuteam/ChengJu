@@ -12,6 +12,7 @@ mongoose.connect(DB_URL);
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connection open to ' + DB_URL);
     console.log('======================================================================');
+    console.log('服务器正在运行......\n以下为log信息:')
 });
 
 /**

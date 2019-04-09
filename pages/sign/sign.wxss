@@ -1,1 +1,28 @@
-/* pages/sign/sign.wxss */
+
+.logo_position{
+  margin-top: 200rpx;
+  margin-bottom: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo{
+  width: 150rpx;
+  height: 150rpx;
+  border: 5rpx solid white;
+  border-radius: 50%;
+  box-shadow: 0 6rpx 16rpx rgba(25, 118, 210, 0.3);
+}
+.input_position{
+  background-color: rgb(255, 255, 255);
+  height:90px;
+  margin-left: 100rpx;
+  margin-right: 100rpx;
+  padding: 18rpx;
+  top:10rpx;
+  border: 5rpx solid white;
+  border-radius: 18rpx;
+  box-shadow: 0 6rpx 16rpx rgba(25, 118, 210, 0.3);
+  align-items: center;
+  justify-content: center;  
+}

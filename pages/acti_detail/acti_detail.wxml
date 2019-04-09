@@ -11,6 +11,7 @@
   >
  
   <view class="white">
+  <image src=''></image>
     <text id="word_title">| {{content.title}}</text>
     <view class="line"></view>
     <view class="time">
@@ -33,8 +34,21 @@
       <text id="word_number">{{content.number}}</text>
     </view>
     <view class="line"></view>
+    <text>\n\r</text>
     <text id="word_detail">{{content.detail}}</text>
   </view>
 
+  <view class="acti-button">
+    <button form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
+    <button form-type="reset" class='submit_btn'>分享</button>
+      <view class="mask" wx:if="{{signIn}}"></view>
+      <view class="create-modal" wx:if="{{signIn}}">
+        <view class="modal-title">确定报名？</view>
+        <view class="button-group">
+          <view class="cancel" bind:tap="onCancelCreate">取消</view>
+          <view class="confirm" bind:tap="onAddActi">确定</view>
+        </view>
+      </view>  
+  </view>
   </scroll-view>
 </view>
