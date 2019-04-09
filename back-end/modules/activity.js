@@ -14,7 +14,8 @@ var activitySchema = Schema({
         type: Date,
         default: Date.now
     },
-    ownerID:String  //创建者ID
+    ownerID:String,  //创建者ID
+    picUrl:String
     
 },{versionKey: false});
 

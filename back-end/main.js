@@ -1,8 +1,9 @@
+//添加依赖
 var mongoose = require('mongoose');
 var express = require('express');
-
-
 var app = express();
+//增加静态文件访问的中间件
+app.use(express.static('resources'));
 
 
 var path = require('path');
@@ -49,7 +50,7 @@ app.post('/user', function (req, res) {
             });
         }
         else {
-            console.log("用户重复，未能成功添加记录... ...");
+            //console.log("用户重复，未能成功添加记录... ...");
             res.send("用户重复，未能成功添加记录... ...");
         }
     });
@@ -70,7 +71,6 @@ app.get('/user', function (req, res) {
         });
     });
 });
-
 //使用PUT方法来对数据库做修改操作
 app.put('/user', function (req, res) {
     var a = new User({
@@ -190,7 +190,7 @@ app.delete('/user', function (req, res) {
     User.findOne({ stuID: req.body.stuID }, function (err, doc) {
         if (doc != null) {
             User.remove({ stuID: req.body.stuID }).exec();
-            res.send("success!");
+            res.send("200 OK");
         }
         else res.send("记录不存在,删除失败... ...");
     });
@@ -239,7 +239,7 @@ app.get('/act', function (req, res) {
             tag2: a.tag2,
             tag3: a.tag3,
         });
-    });
+    })
 });
 
 //使用PUT方法来对活动数据库做修改操作
@@ -297,10 +297,10 @@ app.delete('/user', function (req, res) {
 });
 
 //使用GET方法来查询活动数据库中所有活动
-app.get('/act/all',function(req, res){
+app.get('/act/all', function (req, res) {
     var all = new Array(0);
-    Act.find(function(err, docs){
-        docs.forEach(function(item, index, arr){
+    Act.find(function (err, docs) {
+        docs.forEach(function (item, index, arr) {
             var act = {
                 name: item.name,
                 actID: item.actID,
@@ -313,9 +313,9 @@ app.get('/act/all',function(req, res){
             all.push(act);
         });
         res.json({
-            allAct : all
+            allAct: all
         });
-    }); 
+    });
 });
 
 //使用GET方法来查询活动数据库中相应名称的活动
@@ -378,27 +378,27 @@ app.get('/act/query/tag',function(req, res){
 var fs = require('fs');
 
 
-app.post('/pic',function(req,res){
+app.post('/pic', function (req, res) {
     var form = new formidable.IncomingForm();
-    var targetFile = path.join(__dirname,'./upload_file');
-    
+    var targetFile = path.join(__dirname, './resources/pic/act_pic');
+
     form.encoding = 'utf-8';
-    form.uploadDir = targetFile; 
-    form.keepExtensions = true;  
-    
-
-
-    form.parse(req, function(err, fields, files){
-        if(err) return res.redirect(303, '/error');
+    form.uploadDir = targetFile;
+    form.keepExtensions = true;
+    form.parse(req, function (err, fields, files) {
+        if (err) return res.redirect(303, '/error');
         //随图片上传的数据放在fileds中
-        console.log(fields.pic_id);
-        console.log(files.Pic.path);
+        //console.log(fields.pic_id);
+        //console.log(files.Pic.path);
         //图片重命名逻辑
         //相同名字的图片将会被新的覆盖
         var oldpath = files.Pic.path;
-        var newpath = path.join(path.dirname(oldpath),files.Pic.name);
-        fs.rename(oldpath,newpath);
-        res.send('done.');
+        var newpath = path.join(path.dirname(oldpath), files.Pic.name);
+        fs.rename(oldpath, newpath);
+        var tempath = newpath.split("resources");
+        var finalpath = tempath[1];
+        //console.log(finalpath);
+        res.send(finalpath);
     });
 });
 
