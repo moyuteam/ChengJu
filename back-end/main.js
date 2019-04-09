@@ -36,8 +36,9 @@ app.post('/user', function (req, res) {
         name: req.body.name,
         stuID: req.body.stuID,
         sex: req.body.sex,
-        colAct: req.body.colAct,
-        joinAct: req.body.joinAct
+        collectAct: req.body.collectAct,
+        joinAct: req.body.joinAct,
+        releasedAct: req.body.releasedAct
     });
     //查重操作，如果stuID有重复的就不会增加用户
     User.findOne({ stuID: a.stuID }, function (err, doc) {
@@ -50,7 +51,6 @@ app.post('/user', function (req, res) {
         else {
             console.log("用户重复，未能成功添加记录... ...");
             res.send("用户重复，未能成功添加记录... ...");
-
         }
     });
 
@@ -62,10 +62,11 @@ app.get('/user', function (req, res) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
             name: a.name,
-            id: a.stuID,
+            stuID: a.stuID,
             sex: a.sex,
-            colAct: req.body.colAct,
-            joinAct: a.joinAct
+            collectAct: req.body.collectAct,
+            joinAct: a.joinAct,
+            releasedAct: a.releasedAct
         });
     });
 });
@@ -76,8 +77,9 @@ app.put('/user', function (req, res) {
         name: req.body.name,
         stuID: req.body.stuID,
         sex: req.body.sex,
-        colAct: req.body.colAct,
-        joinAct: req.body.joinAct
+        collectAct: req.body.colAct,
+        joinAct: req.body.joinAct,
+        releasedAct: req.body.releasedAct
     });
     //console.log(a);
     if (a.name !== undefined) {
@@ -89,7 +91,96 @@ app.put('/user', function (req, res) {
     if (a.campus !== undefined) {
         User.update({ stuID: a.stuID }, { campus: a.campus }).exec();
     }
+    if (a.collectAct !== undefined) {
+        var add = true;
+        Act.findOne({ stuID: a.stuID }, function(err, user){
+            try{
+                a.collectAct.forEach(function(item, index, arr){
+                var item1 = item;
+                user.collectAct.forEach(function(item, index, arr){
+                    if(item !== item1){
+                        add = false;
+                        throw new Error("delete");
+                    }
+                })
+            })
+            }catch(e){
 
+            }
+            if(add) {
+                a.collectAct.forEach(function(item, index, arr){
+                    user.collectAct.push(item);
+                })
+            }
+            else {
+                a.collectAct.forEach(function(item, index, arr){
+                    var index1 = user.collectAct.indexOf(item);
+                    user.collectAct.splice(index1, 1);
+                })
+            }
+            user.save();
+        });
+    }
+    if (a.joinAct !== undefined) {
+        var add = true;
+        Act.findOne({ stuID: a.stuID }, function(err, user){
+            try{
+                a.joinAct.forEach(function(item, index, arr){
+                var item1 = item;
+                user.joinAct.forEach(function(item, index, arr){
+                    if(item !== item1){
+                        add = false;
+                        throw new Error("delete");
+                    }
+                })
+            })
+            }catch(e){
+
+            }
+            if(add) {
+                a.joinAct.forEach(function(item, index, arr){
+                    user.joinAct.push(item);
+                })
+            }
+            else {
+                a.joinAct.forEach(function(item, index, arr){
+                    var index1 = user.joinAct.indexOf(item);
+                    user.joinAct.splice(index1, 1);
+                })
+            }
+            user.save();
+        });
+    }
+    if (a.releasedAct !== undefined) {
+        var add = true;
+        Act.findOne({ stuID: a.stuID }, function(err, user){
+            try{
+                a.releasedAct.forEach(function(item, index, arr){
+                var item1 = item;
+                user.releasedAct.forEach(function(item, index, arr){
+                    if(item !== item1){
+                        add = false;
+                        throw new Error("delete");
+                    }
+                })
+            })
+            }catch(e){
+
+            }
+            if(add) {
+                a.releasedAct.forEach(function(item, index, arr){
+                    user.releasedAct.push(item);
+                })
+            }
+            else {
+                a.releasedAct.forEach(function(item, index, arr){
+                    var index1 = user.releasedAct.indexOf(item);
+                    user.releasedAct.splice(index1, 1);
+                })
+            }
+            user.save();
+        });
+    }
     res.send("success!");
 });
 
@@ -116,21 +207,19 @@ app.post('/act', function (req, res) {
         date: req.body.date,
         time: req.body.time,
         capacity: req.body.capacity,
-        tags: req.body.tags,
+        tag1: req.body.tag1,
+        tag2: req.body.tag2,
+        tag3: req.body.tag3,
         ownerID: req.body.ownerID
     });
-    a.save(function (err, a) {
+    a.actID = a._id.toString();
+    a.save(function(err, doc){
         User.findOne({stuID: a.ownerID}, function(err, doc){
-            console.log(a)
-            doc.releasedAct.push(a._id.str);
+            doc.releasedAct.push(a.actID);
             doc.save();
-        })
-        User.findOne({stuID: a.ownerID}, function(err, doc){
-            console.log(doc)
-        })
+        });
         if (err) return res.send(500, 'Error occurred: database error.');
         res.send("success!");
-        console.log(a);
     });
 });
 
@@ -146,7 +235,9 @@ app.get('/act', function (req, res) {
             date: a.date,
             time: a.time,
             capacity: a.capacity,
-            tags: a.tags,
+            tag1: a.tag1,
+            tag2: a.tag2,
+            tag3: a.tag3,
         });
     });
 });
@@ -161,8 +252,10 @@ app.put('/act', function (req, res) {
         date: req.body.date,
         time: req.body.time,
         capacity: req.body.capacity,
-        tags: req.body.tags,
-    });
+        tag1: req.body.tag1,
+        tag2: req.body.tag2,
+        tag3: req.body.tag3
+    });-
     console.log(a);
     if (a.actID == undefined) {
         res.send("Error 101 : not found 'actID'!");
@@ -182,11 +275,13 @@ app.put('/act', function (req, res) {
     if (a.capacity !== undefined) {
         Act.update({ actID: a.actID }, { capacity: a.capacity }).exec();
     }
-    if (a.tags !== undefined) {
-        Act.update({ actID: a.actID }, { tags: a.tags }).exec();
-    }
+    Act.findOne({ actID: a.actID}, function(err, doc){
+        doc.tag1 = a.tag1;
+        doc.tag2 = a.tag2;
+        doc.tag3 = a.tag3;
+        doc.save();
+    })
     res.send("success!")
-
 });
 
 //使用DELETE方法对活动数据库做删除操作
@@ -211,10 +306,11 @@ app.get('/act/all',function(req, res){
                 actID: item.actID,
                 date: item.date,
                 time: item.time,
-                tags: item.tags,
+                tag1: item.tag1,
+                tag2: item.tag2,
+                tag3: item.tag3
             };
             all.push(act);
-            //该处为新加项"图片"
         });
         res.json({
             allAct : all
@@ -222,46 +318,59 @@ app.get('/act/all',function(req, res){
     }); 
 });
 
-var ChangeAct = require('./modules/changeact');
-//使用PUT方法来对用户活动做修改操作
-app.put('/user/change', function (req, res) {
-    var a = new ChangeAct({
-        stuID: req.body.stuID,
-        changeAct: req.body.changeAct,
-        change: req.body.change
-    })
-    User.findOne({ stuID: req.body.stuID }, function (err, doc) {
-        if(doc != null) {
-            var cge = a.change;
-            var acts = doc.joinAct;
-            if(cge === true){
-                a.changeAct.forEach(function(item, index, arr) {
-                    var idx = acts.indexOf(item);
-                    if(idx === -1){
-                        acts.push(item);
-                    }
-                })
-                if(acts[0] === ''){
-                    acts.splice(0, 1);
-                }
-            }
-            else{
-                a.changeAct.forEach(function(item, index, arr) {
-                    var idx = acts.indexOf(item);
-                    if(idx !== -1){
-                        acts.splice(idx, 1);
-                    }
-                    else{
-                        res.send("活动不存在！");
-                    }
-                })
-            }
-            console.log(doc);
-            User.update({stuID : a.stuID},{joinAct : acts}).exec();
-            res.send("success!");
-        }
-    })
+//使用GET方法来查询活动数据库中相应名称的活动
+app.get('/act/query/name',function(req, res){
+    var query = new Array(0);
+    var name = req.query.name;
+    var length = name.length;
+    var i = 0;
+    var regexp = '*'
+    while(i < length){
+        regexp += name[i];
+        regexp += '+?'
+    }
+    Act.find({name: /regexp/}, function(err, docs){
+        docs.forEach(function(item, index, arr){
+            var act = {
+                name: item.name,
+                actID: item.actID,
+                date: item.date,
+                time: item.time,
+                tag1: item.tag1,
+                tag2: item.tag2,
+                tag3: item.tag3
+            };
+            all.push(act);
+        });
+        res.json({
+            queryAct : query
+        });
+    }); 
+});
 
+//使用GET方法来查询活动数据库中相应类别的活动
+app.get('/act/query/tag',function(req, res){
+    var query = new Array(0);
+    Act.find($or[ {tag1: {$regex: req.query.tag}},
+                  {tag2: {$regex: req.query.tag}},
+                  {tag3: {$regex: req.query.tag}}
+                ], function(err, docs){
+                        docs.forEach(function(item, index, arr){
+                            var act = {
+                                name: item.name,
+                                actID: item.actID,
+                                date: item.date,
+                                time: item.time,
+                                tag1: item.tag1,
+                                tag2: item.tag2,
+                                tag3: item.tag3
+                            };
+                            all.push(act);
+                        });
+                        res.json({
+                            queryAct : query
+                        });
+                    }); 
 });
 
 //测试图片上传功能
