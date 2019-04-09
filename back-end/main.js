@@ -121,12 +121,12 @@ app.post('/act', function (req, res) {
         ownerID: req.body.ownerID
     });
     a.save(function (err, a) {
-        User.findOne({stuID: a.ownerID}, function(err, doc){
+        User.findOne({ stuID: a.ownerID }, function (err, doc) {
             console.log(a)
             doc.releasedAct.push(a._id.str);
             doc.save();
         })
-        User.findOne({stuID: a.ownerID}, function(err, doc){
+        User.findOne({ stuID: a.ownerID }, function (err, doc) {
             console.log(doc)
         })
         if (err) return res.send(500, 'Error occurred: database error.');
@@ -137,19 +137,21 @@ app.post('/act', function (req, res) {
 
 //使用GET方法来对活动数据库做查询操作
 app.get('/act', function (req, res) {
-    Act.findOne({ actID: req.query.actID }, function (err, a) {
-        if (err) return res.send(500, 'Error occurred: database error.');
-        res.json({
-            name: a.name,
-            place: a.place,
-            des: a.des,
-            actID: a.actID,
-            date: a.date,
-            time: a.time,
-            capacity: a.capacity,
-            tags: a.tags,
+    if (req.query.actID != undefined) {
+        Act.findOne({ actID: req.query.actID }, function (err, a) {
+            if (err) return res.send(500, 'Error occurred: database error.');
+            res.json({
+                name: a.name,
+                place: a.place,
+                des: a.des,
+                actID: a.actID,
+                date: a.date,
+                time: a.time,
+                capacity: a.capacity,
+                tags: a.tags,
+            });
         });
-    });
+    }
 });
 
 //使用PUT方法来对活动数据库做修改操作
@@ -203,10 +205,10 @@ app.delete('/user', function (req, res) {
 });
 
 //使用GET方法来查询活动数据库中所有活动
-app.get('/act/all',function(req, res){
+app.get('/act/all', function (req, res) {
     var all = new Array(0);
-    Act.find(function(err, docs){
-        docs.forEach(function(item, index, arr){
+    Act.find(function (err, docs) {
+        docs.forEach(function (item, index, arr) {
             var act = {
                 name: item.name,
                 actID: item.actID,
@@ -218,9 +220,9 @@ app.get('/act/all',function(req, res){
             //该处为新加项"图片"
         });
         res.json({
-            allAct : all
+            allAct: all
         });
-    }); 
+    });
 });
 
 var ChangeAct = require('./modules/changeact');
@@ -232,33 +234,33 @@ app.put('/user/change', function (req, res) {
         change: req.body.change
     })
     User.findOne({ stuID: req.body.stuID }, function (err, doc) {
-        if(doc != null) {
+        if (doc != null) {
             var cge = a.change;
             var acts = doc.joinAct;
-            if(cge === true){
-                a.changeAct.forEach(function(item, index, arr) {
+            if (cge === true) {
+                a.changeAct.forEach(function (item, index, arr) {
                     var idx = acts.indexOf(item);
-                    if(idx === -1){
+                    if (idx === -1) {
                         acts.push(item);
                     }
                 })
-                if(acts[0] === ''){
+                if (acts[0] === '') {
                     acts.splice(0, 1);
                 }
             }
-            else{
-                a.changeAct.forEach(function(item, index, arr) {
+            else {
+                a.changeAct.forEach(function (item, index, arr) {
                     var idx = acts.indexOf(item);
-                    if(idx !== -1){
+                    if (idx !== -1) {
                         acts.splice(idx, 1);
                     }
-                    else{
+                    else {
                         res.send("活动不存在！");
                     }
                 })
             }
             console.log(doc);
-            User.update({stuID : a.stuID},{joinAct : acts}).exec();
+            User.update({ stuID: a.stuID }, { joinAct: acts }).exec();
             res.send("success!");
         }
     })
@@ -270,23 +272,23 @@ app.put('/user/change', function (req, res) {
 var fs = require('fs');
 
 
-app.post('/pic',function(req,res){
+app.post('/pic', function (req, res) {
     var form = new formidable.IncomingForm();
-    var targetFile = path.join(__dirname,'./resources/pic/act_pic');
-    
+    var targetFile = path.join(__dirname, './resources/pic/act_pic');
+
     form.encoding = 'utf-8';
-    form.uploadDir = targetFile; 
-    form.keepExtensions = true;  
-    form.parse(req, function(err, fields, files){
-        if(err) return res.redirect(303, '/error');
+    form.uploadDir = targetFile;
+    form.keepExtensions = true;
+    form.parse(req, function (err, fields, files) {
+        if (err) return res.redirect(303, '/error');
         //随图片上传的数据放在fileds中
         //console.log(fields.pic_id);
         //console.log(files.Pic.path);
         //图片重命名逻辑
         //相同名字的图片将会被新的覆盖
         var oldpath = files.Pic.path;
-        var newpath = path.join(path.dirname(oldpath),files.Pic.name);
-        fs.rename(oldpath,newpath);
+        var newpath = path.join(path.dirname(oldpath), files.Pic.name);
+        fs.rename(oldpath, newpath);
         var tempath = newpath.split("resources");
         var finalpath = tempath[1];
         console.log(finalpath);
