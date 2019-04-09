@@ -12,8 +12,12 @@ Page({
     des:'活动描述',
     date:'2019-4-1',
     time:'16:00',
+    palce:'活动地点',
+    capacity:'20',
+    img_url:'',
     allValue:''
   }),
+
   data:{
     uploadedImages: [],
     imgBoolean: true
@@ -97,13 +101,38 @@ Page({
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
+
         that.setData({
           item: tempFilePaths[0],
           imgBoolean: false
         });
+
+        wx.uploadFile({
+          url: 'http://dannydiao.com:3000/pic',
+          filePath: tempFilePaths[0],
+          name: 'uploadfile_ant',
+          formData: {
+          },
+
+          success: function (res) {
+            //var data = JSON.parse(res.data);
+            //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }
+            console.log(data);
+          },
+          fail: function (res) {
+            wx.hideToast();
+            wx.showModal({
+              title: '错误提示',
+              content: '上传图片失败',
+              showCancel: false,
+              success: function (res) { }
+            })
+          }
+        });
       }
-    })
+    });
   },
+
   // 图片预览
   previewImage: function (e) {
     var current = e.target.dataset.src
@@ -111,7 +140,6 @@ Page({
       current: current,
       urls: [current]
     })
-    console.log("这是1" + current);
   },
   //删除图片
   deleteImg: function (e) {

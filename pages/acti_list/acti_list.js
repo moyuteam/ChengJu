@@ -160,23 +160,27 @@ Page({
   onLoad: function(options){
     var that = this;
     wx.request({
-      url:'http://dannydiao.com:3000/act',
+      url: 'http://dannydiao.com:3000/act/all',
       method: 'GET',
-      data:{
-        actID: '1'
-      },
-      header:{
+      header: {
         "Content-Type": "application/json"
       },
-      success: function(res){
-        console.log(res.data);
+      success: function (res) {
+        console.log(res.data)
         that.setData({
-          list: res.data,
+          allAct: res.data.allAct
         });
       },
-      fail: function(err){
+      fail: function (err) {
         console.log("....fail....");
         console.log(err.data);
+      }
+    });
+
+    wx.downloadFile({
+      url: 'http://dannydiao.com:3000/act/all',
+      success: function (res) {
+        console.log(res.data);
       }
     })
   }
