@@ -70,7 +70,6 @@ app.get('/user', function (req, res) {
         });
     });
 });
-
 //使用PUT方法来对数据库做修改操作
 app.put('/user', function (req, res) {
     var a = new User({
@@ -291,7 +290,7 @@ app.post('/pic', function (req, res) {
         fs.rename(oldpath, newpath);
         var tempath = newpath.split("resources");
         var finalpath = tempath[1];
-        console.log(finalpath);
+        //console.log(finalpath);
         res.send(finalpath);
     });
 });
