@@ -287,8 +287,10 @@ app.post('/pic',function(req,res){
         var oldpath = files.Pic.path;
         var newpath = path.join(path.dirname(oldpath),files.Pic.name);
         fs.rename(oldpath,newpath);
-        console.log(newpath);
-        res.send('done.');
+        var tempath = newpath.split("resources");
+        var finalpath = tempath[1];
+        console.log(finalpath);
+        res.send(finalpath);
     });
 });
 
