@@ -16,56 +16,48 @@ Page({
 
     imageArray: [
       {
-        color: 'white',
         image: '../image/Eat.png',
         title: '食堂约饭',
         time: '12:00~13:00',
         calendar:'4/1',
         url: '/pages/acti_detail/acti_detail',
       }, {
-        color: 'yellow',
         image: '../image/Activity.png',
         title: '风筝-不一样的六一',
         time: '14:30~17:00',
         calendar:'6/1',
         url: '/pages/acti_detail/acti_detail',
       }, {
-        color: 'blue',
         image: '../image/Meeting.png',
         title: '有关人工智能的讲座',
         time: '16:00~17:00',
         calendar:'5/23~5/25',
         url: '/pages/acti_detail/acti_detail',
       }, {
-        color: 'green',
         image: '../image/Sing.png',
         title: '放声歌唱',
         time: '20:00~22:00',
         calendar:'5/2',
         url: '/pages/acti_detail/acti_detail',
       }, {
-        color: 'red',
         image: '../image/Sport.png',
         title: '夜跑-点亮生命',
         time: '16:00~17:00',
         calendar:'4/6',
         url: '/pages/acti_detail/acti_detail',
       }, {
-        color: 'white',
         image: '../image/Study.png',
         title: '周末图书馆约学习',
         time: '8:00~22:00',
         calendar:'3/30',
         url: '/pages/acti_detail/acti_detail',
       }, {
-        color: 'white',
         image: '../image/Eat.png',
         title: '寻找成都的美食',
         time: '8:00~12:00',
         calendar:'4/12',
         url: '/pages/acti_detail/acti_detail',
       }, {
-        color: 'white',
         image: '../image/Meeting.png',
         title: '班长会议',
         time: '14:00~16:00',
@@ -109,37 +101,85 @@ Page({
   //搜索执行按钮
   query: function (event) {
     var that = this
-    console.log(this.detail.value)
+    wx.repquest({
+      url:'http://dannydiao.com:3000/act',
+      data:{
+        inputValue: this.data.inputValue
+      },
+      methos:'GET',
+      success: function(res){
+        console.log(res.data)
+        var searchData = res.data
+        that.setData({
+          searchData
+        })
+
+        wx.setStorage({
+          key:'searchLists',
+          data:{
+            searchLists: res.data
+          }
+        })
+
+        if(!that.data.inputValue){
+          wx.showToast({
+            title:'请重新输入',
+            icon:'loading',
+            duration:2000,
+          })
+        } else if (searchData.search.length == 0){
+          wx.showToast({
+            title:'关键词不存在',
+            icon:'loading',
+            duration:2000,
+          })
+        } else {
+          var searchIndex = searchData.search.length
+          var d = 0;
+          for (var i = 0; i <= searchIndex - 1; i++){
+            var searchTitle = searchData.search[d].titleconsole.log(searchTitle)
+            d = d + 1;
+
+            for (var x = 0; x <= searchTitle.length; x++) {
+              for (var y = 0; y <= searchTitle.length; y++) { 
+                var keyWord = searchTItle.length.substring(x, y);
+                console.log(keyWord)                
+               }
+            }
+
+            wx.navigateTo({
+              url: '' ,
+            })
+          }
+        }
+      }
+    })
   },
   
   //获取后台信息
   onLoad: function(options){
     var that = this;
-    var actID = '1';
     wx.request({
-      url:'http://dannydiao.com:3000/act',
+      url: 'http://dannydiao.com:3000/act/all',
       method: 'GET',
-      data:{
-        actID: actID
-      },
-      header:{
+      header: {
         "Content-Type": "application/json"
       },
-      success: function(res){
-        console.log(res.data);
-        var PIC=[];
-        for(var i=0;i < res.data.data.type.length;i++){
-          for (var j = 0; j < res.data.data.type[i].length; j++){
-            PIC.push(Pic)
-          }
-        } 
-        console.log(res)
+      success: function (res) {
+        console.log(res.data)
         that.setData({
-          Pics:PIC
+          allAct: res.data.allAct
         });
       },
-      fail: function(res){
+      fail: function (err) {
         console.log("....fail....");
+        console.log(err.data);
+      }
+    });
+
+    wx.downloadFile({
+      url: 'http://dannydiao.com:3000/act/all',
+      success: function (res) {
         console.log(res.data);
       }
     })

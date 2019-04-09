@@ -1,6 +1,6 @@
 /* components/tag/tag.wxss */
 .tag {
-  font-size: 22rpx;
+  font-size: 25rpx;
   background-color: rgba(25, 118, 210, 0.04);
   padding: 8rpx 12rpx;
   color: #aaa;

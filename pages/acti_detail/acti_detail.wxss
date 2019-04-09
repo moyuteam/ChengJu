@@ -12,7 +12,7 @@
 .white{
   flex-direction: column;
     background-color: rgba(255, 255, 255,0.5);
-    height: 800px;
+    height: 1200px;
     margin: 18rpx;
     padding: 18rpx;
     border:2px solid;
@@ -55,4 +55,82 @@
   padding:40rpx;
   line-height: 30px;
   text-indent: 40px;
+}
+
+.submit_btn{
+  color: white;
+  background: rgba(255, 162, 0, 0.788);
+  border-color:rgba(255, 162, 0, 0.788);
+  border-radius: 200rpx;
+  width: 40%;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.acti-button{
+  display: flex;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* 创建目标对话框 */
+.create-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  padding: 48rpx 48rpx;
+  width: 80%;
+  border-radius: 20rpx;
+  background-color: #fff;
+  transform: translateY(-60%) translateX(-50%);
+  box-shadow: 0 8rpx 80rpx rgba(0, 0, 0, 0.3);
+  animation: show-modal 150ms ease-out;
+}
+
+@keyframes show-modal {
+  from {
+    transform: translateY(200%) translateX(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-60%) translateX(-50%);
+    opacity: 1;
+  }
+}
+
+.create-modal > .modal-title {
+  color: #333;
+  font-weight: bold;
+  font-size: 40rpx;
+}
+
+.create-modal > .button-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 56rpx;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+
+.button-group .cancel {
+  color: #666;
+}
+
+.button-group .confirm {
+  margin-left: 36rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 12rpx;
+  background-color: #FFA000;
+  color: white;
 }
