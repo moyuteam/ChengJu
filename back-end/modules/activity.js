@@ -9,12 +9,13 @@ var activitySchema = Schema({
     date:String,    //活动日期
     time:String,    //活动时间
     capacity:String, //活动人数
-    tags:String,    //活动标签
+    tags:Array,    //活动标签
     createTime: {   //创建时间
         type: Date,
         default: Date.now
     },
-    ownerID:String  //创建者ID
+    ownerID:String,  //创建者ID
+    picUrl:String
     
 },{versionKey: false});
 

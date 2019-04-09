@@ -10,9 +10,9 @@ var userSchema = Schema({
         type: Date,
         default: Date.now
     },
-    colAct:Array,    //用户收藏活动列表
-    joinAct:Array    //用户参与活动列表
-    
+    collectAct: Array,    //用户收藏活动列表
+    joinAct: Array,    //用户参与活动列表
+    releasedAct: Array  //用户发布活动列表
 },{versionKey: false});
 
 module.exports = mongoose.model('user',userSchema);
