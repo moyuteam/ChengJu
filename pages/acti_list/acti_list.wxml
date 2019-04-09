@@ -41,19 +41,26 @@
       </navigator>
     </block>
   <!--数据库数据-->
-    <block class="contain" wx:for="{{list}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+    <block class="contain" wx:for="{{allAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="{{itemName.url}}">
       <view id="white">
         <view class="acti-image">
           <image src="{{itemName.image}}" mode="aspectFit"></image>
         </view>
         <view class="acti-info">
-          <text id="acti-title">{{itemName.title}}</text>
+          <text id="acti-title">{{itemName.name}}</text>
           <view class="time">
             <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.calendar}}</text>
+            <text id="acti-time">{{itemName.date}}</text>
             <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
             <text id="acti-time">{{itemName.time}}</text>
+          </view>
+          <view class="acti-tag">
+            <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag2}}" wx:if="{{itemName.tag2}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag3}}" wx:if="{{itemName.tag3}}"/>
           </view>
         </view>
       </view>

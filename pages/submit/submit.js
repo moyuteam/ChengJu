@@ -44,10 +44,12 @@ Page({
       wx.request({
         url: 'http://dannydiao.com:3000/act',
         header: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/form-data"
         },
         method: "POST",
         data: {
+          image: e.detail.value.image,
           name: e.detail.value.name,
           des: e.detail.value.des,
           date:e.detail.value.date,

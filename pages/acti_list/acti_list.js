@@ -160,12 +160,21 @@ Page({
   onLoad: function(options){
     var that = this;
     wx.request({
+<<<<<<< Updated upstream
       url: 'http://dannydiao.com:3000/act/all',
       method: 'GET',
       header: {
         "Content-Type": "application/json"
       },
       success: function (res) {
+=======
+      url:'http://dannydiao.com:3000/act/all',
+      method: 'GET',
+      header:{
+        "Content-Type": "application/json"
+      },
+      success: function(res){
+>>>>>>> Stashed changes
         console.log(res.data)
         that.setData({
           allAct: res.data.allAct
@@ -178,10 +187,17 @@ Page({
     });
 
     wx.downloadFile({
+<<<<<<< Updated upstream
       url: 'http://dannydiao.com:3000/act/all',
       success: function (res) {
         console.log(res.data);
       }
+=======
+      url:'http://dannydiao.com:3000/act/all',
+      success:function(res){
+          console.log(res.data); 
+        }
+>>>>>>> Stashed changes
     })
   }
 })
