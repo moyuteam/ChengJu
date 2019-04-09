@@ -1,7 +1,8 @@
 // pages/submit/submit.js
 var util = require('../../utils/util.js');
 const app = getApp();
-var time 
+var time ;
+var img_url = '';
 Page({
 
   /**
@@ -12,9 +13,11 @@ Page({
     des:'活动描述',
     date:'2019-4-1',
     time:'16:00',
-    palce:'活动地点',
+    place:'活动地点',
     capacity:'20',
     img_url:'',
+    ownerID:'',
+    picUrl:'',
     allValue:''
   }),
 
@@ -41,19 +44,22 @@ Page({
         duration: 1500
       })
     } else {
+      console.log(this.img_url)
+      console.log(img_url)
       wx.request({
         url: 'http://dannydiao.com:3000/act',
         header: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Content-Type": "application/form-data"
+          "Content-Type": "application/x-www-form-urlencoded"
         },
         method: "POST",
         data: {
-          image: e.detail.value.image,
+          ownerID:"7",
+          picUrl: this.img_url,
           name: e.detail.value.name,
           des: e.detail.value.des,
           date:e.detail.value.date,
           time:e.detail.value.time,
+          place:e.detail.value.place,
           capacity:e.detail.value.capacity
         },
         success: function(res) {
@@ -112,14 +118,20 @@ Page({
         wx.uploadFile({
           url: 'http://dannydiao.com:3000/pic',
           filePath: tempFilePaths[0],
-          name: 'uploadfile_ant',
+          name: 'Pic',
           formData: {
           },
 
           success: function (res) {
-            //var data = JSON.parse(res.data);
-            //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }
-            console.log(data);
+            console.log(res.data)
+            that.setData({
+              img_url: res.data
+            }) 
+            console.log(res.data)
+            console.log(this.data.img_url)
+            console.log(img_url)
+            console.log(that.img_url)
+            console.log(that.data.img_url)
           },
           fail: function (res) {
             wx.hideToast();

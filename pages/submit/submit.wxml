@@ -4,8 +4,7 @@
   <input class="name" placeholder='活动名称' name='name'/>
 
   <view class="divLine"></view>
-  <textarea class="description" placeholder='活动描述' maxlength='200' name='des'></textarea>
-
+  <textarea class="description" placeholder='活动描述' maxlength='200' name='des' ></textarea>
 
     <view class="item">
       <!-- 添加按钮 -->
@@ -13,7 +12,7 @@
       </image>
       <!-- 上传的图 -->
       <view class='itemImg' >
-        <image name="image" src="{{item}}" data-src="{{item}}" bindtap="previewImage"  mode="aspectFill" />
+        <image  src="{{item}}" data-src="{{item}}" bindtap="previewImage"  mode="aspectFill" />
         <!-- 删除按钮 -->
         <view class="delete" bindtap="deleteImg" data-index="{{index}}">X</view>
       </view>
@@ -42,7 +41,7 @@
   <view class='input'>
     <image src='../image/Place.png' class='icon' mode='aspectFit'></image>
     <view class='input_title'>活动地点</view>
-    <input class='input_content'/>
+    <input class='input_content' name='place'/>
   </view>
 
   <view class="divLine"></view>
