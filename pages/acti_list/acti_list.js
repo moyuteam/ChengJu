@@ -102,7 +102,7 @@ Page({
   query: function (event) {
     var that = this
     wx.repquest({
-      url:'http://dannydiao.com:3000/act',
+      url:'http://148.70.157.68:3000/act',
       data:{
         inputValue: this.data.inputValue
       },
@@ -160,7 +160,7 @@ Page({
   onLoad: function(options){
     var that = this;
     wx.request({
-      url: 'http://dannydiao.com:3000/act/all',
+      url: 'http://148.70.157.68:3000/act/all',
       method: 'GET',
       header: {
         "Content-Type": "application/json"
@@ -178,7 +178,7 @@ Page({
     });
 
     wx.downloadFile({
-      url: 'http://dannydiao.com:3000/act/all',
+      url: 'http://148.70.157.68:3000/act/all',
       success: function (res) {
         console.log(res.data);
       }
