@@ -71,17 +71,21 @@ app.get('/user', function (req, res) {
         });
     });
 });
+app
+
+
 //查询用户是否已注册
 app.get('/user/isRegister', function (req, res) {
-    User.findOne({ openID: req.body.code }, function (err, a) {
-        if (err) return res.send(500, 'Error occurred: database error.');
-        if(a == undefined){
-            res.send("false");
-        }else{
-            res.send("true");
-        }
-       
-    });
+   //var request = require('request'); 
+   const https = require('https');
+   var code = req.body.code;
+   const appID = 'wx8fa5ad1768c706c5';
+   const appSecret = '875e3df6575b640b21e85f5a280feadd';
+   var request = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appID + '&secret=' + appSecret + '&js_code=' + code + '&grant_type=authorization_code';
+   https.get(request, (res) => {
+       console.log(res.body);
+    
+});
 });
 //使用PUT方法来对数据库做修改操作
 app.put('/user', function (req, res) {
