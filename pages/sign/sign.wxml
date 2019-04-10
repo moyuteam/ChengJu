@@ -1,22 +1,20 @@
 
 <view class='logo_position'>
-  <image class='logo'>logo</image>
+  <image class='logo' src=''>logo</image>
 </view>
-
-
 
 <form bindsubmit="formSubmit" bindreset="formReset">
   <view class='input_position'>
     <view class='input'>
-      <view class='input_title'>姓名</view>
-      <input class='input_content'></input>
+      <view  class='input_title'>姓名</view>
+      <input name='name' class='input_content'></input>
     </view>
-
+    <view class='divLine'></view>
     <view class='input'>
-      <view class='input_title'>学号</view>
-      <input class='input_content'></input>
+      <view  class='input_title'>学号</view>
+      <input name='stuID' class='input_content'></input>
     </view>
-
-    <button form-type='submit'>完善信息</button>
   </view>
+    <button form-type='submit' class='btn_sub' >完善信息</button>
+
 </form>
