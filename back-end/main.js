@@ -318,18 +318,78 @@ app.get('/act/all', function (req, res) {
     });
 });
 
+//使用GET方法来查询用户已收藏活动
+app.get('/act/collect', function(req, res) {
+    User.findOne({stuID: req.query.stuID}, function(err, user){
+        var collectAct = new Array(0);
+        user.collectAct.forEach(function(item, index, arr){
+            Act.findOne({actID: item}, function(err, act){
+                var act = {
+                    name: item.name,
+                    actID: item.actID,
+                    date: item.date,
+                    time: item.time
+                }
+                collectAct.push(act);
+            })
+            res.json({
+                collectAct: collectAct
+            });
+        })
+    })
+})
+
+//使用GET方法来查询用户已参与活动
+app.get('/act/join', function(req, res) {
+    User.findOne({stuID: req.query.stuID}, function(err, user){
+        var joinAct = new Array(0);
+        user.joinAct.forEach(function(item, index, arr){
+            Act.findOne({actID: item}, function(err, act){
+                var act = {
+                    name: item.name,
+                    actID: item.actID,
+                    date: item.date,
+                    time: item.time
+                }
+                joinAct.push(act);
+            })
+            res.json({
+                joinAct: joinAct
+            });
+        })
+    })
+})
+
+//使用GET方法来查询用户已发布活动
+app.get('/act/released', function(req, res) {
+    User.findOne({stuID: req.query.stuID}, function(err, user){
+        var releasedAct = new Array(0);
+        user.releasedAct.forEach(function(item, index, arr){
+            Act.findOne({actID: item}, function(err, act){
+                var act = {
+                    name: item.name,
+                    actID: item.actID,
+                    date: item.date,
+                    time: item.time
+                }
+                releasedAct.push(act);
+            })
+            res.json({
+                releasedAct: releasedAct
+            });
+        })
+    })
+})
+
 //使用GET方法来查询活动数据库中相应名称的活动
 app.get('/act/query/name',function(req, res){
     var query = new Array(0);
     var name = req.query.name;
     var length = name.length;
     var i = 0;
-    var regexp = '*'
-    while(i < length){
-        regexp += name[i];
-        regexp += '+?'
-    }
-    Act.find({name: /regexp/}, function(err, docs){
+    var regexp1 = name;
+    var regexp2 = '[' + name + ']+'
+    Act.find({$or: [{name: {$regex: new RegExp(regexp1)}}, {name: {$regex: new RegExp(regexp2)}}]}, function(err, docs){
         docs.forEach(function(item, index, arr){
             var act = {
                 name: item.name,
@@ -340,7 +400,7 @@ app.get('/act/query/name',function(req, res){
                 tag2: item.tag2,
                 tag3: item.tag3
             };
-            all.push(act);
+            query.push(act);
         });
         res.json({
             queryAct : query
@@ -365,7 +425,7 @@ app.get('/act/query/tag',function(req, res){
                                 tag2: item.tag2,
                                 tag3: item.tag3
                             };
-                            all.push(act);
+                            query.push(act);
                         });
                         res.json({
                             queryAct : query
