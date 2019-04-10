@@ -1,6 +1,6 @@
 
 <view class='logo_position'>
-  <image class='logo' src=''>logo</image>
+  <open-data type="userAvatarUrl" class="logo"></open-data>
 </view>
 
 <form bindsubmit="formSubmit" bindreset="formReset">

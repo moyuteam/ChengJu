@@ -5,6 +5,8 @@
 }
 
 .user-info-container .avatar {
+  overflow:hidden;
+  display: block;
   width: 150rpx;
   height: 150rpx;
   border: 5rpx solid white;
@@ -74,7 +76,7 @@
   width: 150rpx;
   color: #FFA000;
   background-color: white;
-  border: 5rpx solid #FFA000;
+  border:5rpx solid #FFA000;
 }
 .choose_left_select{
   display: flex;

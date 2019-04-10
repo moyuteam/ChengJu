@@ -1,10 +1,16 @@
 // pages/mine/mine.js
+const app = getApp()
+
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    
+    StudentName:'',
+    StudentId:'',
     inputValue: '',
     message: 'Hello Minia~',
     toView: 'red',
@@ -69,6 +75,7 @@ Page({
       }
     ]
   },
+
   scroll(e) {
     console.log(e)
   },
@@ -94,25 +101,30 @@ Page({
     })
   },
 
-  getUserInfo: function () {
-    var that = this
-    _getUserInfo();
-    function _getUserInfo() {
-      wx.getUserInfo({
-        success: function (res) {
-          that.setData({
-            userInfo: res.userInfo
-          })
-          that.update()
-        }
-      })
-    }
-  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    //获取姓名学号
+    wx.request({
+      url: '', // 接口地址
+      data: {
+        openID:app.globalData.userID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log(res.data)
+        this.setData({
+          StudentName: '',
+          StudentId: ''
+        })
+      }
+    })
+
 
   },
 

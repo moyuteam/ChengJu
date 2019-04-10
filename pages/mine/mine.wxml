@@ -1,8 +1,8 @@
 <view class='user-info-container'>
-  <image class='avatar' src='{{userInfo.avatarUrl}}' mode='aspectFit'></image>
+  <open-data type="userAvatarUrl" class="avatar"></open-data>
   <view class='info'>
-    <view class='name' >StudentName</view>
-    <view class="statistics">StudentID</view>
+    <view class='name' >{{StudentName}}</view>
+    <view class="statistics">{{StudentID}}</view>
   </view>
 </view>
 
