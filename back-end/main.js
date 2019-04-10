@@ -36,11 +36,13 @@ app.post('/user', function (req, res) {
     var a = new User({
         name: req.body.name,
         stuID: req.body.stuID,
+        openID: req.body.openID,
         sex: req.body.sex,
         collectAct: req.body.collectAct,
         joinAct: req.body.joinAct,
         releasedAct: req.body.releasedAct
     });
+    console.log(a);
     //查重操作，如果stuID有重复的就不会增加用户
     User.findOne({ stuID: a.stuID }, function (err, doc) {
         if (doc == null) {
@@ -75,17 +77,38 @@ app
 
 
 //查询用户是否已注册
-app.get('/user/isRegister', function (req, res) {
-   //var request = require('request'); 
-   const https = require('https');
-   var code = req.body.code;
-   const appID = 'wx8fa5ad1768c706c5';
-   const appSecret = '875e3df6575b640b21e85f5a280feadd';
-   var request = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appID + '&secret=' + appSecret + '&js_code=' + code + '&grant_type=authorization_code';
-   https.get(request, (res) => {
-       console.log(res.body);
-    
-});
+app.get('/user/isRegister', function (req, res_1) {
+    var async = require('async');
+    //console.log(req.query.code);
+    var request = require('request');
+    // const https = require('https');
+    var code = req.query.code;
+    var openid;
+    var isRegister = false;
+    const appID = 'wx8fa5ad1768c706c5';
+    const appSecret = '875e3df6575b640b21e85f5a280feadd';
+    var request_path = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appID + '&secret=' + appSecret + '&js_code=' + code + '&grant_type=authorization_code';
+    request(request_path, function (err, res, body) {
+        openid = res.body.split('openid":"');
+        openid = openid[1].split('"');
+        openid = openid[0];
+        //console.log(openid);
+        User.findOne({ openID: openid }, function (err, a) {
+            if (err) return res.send(500, 'Error occurred: database error.');
+            if (a != undefined) {
+                isRegister = true;
+            } else {
+                isRegister = false;
+            }
+            console.log(openid);
+            console.log(isRegister);
+            res_1.send({ openID: openid, isRegister: isRegister });
+
+        });
+    });
+
+
+
 });
 //使用PUT方法来对数据库做修改操作
 app.put('/user', function (req, res) {
@@ -109,95 +132,98 @@ app.put('/user', function (req, res) {
     }
     if (a.collectAct !== undefined) {
         var add = true;
-        Act.findOne({ stuID: a.stuID }, function(err, user){
-            try{
-                a.collectAct.forEach(function(item, index, arr){
-                var item1 = item;
-                    user.collectAct.forEach(function(item, index, arr){
-                        if(item !== item1){
+        Act.findOne({ stuID: a.stuID }, function (err, user) {
+            try {
+                a.collectAct.forEach(function (item, index, arr) {
+                    var item1 = item;
+                    user.collectAct.forEach(function (item, index, arr) {
+                        if (item !== item1) {
                             add = false;
                             throw new Error("delete");
                         }
-                })
-            })
-            }catch(e){
+                    });
+
+                });
+            } catch (e) {
 
             }
-            if(add) {
-                a.collectAct.forEach(function(item, index, arr){
-                    user.collectAct.push(item);
-                })
-            }
-            else {
-                a.collectAct.forEach(function(item, index, arr){
-                    var index1 = user.collectAct.indexOf(item);
-                    user.collectAct.splice(index1, 1);
-                })
-            }
-            user.save();
-        });
+        })
+        if (add) {
+            a.collectAct.forEach(function (item, index, arr) {
+                user.collectAct.push(item);
+            })
+        }
+        else {
+            a.collectAct.forEach(function (item, index, arr) {
+                var index1 = user.collectAct.indexOf(item);
+                user.collectAct.splice(index1, 1);
+            })
+        }
+        user.save();
     }
-    if (a.joinAct !== undefined) {
-        var add = true;
-        Act.findOne({ stuID: a.stuID }, function(err, user){
-            try{
-                a.joinAct.forEach(function(item, index, arr){
+    
+
+if (a.joinAct !== undefined) {
+    var add = true;
+    Act.findOne({ stuID: a.stuID }, function (err, user) {
+        try {
+            a.joinAct.forEach(function (item, index, arr) {
                 var item1 = item;
-                user.joinAct.forEach(function(item, index, arr){
-                    if(item !== item1){
+                user.joinAct.forEach(function (item, index, arr) {
+                    if (item !== item1) {
                         add = false;
                         throw new Error("delete");
                     }
                 })
             })
-            }catch(e){
+        } catch (e) {
 
-            }
-            if(add) {
-                a.joinAct.forEach(function(item, index, arr){
-                    user.joinAct.push(item);
-                })
-            }
-            else {
-                a.joinAct.forEach(function(item, index, arr){
-                    var index1 = user.joinAct.indexOf(item);
-                    user.joinAct.splice(index1, 1);
-                })
-            }
-            user.save();
-        });
-    }
-    if (a.releasedAct !== undefined) {
-        var add = true;
-        Act.findOne({ stuID: a.stuID }, function(err, user){
-            try{
-                a.releasedAct.forEach(function(item, index, arr){
+        }
+        if (add) {
+            a.joinAct.forEach(function (item, index, arr) {
+                user.joinAct.push(item);
+            })
+        }
+        else {
+            a.joinAct.forEach(function (item, index, arr) {
+                var index1 = user.joinAct.indexOf(item);
+                user.joinAct.splice(index1, 1);
+            })
+        }
+        user.save();
+    });
+}
+if (a.releasedAct !== undefined) {
+    var add = true;
+    Act.findOne({ stuID: a.stuID }, function (err, user) {
+        try {
+            a.releasedAct.forEach(function (item, index, arr) {
                 var item1 = item;
-                user.releasedAct.forEach(function(item, index, arr){
-                    if(item !== item1){
+                user.releasedAct.forEach(function (item, index, arr) {
+                    if (item !== item1) {
                         add = false;
                         throw new Error("delete");
                     }
                 })
             })
-            }catch(e){
+        } catch (e) {
 
-            }
-            if(add) {
-                a.releasedAct.forEach(function(item, index, arr){
-                    user.releasedAct.push(item);
-                })
-            }
-            else {
-                a.releasedAct.forEach(function(item, index, arr){
-                    var index1 = user.releasedAct.indexOf(item);
-                    user.releasedAct.splice(index1, 1);
-                })
-            }
-            user.save();
-        });
-    }
-    res.send("success!");
+        }
+        if (add) {
+            a.releasedAct.forEach(function (item, index, arr) {
+                user.releasedAct.push(item);
+            })
+        }
+        else {
+            a.releasedAct.forEach(function (item, index, arr) {
+                var index1 = user.releasedAct.indexOf(item);
+                user.releasedAct.splice(index1, 1);
+            })
+        }
+        user.save();
+    });
+}
+res.send("success!");
 });
 
 //使用DELETE方法对数据库做删除操作
@@ -228,11 +254,11 @@ app.post('/act', function (req, res) {
         tag2: req.body.tag2,
         tag3: req.body.tag3,
         ownerID: req.body.ownerID,
-        picUrl : req.body.picUrl
+        picUrl: req.body.picUrl
     });
     a.actID = a._id.toString();
-    a.save(function(err, doc){
-        User.findOne({stuID: a.ownerID}, function(err, doc){
+    a.save(function (err, doc) {
+        User.findOne({ stuID: a.ownerID }, function (err, doc) {
             doc.releasedAct.push(a.actID);
             doc.save();
         });
@@ -275,20 +301,20 @@ app.put('/act', function (req, res) {
         tag2: req.body.tag2,
         tag3: req.body.tag3,
         picUrl: item.picUrl
-    });-
-    Act.findOne({ actID: a.actID}, function(err, doc){
-        doc.name = a.name;
-        doc.place = a.place;
-        doc.des = a.des;
-        doc.date = a.date;
-        doc.time = a.time;
-        doc.capacity = a.capacity;
-        doc.tag1 = a.tag1;
-        doc.tag2 = a.tag2;
-        doc.tag3 = a.tag3;
-        doc.picUrl = a.picUrl;
-        doc.save();
-    })
+    }); -
+        Act.findOne({ actID: a.actID }, function (err, doc) {
+            doc.name = a.name;
+            doc.place = a.place;
+            doc.des = a.des;
+            doc.date = a.date;
+            doc.time = a.time;
+            doc.capacity = a.capacity;
+            doc.tag1 = a.tag1;
+            doc.tag2 = a.tag2;
+            doc.tag3 = a.tag3;
+            doc.picUrl = a.picUrl;
+            doc.save();
+        })
     res.send("success!")
 });
 
@@ -328,11 +354,11 @@ app.get('/act/all', function (req, res) {
 });
 
 //使用GET方法来查询用户已收藏活动
-app.get('/act/collect', function(req, res) {
-    User.findOne({stuID: req.query.stuID}, function(err, user){
+app.get('/act/collect', function (req, res) {
+    User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var collectAct = new Array(0);
-        user.collectAct.forEach(function(item, index, arr){
-            Act.findOne({actID: item}, function(err, act){
+        user.collectAct.forEach(function (item, index, arr) {
+            Act.findOne({ actID: item }, function (err, act) {
                 var act = {
                     name: item.name,
                     actID: item.actID,
@@ -349,11 +375,11 @@ app.get('/act/collect', function(req, res) {
 })
 
 //使用GET方法来查询用户已参与活动
-app.get('/act/join', function(req, res) {
-    User.findOne({stuID: req.query.stuID}, function(err, user){
+app.get('/act/join', function (req, res) {
+    User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var joinAct = new Array(0);
-        user.joinAct.forEach(function(item, index, arr){
-            Act.findOne({actID: item}, function(err, act){
+        user.joinAct.forEach(function (item, index, arr) {
+            Act.findOne({ actID: item }, function (err, act) {
                 var act = {
                     name: item.name,
                     actID: item.actID,
@@ -370,11 +396,11 @@ app.get('/act/join', function(req, res) {
 })
 
 //使用GET方法来查询用户已发布活动
-app.get('/act/released', function(req, res) {
-    User.findOne({stuID: req.query.stuID}, function(err, user){
+app.get('/act/released', function (req, res) {
+    User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var releasedAct = new Array(0);
-        user.releasedAct.forEach(function(item, index, arr){
-            Act.findOne({actID: item}, function(err, act){
+        user.releasedAct.forEach(function (item, index, arr) {
+            Act.findOne({ actID: item }, function (err, act) {
                 var act = {
                     name: item.name,
                     actID: item.actID,
@@ -391,15 +417,15 @@ app.get('/act/released', function(req, res) {
 })
 
 //使用GET方法来查询活动数据库中相应名称的活动
-app.get('/act/query/name',function(req, res){
+app.get('/act/query/name', function (req, res) {
     var query = new Array(0);
     var name = req.query.name;
     var length = name.length;
     var i = 0;
     var regexp1 = name;
     var regexp2 = '[' + name + ']+'
-    Act.find({$or: [{name: {$regex: new RegExp(regexp1)}}, {name: {$regex: new RegExp(regexp2)}}]}, function(err, docs){
-        docs.forEach(function(item, index, arr){
+    Act.find({ $or: [{ name: { $regex: new RegExp(regexp1) } }, { name: { $regex: new RegExp(regexp2) } }] }, function (err, docs) {
+        docs.forEach(function (item, index, arr) {
             var act = {
                 name: item.name,
                 actID: item.actID,
@@ -412,34 +438,34 @@ app.get('/act/query/name',function(req, res){
             query.push(act);
         });
         res.json({
-            queryAct : query
+            queryAct: query
         });
-    }); 
+    });
 });
 
 //使用GET方法来查询活动数据库中相应类别的活动
-app.get('/act/query/tag',function(req, res){
+app.get('/act/query/tag', function (req, res) {
     var query = new Array(0);
-    Act.find($or[ {tag1: {$regex: req.query.tag}},
-                  {tag2: {$regex: req.query.tag}},
-                  {tag3: {$regex: req.query.tag}}
-                ], function(err, docs){
-                        docs.forEach(function(item, index, arr){
-                            var act = {
-                                name: item.name,
-                                actID: item.actID,
-                                date: item.date,
-                                time: item.time,
-                                tag1: item.tag1,
-                                tag2: item.tag2,
-                                tag3: item.tag3
-                            };
-                            query.push(act);
-                        });
-                        res.json({
-                            queryAct : query
-                        });
-                    }); 
+    Act.find($or[{ tag1: { $regex: req.query.tag } },
+        { tag2: { $regex: req.query.tag } },
+        { tag3: { $regex: req.query.tag } }
+    ], function (err, docs) {
+        docs.forEach(function (item, index, arr) {
+            var act = {
+                name: item.name,
+                actID: item.actID,
+                date: item.date,
+                time: item.time,
+                tag1: item.tag1,
+                tag2: item.tag2,
+                tag3: item.tag3
+            };
+            query.push(act);
+        });
+        res.json({
+            queryAct: query
+        });
+    });
 });
 
 //测试图片上传功能
