@@ -113,11 +113,11 @@ app.put('/user', function (req, res) {
             try{
                 a.collectAct.forEach(function(item, index, arr){
                 var item1 = item;
-                user.collectAct.forEach(function(item, index, arr){
-                    if(item !== item1){
-                        add = false;
-                        throw new Error("delete");
-                    }
+                    user.collectAct.forEach(function(item, index, arr){
+                        if(item !== item1){
+                            add = false;
+                            throw new Error("delete");
+                        }
                 })
             })
             }catch(e){
@@ -227,7 +227,8 @@ app.post('/act', function (req, res) {
         tag1: req.body.tag1,
         tag2: req.body.tag2,
         tag3: req.body.tag3,
-        ownerID: req.body.ownerID
+        ownerID: req.body.ownerID,
+        picUrl : req.body.picUrl
     });
     a.actID = a._id.toString();
     a.save(function(err, doc){
@@ -255,6 +256,7 @@ app.get('/act', function (req, res) {
             tag1: a.tag1,
             tag2: a.tag2,
             tag3: a.tag3,
+            picUrl: a.picUrl
         });
     })
 });
@@ -271,31 +273,20 @@ app.put('/act', function (req, res) {
         capacity: req.body.capacity,
         tag1: req.body.tag1,
         tag2: req.body.tag2,
-        tag3: req.body.tag3
+        tag3: req.body.tag3,
+        picUrl: item.picUrl
     });-
-    console.log(a);
-    if (a.actID == undefined) {
-        res.send("Error 101 : not found 'actID'!");
-    }
-    if (a.name !== undefined) {
-        Act.update({ actID: a.actID }, { name: a.name }).exec();
-    }
-    if (a.des !== undefined) {
-        Act.update({ actID: a.actID }, { des: a.des }).exec();
-    }
-    if (a.date !== undefined) {
-        Act.update({ actID: a.actID }, { date: a.date }).exec();
-    }
-    if (a.time !== undefined) {
-        Act.update({ actID: a.actID }, { time: a.time }).exec();
-    }
-    if (a.capacity !== undefined) {
-        Act.update({ actID: a.actID }, { capacity: a.capacity }).exec();
-    }
     Act.findOne({ actID: a.actID}, function(err, doc){
+        doc.name = a.name;
+        doc.place = a.place;
+        doc.des = a.des;
+        doc.date = a.date;
+        doc.time = a.time;
+        doc.capacity = a.capacity;
         doc.tag1 = a.tag1;
         doc.tag2 = a.tag2;
         doc.tag3 = a.tag3;
+        doc.picUrl = a.picUrl;
         doc.save();
     })
     res.send("success!")
@@ -325,7 +316,8 @@ app.get('/act/all', function (req, res) {
                 time: item.time,
                 tag1: item.tag1,
                 tag2: item.tag2,
-                tag3: item.tag3
+                tag3: item.tag3,
+                picUrl: item.picUrl
             };
             all.push(act);
         });
