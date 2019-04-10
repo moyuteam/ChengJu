@@ -33,6 +33,7 @@ Page({
     })
   },
   formSubmit:function(e){
+    var that = this;
     console.log('form 发生了submit事件', e.detail.value)
     this.setData({
       allValue:e.detail.value
@@ -44,8 +45,6 @@ Page({
         duration: 1500
       })
     } else {
-      console.log(this.img_url)
-      console.log(img_url)
       wx.request({
         url: 'http://148.70.157.68:3000/act',
         header: {
@@ -54,7 +53,7 @@ Page({
         method: "POST",
         data: {
           ownerID:"7",
-          picUrl: this.img_url,
+          picUrl: that.data.img_url,
           name: e.detail.value.name,
           des: e.detail.value.des,
           date:e.detail.value.date,
@@ -123,15 +122,10 @@ Page({
           },
 
           success: function (res) {
-            console.log(res.data)
+            //console.log(res.data)
             that.setData({
               img_url: res.data
             }) 
-            console.log(res.data)
-            console.log(this.data.img_url)
-            console.log(img_url)
-            console.log(that.img_url)
-            console.log(that.data.img_url)
           },
           fail: function (res) {
             wx.hideToast();

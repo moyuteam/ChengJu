@@ -64,9 +64,6 @@
 }
 
 
-
-
-
 .input{
   display: flex;
 }
