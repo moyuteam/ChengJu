@@ -32,7 +32,8 @@ var User = require('./modules/user.js');
 app.post('/user', function (req, res) {
     // var b = req.body.name;
     //console.log(b);
-    //console.log(req);
+    //console.log(req);‘
+    console.log(req);
     var a = new User({
         name: req.body.name,
         stuID: req.body.stuID,
