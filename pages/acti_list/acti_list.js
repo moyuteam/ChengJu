@@ -12,6 +12,7 @@ Page({
     title:'',
     time:'',
     date:'',
+    searchItem:false,
     Pics:[],
 
     imageArray: [
@@ -100,20 +101,23 @@ Page({
 
   //搜索执行按钮
   query: function (event) {
+    this.setData({
+      searchItem: true
+    })
     var that = this
-    wx.repquest({
-      url:'http://148.70.157.68:3000/act',
+    wx.request({
+      url:'http://148.70.157.68:3000/act/query/name',
       data:{
-        inputValue: this.data.inputValue
+        name: this.data.inputValue
       },
-      methos:'GET',
+      methods:'GET',
       success: function(res){
         console.log(res.data)
-        var searchData = res.data
+        var searchData = res.data.queryAct
         that.setData({
-          searchData
-        })
-
+          queryAct: searchData
+        }),
+        
         wx.setStorage({
           key:'searchLists',
           data:{
@@ -121,6 +125,8 @@ Page({
           }
         })
 
+
+/*
         if(!that.data.inputValue){
           wx.showToast({
             title:'请重新输入',
@@ -137,21 +143,21 @@ Page({
           var searchIndex = searchData.search.length
           var d = 0;
           for (var i = 0; i <= searchIndex - 1; i++){
-            var searchTitle = searchData.search[d].titleconsole.log(searchTitle)
+            var searchTitle = searchData.search[d].title.console.log(searchTitle)
             d = d + 1;
 
             for (var x = 0; x <= searchTitle.length; x++) {
               for (var y = 0; y <= searchTitle.length; y++) { 
-                var keyWord = searchTItle.length.substring(x, y);
+                var keyWord = searchTitle.length.substring(x, y);
                 console.log(keyWord)                
                }
             }
 
             wx.navigateTo({
-              url: '' ,
+              url: 'pages/acti_list' ,
             })
           }
-        }
+        }*/
       }
     })
   },
