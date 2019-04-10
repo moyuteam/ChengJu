@@ -71,6 +71,18 @@ app.get('/user', function (req, res) {
         });
     });
 });
+//查询用户是否已注册
+app.get('/user/isRegister', function (req, res) {
+    User.findOne({ openID: req.body.code }, function (err, a) {
+        if (err) return res.send(500, 'Error occurred: database error.');
+        if(a == undefined){
+            res.send("false");
+        }else{
+            res.send("true");
+        }
+       
+    });
+});
 //使用PUT方法来对数据库做修改操作
 app.put('/user', function (req, res) {
     var a = new User({
