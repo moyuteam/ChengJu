@@ -77,6 +77,8 @@ app
 
 
 //查询用户是否已注册
+//与微信服务器通讯
+//返回openID（用户唯一标识）和isRegister（用户是否注册)
 app.get('/user/isRegister', function (req, res_1) {
     var async = require('async');
     //console.log(req.query.code);
@@ -301,7 +303,7 @@ app.put('/act', function (req, res) {
         tag2: req.body.tag2,
         tag3: req.body.tag3,
         picUrl: item.picUrl
-    }); -
+    });
         Act.findOne({ actID: a.actID }, function (err, doc) {
             doc.name = a.name;
             doc.place = a.place;
