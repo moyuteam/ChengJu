@@ -45,10 +45,10 @@
     
   <!--数据库数据-->
     <block class="contain" wx:for="{{allAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-      <navigator url="{{itemName.url}}">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
       <view id="white">
         <view class="acti-image">
-          <image src="{{itemName.image}}" mode="aspectFit"></image>
+          <image src="http://148.70.157.68:3000{{itemName.picUrl}}" mode="aspectFit"></image>
         </view>
         <view class="acti-info">
           <text id="acti-title">{{itemName.name}}</text>
@@ -73,11 +73,12 @@
 
 <view wx:else>
 <!--搜索后的页面-->
+
     <block class="contain" wx:for="{{queryAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="{{itemName.url}}">
       <view id="white">
         <view class="acti-image">
-          <image src="{{itemName.image}}" mode="aspectFit"></image>
+          <image src="http://148.70.157.68:3000{{itemName.picUrl}}" mode="aspectFit"></image>
         </view>
         <view class="acti-info">
           <text id="acti-title">{{itemName.name}}</text>

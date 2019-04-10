@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    actID:'',
     signIn:false,
     content: {
       image: '../image/Kites.PNG',
@@ -21,7 +22,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      actID:options.actID
+    })
+    console.log(this.data.actID);
+    var that = this;
+    wx.request({
+      url: 'http://148.70.157.68:3000/act',
+      method: 'GET',
+      data:{
+        actID: this.data.actID
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          content: res.data
+        });
+      },
+      fail: function (err) {
+        console.log("....fail....");
+        console.log(err.data);
+      }
+    })
   },
 
   /**

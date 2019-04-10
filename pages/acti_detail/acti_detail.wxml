@@ -11,8 +11,8 @@
   >
  
   <view class="white">
-  <image src=''></image>
-    <text id="word_title">| {{content.title}}</text>
+  <image src='http://148.70.157.68:3000{{content.picUrl}}'></image>
+    <text id="word_title">| {{content.name}}</text>
     <view class="line"></view>
     <view class="time">
       <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
@@ -21,7 +21,7 @@
     <view class="line"></view>
     <view class="time">
       <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-      <text id="word_calendar">{{content.calendar}}</text>
+      <text id="word_calendar">{{content.date}}</text>
     </view>
     <view class="line"></view>
     <view class="time"> 
@@ -31,11 +31,11 @@
     <view class="line"></view>
     <view class="time">
       <image id="timeClock" src="../image/user.png" mode="aspectFit"></image>
-      <text id="word_number">{{content.number}}</text>
+      <text id="word_number">{{content.capacity}}</text>
     </view>
     <view class="line"></view>
     <text>\n\r</text>
-    <text id="word_detail">{{content.detail}}</text>
+    <text id="word_detail">{{content.des}}</text>
   </view>
 
   <view class="acti-button">
