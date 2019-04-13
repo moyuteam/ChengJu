@@ -60,14 +60,17 @@ Page({
         },
         method: "POST",
         data: {
-          ownerID:"7",
+          ownerID:app.globalData.stuID,
           picUrl: that.data.img_url,
           name: e.detail.value.name,
           des: e.detail.value.des,
           date:e.detail.value.date,
           time:e.detail.value.time,
           place:e.detail.value.place,
-          capacity:e.detail.value.capacity
+          capacity:e.detail.value.capacity,
+          tag1: e.detail.value.tag1,
+          tag2: e.detail.value.tag2,
+          tag3: e.detail.value.tag3,
         },
         success: function(res) {
           console.log(res.data);

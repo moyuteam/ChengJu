@@ -30,6 +30,7 @@ Page({
         success:function(res){
           //绑定ownerID
           console.log(res.data)
+          app.globalData.stuID = res.data.stuID
 
           wx.switchTab({
             url: '../../pages/acti_list/acti_list'

@@ -6,17 +6,15 @@
 <view class="section">
   <block wx:if="{{true}}">
   <scroll-view
-    scroll-y
-    style="height: 2000px;"
+    scroll-y="true"
+    scroll-x="false"
+    style="height: 990px;"
     bindscrolltoupper="upper"
     bindscrolltolower="lower"
-    bindscroll="scroll"
-    scroll-into-view="{{toView}}"
-    scroll-top="{{scrollTop}}"
   >
 
   <view wx:if="{{!searchItem}}">
-<!--js手写数据-->
+<!--js手写数据
     <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="{{itemName.url}}">
       <view id="white">
@@ -42,7 +40,7 @@
       </view>
       </navigator>
     </block>
-    
+    -->
   <!--数据库数据-->
     <block class="contain" wx:for="{{allAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">

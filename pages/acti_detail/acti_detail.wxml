@@ -1,16 +1,15 @@
 <!--pages/acti_detail/acti_detail.wxml-->
 <view class="section">
-    <scroll-view
+  <view class="white">
+  <scroll-view
     scroll-y
-    style="height: 2000px;"
+    style="height: 990px;"
     bindscrolltoupper="upper"
     bindscrolltolower="lower"
     bindscroll="scroll"
     scroll-into-view="{{toView}}"
     scroll-top="{{scrollTop}}"
   >
- 
-  <view class="white">
   <image src='http://148.70.157.68:3000{{content.picUrl}}'></image>
     <text id="word_title">| {{content.name}}</text>
     <view class="line"></view>
@@ -36,8 +35,9 @@
     <view class="line"></view>
     <text>\n\r</text>
     <text id="word_detail">{{content.des}}</text>
-  </view>
-
+  
+</scroll-view>
+</view>
   <view class="acti-button">
     <button form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
     <button form-type="reset" class='submit_btn'>分享</button>
@@ -49,6 +49,5 @@
           <view class="confirm" bind:tap="onAddActi">确定</view>
         </view>
       </view>  
-  </view>
-  </scroll-view>
+   </view>
 </view>

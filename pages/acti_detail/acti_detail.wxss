@@ -12,7 +12,6 @@
 .white{
   flex-direction: column;
     background-color: rgba(255, 255, 255,0.5);
-    height: 1200px;
     margin: 18rpx;
     padding: 18rpx;
     border:2px solid;

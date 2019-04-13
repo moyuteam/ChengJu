@@ -73,24 +73,7 @@ Page({
   lower(e) {
     console.log(e)
   },
-  scroll(e) {
-    console.log(e)
-  },
-  tap(e) {
-    for (let i = 0; i < order.length; ++i) {
-      if (order[i] === this.data.toView) {
-        this.setData({
-          toView: order[i + 1]
-        })
-        break
-      }
-    }
-  },
-  tapMove(e) {
-    this.setData({
-      scrollTop: this.data.scrollTop + 10
-    })
-  },
+
   //搜索框文本内容显示
   inputBind: function (event) {
     this.setData({
@@ -162,6 +145,10 @@ Page({
     })
   },
   
+onShow: function(){
+  this.onLoad()
+},
+
   //获取后台信息
   onLoad: function(options){
     var that = this;

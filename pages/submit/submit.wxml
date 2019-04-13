@@ -55,6 +55,9 @@
   <view class="input">
     <image src='../image/Tag.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">添加标签</view>
+    <input name='tag1' class="input_content" />
+    <input name='tag2' class="input_content" />
+    <input name='tag3' class="input_content" />
   </view>
   
   <button form-type="submit" class='submit_btn' >发布活动</button>

@@ -2,14 +2,14 @@
 
 const app = getApp()
 
+var actID =''
+var joinAct=new Array(0)
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    openID:'',
-    actID:'',
     signIn:false,
     content: {
       image: '../image/Kites.PNG',
@@ -21,7 +21,12 @@ Page({
       detail: '风筝是由古代劳动人民发明于中国东周春秋时期，至今已2000多年。相传墨翟以木头制成木鸟，研制三年而成，是人类最早的风筝起源。后来鲁班用竹子，改进墨翟的风筝材质，更而演进成为今日多线风筝。传\“墨子为木鸢，三年而成，蜚一日而败\”。到南北朝时，风筝开始成为传递信息的工具；从隋唐开始，由于造纸业的发达，民间开始用纸来裱糊风筝；到了宋代，放风筝成为人们喜爱的户外活动。宋人周密《武林旧事》写道：\“清明时节，人们到郊外放风鸢，日暮方归。\”\“鸢\”就指风筝。北宋张择端的《清明上河图》，宋苏汉臣的《百子图》里都有放风筝的生动景象。',
     }
   },
-
+  upper(e) {
+    console.log(e)
+  },
+  lower(e) {
+    console.log(e)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -102,15 +107,33 @@ Page({
     this.setData({
       signIn: true
     })
-    var that = this;
-    that.setData({
-      openID: app.globalData.userID
+  },
+
+  onCancelCreate(){
+    this.setData({
+      signIn: false
     })
+  },
+
+  onAddActi(){
+    this.setData({
+      signIn: false,
+      actID: this.data.actID
+    })
+    console.log(actID)
+    console.log(this.data.actID)
+    var that = this;
+    joinAct.push(this.data.actID)
+    console.log(app.globalData.stuID)
+    console.log(joinAct)
+    console.log(this.data.joinAct)
+
+    console.log(that.data.joinAct)
     wx.request({
       url: 'http://148.70.157.68:3000/user',
-      data: { 
-        openID: that.data.openID,
-        joinAct: saf
+      data: {
+        stuID: app.globalData.stuID,
+        joinAct: joinAct
       },
       method: 'PUT', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       header: {
@@ -129,18 +152,6 @@ Page({
       complete: function () {
         // complete
       }
-    })
-  },
-
-  onCancelCreate(){
-    this.setData({
-      signIn: false
-    })
-  },
-
-  onAddActi(){
-    this.setData({
-      signIn: false
     })
   }
 })

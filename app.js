@@ -28,6 +28,7 @@ App({
             console.log(res.data.openID)
               that.globalData.userID = res.data.openID
             if (res.data.isRegister){
+              that.globalData.stuID = res.data.stuID
               wx.switchTab({
                 url: '../../pages/acti_list/acti_list'
               })
@@ -66,6 +67,8 @@ App({
   globalData: {
     userInfo: null,
     userID:'',
-    isRegister:''
-  }
+    isRegister:'',
+    stuID:''
+  },
+
 })

@@ -43,15 +43,18 @@
 }
 
 image{
-  width: 20%;
+  width: 30%;
   height: 90px;
 }
 
 .acti-image{
   align-items: left;
   position:relative;
-  left:20px;
+  left:0px;
   top:0px;
+  width:100%;
+  height: 110px;
+  border-radius: 5px;
 }
 
 #acti-title{
@@ -63,14 +66,14 @@ image{
   font-weight: bold;
   color:#212121;
   position:relative;
-  left:97px;
-  top:-90px;
+  left:105px;
+  top:-100px;
 }
 
 #acti-time{
   position:relative;
-  left:-20px;
-  top:-43px;
+  left:-5px;
+  top:-53px;
   font-size:80%;
   color:#757575;
 }
@@ -93,7 +96,8 @@ image{
 
 #timeClock{
   position:relative;
-  top:-43px;
+  top:-53px;
+  left:10px;
   width: 20%;
   height: 20px;
 }
