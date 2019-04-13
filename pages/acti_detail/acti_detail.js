@@ -1,10 +1,14 @@
 // pages/acti_detail/acti_detail.js
+
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    openID:'',
     actID:'',
     signIn:false,
     content: {
@@ -25,13 +29,12 @@ Page({
     this.setData({
       actID:options.actID
     })
-    console.log(this.data.actID);
     var that = this;
     wx.request({
       url: 'http://148.70.157.68:3000/act',
       method: 'GET',
       data:{
-        actID: this.data.actID
+        actID: this.data.actID,
       },
       success: function (res) {
         console.log(res.data)
@@ -98,6 +101,34 @@ Page({
   onSignIn() {
     this.setData({
       signIn: true
+    })
+    var that = this;
+    that.setData({
+      openID: app.globalData.userID
+    })
+    wx.request({
+      url: 'http://148.70.157.68:3000/user',
+      data: { 
+        openID: that.data.openID,
+        joinAct: saf
+      },
+      method: 'PUT', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      header: {
+        'content-type': 'application/json'
+      },// 设置请求的 header
+      success: function (res) {
+        if (res.statusCode == 200) {
+
+        } else {
+          console.log("index.js wx.request CheckCallUser statusCode" + res.statusCode);
+        }
+      },
+      fail: function () {
+        console.log("index.js wx.request CheckCallUser fail");
+      },
+      complete: function () {
+        // complete
+      }
     })
   },
 

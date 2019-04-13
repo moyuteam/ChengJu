@@ -14,7 +14,7 @@ App({
 
     wx.login({
       success: function (res) {
-
+        console.log(res.code)
         //发送请求
         wx.request({
           url: 'http://148.70.157.68:3000/user/isRegister', //刁溯服务器接口
@@ -25,12 +25,17 @@ App({
             'content-type': 'application/x-www-form-urlencoded' //默认值
           },
           success: function (res) {
+            console.log(res.data.openID)
               that.globalData.userID = res.data.openID
             if (res.data.isRegister){
               wx.switchTab({
                 url: '../../pages/acti_list/acti_list'
               })
             }            
+          },
+
+          fail: function(err){
+            console.log('fail.....')
           }
         })
       }
@@ -57,6 +62,7 @@ App({
       }
     })
   },
+  
   globalData: {
     userInfo: null,
     userID:'',

@@ -5,6 +5,7 @@
     "pages/acti_detail/acti_detail",
     "pages/submit/submit",
     "pages/mine/mine"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",
