@@ -25,8 +25,12 @@ App({
             'content-type': 'application/x-www-form-urlencoded' //默认值
           },
           success: function (res) {
-            //userID=openID
-          
+              that.globalData.userID = res.data.openID
+            if (res.data.isRegister){
+              wx.switchTab({
+                url: '../../pages/acti_list/acti_list'
+              })
+            }            
           }
         })
       }
@@ -55,6 +59,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    userID:null
+    userID:'',
+    isRegister:''
   }
 })

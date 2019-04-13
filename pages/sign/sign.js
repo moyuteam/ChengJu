@@ -8,26 +8,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo:{}
+     openID:'',
   },
 
 
   formSubmit:function(e){
-      var that = this;
-    wx.switchTab({
-      url: '../../pages/acti_list/acti_list'
+
+    var that = this
+    that.setData({
+      openID: app.globalData.userID
     })
+
       wx.request({
-        url: '',
+        url: 'http://148.70.157.68:3000/user',
         data:{
           name:e.detail.value.name,
-          stuID:e.detail.value.styID,
-          openId:app.globalData.userID    
+          stuID:e.detail.value.stuID,
+          openID:that.data.openID  
         },
         method:'POST',
         success:function(res){
           //绑定ownerID
-          
+          console.log(res.data)
+
+          wx.switchTab({
+            url: '../../pages/acti_list/acti_list'
+          })
         }
       })
     }

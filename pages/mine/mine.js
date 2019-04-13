@@ -1,14 +1,13 @@
 // pages/mine/mine.js
 const app = getApp()
 
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    openID:'',
     StudentName:'',
     StudentId:'',
     inputValue: '',
@@ -107,11 +106,12 @@ Page({
    */
   onLoad: function (options) {
 
+    var that = this
     //获取姓名学号
     wx.request({
-      url: '', // 接口地址
+      url: 'http://148.70.157.68:3000/user', // 接口地址
       data: {
-        openID:app.globalData.userID
+        openID:that.data.openID
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -119,8 +119,8 @@ Page({
       success(res) {
         console.log(res.data)
         this.setData({
-          StudentName: '',
-          StudentId: ''
+          StudentName: res.data.stuName,
+          StudentID: res.data.stuID
         })
       }
     })

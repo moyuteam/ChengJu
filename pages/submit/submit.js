@@ -33,7 +33,15 @@ Page({
     })
   },
   formSubmit:function(e){
+
+    
+
     var that = this;
+
+    console.log("1"+img_url);
+    console.log("2"+that.data.img_url);
+
+
     console.log('form 发生了submit事件', e.detail.value)
     this.setData({
       allValue:e.detail.value
