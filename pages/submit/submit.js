@@ -16,7 +16,7 @@ Page({
     place:'活动地点',
     capacity:'20',
     img_url:'',
-    ownerID:'',
+    stuID: '',
     picUrl:'',
     allValue:''
   }),
@@ -34,13 +34,22 @@ Page({
   },
   formSubmit:function(e){
 
-    
-
     var that = this;
 
-    console.log("1"+img_url);
-    console.log("2"+that.data.img_url);
+    that.setData({
+      openID: app.globalData.userID
+    })
 
+    //获取学号
+    wx.request({
+      url: 'http://148.70.157.68:3000/user/exchange?openID=' + that.data.openID, // 接口地址
+
+      success(res) {
+        that.setData({
+          stuID: res.data.stuID
+        })
+      }
+    })
 
     console.log('form 发生了submit事件', e.detail.value)
     this.setData({
@@ -60,7 +69,7 @@ Page({
         },
         method: "POST",
         data: {
-          ownerID:app.globalData.stuID,
+          ownerID:that.data.stuID,
           picUrl: that.data.img_url,
           name: e.detail.value.name,
           des: e.detail.value.des,

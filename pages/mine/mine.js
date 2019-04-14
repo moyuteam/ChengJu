@@ -107,19 +107,20 @@ Page({
   onLoad: function (options) {
 
     var that = this
+    that.setData({
+      openID: app.globalData.userID
+    })
+  
     //获取姓名学号
     wx.request({
-      url: 'http://148.70.157.68:3000/user', // 接口地址
-      data: {
-        openID:that.data.openID
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
+      url: 'http://148.70.157.68:3000/user/exchange?openID=' + that.data.openID, // 接口地址
+     
+      
       success(res) {
+        console.log('----------')
         console.log(res.data)
-        this.setData({
-          StudentName: res.data.stuName,
+        that.setData({
+          StudentName: res.data.name,
           StudentID: res.data.stuID
         })
       }

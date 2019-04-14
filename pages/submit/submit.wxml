@@ -48,21 +48,24 @@
   <view class="input">
     <image src='../image/User.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">活动人数</view>
-    <input name='capacity' class="input_content"  ype='number' />
+    <input name='capacity' class="input_content"  type='number' />
   </view>
 
   <view class="divLine"></view>
   <view class="input">
     <image src='../image/Tag.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">添加标签</view>
-    <input name='tag1' class="input_content" />
-    <input name='tag2' class="input_content" />
-    <input name='tag3' class="input_content" />
+    <input name='tag1' maxlength='4' class="input_tag" placeholder='选填'/>
+    <input name='tag2' maxlength='4' class="input_tag" />
+    <input name='tag3' maxlength='4' class="input_tag" />
   </view>
   
-  <button form-type="submit" class='submit_btn' >发布活动</button>
-  <view style='height:40rpx'></view>
-  <button form-type="reset" class='submit_btn'>重置</button>
+  <view class='button'>
+    <button form-type="submit" class='submit_btn' >发布活动</button>
+    <view style='height:40rpx'></view>
+    <button form-type="reset" class='submit_btn'>重置</button>
+  </view>
+
 </view>
 
 </form>

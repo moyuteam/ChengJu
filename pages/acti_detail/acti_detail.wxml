@@ -24,12 +24,12 @@
     </view>
     <view class="line"></view>
     <view class="time"> 
-      <image id="timeClock" src="../image/place.png" mode="aspectFit"></image>
+      <image id="timeClock" src="../image/Place.png" mode="aspectFit"></image>
       <text id="word_place">{{content.place}}</text>
     </view>
     <view class="line"></view>
     <view class="time">
-      <image id="timeClock" src="../image/user.png" mode="aspectFit"></image>
+      <image id="timeClock" src="../image/User.png" mode="aspectFit"></image>
       <text id="word_number">{{content.capacity}}</text>
     </view>
     <view class="line"></view>

@@ -35,6 +35,9 @@
   align-items: center;
   justify-content: center;  
 }
+.input_title{
+  
+}
 .input_content{
   margin-left:20rpx;
 }
