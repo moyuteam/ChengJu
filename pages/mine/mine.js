@@ -108,24 +108,9 @@ Page({
 
     var that = this
     that.setData({
-      openID: app.globalData.userID
+      StudentID:app.globalData.stuID,
+      StudentName: app.globalData.stuName
     })
-  
-    //获取姓名学号
-    wx.request({
-      url: 'http://148.70.157.68:3000/user/exchange?openID=' + that.data.openID, // 接口地址
-     
-      
-      success(res) {
-        console.log('----------')
-        console.log(res.data)
-        that.setData({
-          StudentName: res.data.name,
-          StudentID: res.data.stuID
-        })
-      }
-    })
-
 
   },
 

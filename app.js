@@ -25,8 +25,10 @@ App({
             'content-type': 'application/x-www-form-urlencoded' //默认值
           },
           success: function (res) {
-            console.log(res.data.openID)
+            console.log(res.data)
               that.globalData.userID = res.data.openID
+              that.globalData.stuID = res.data.stuID
+              that.globalData.stuName = res.data.name
             if (res.data.isRegister){
               that.globalData.stuID = res.data.stuID
               wx.switchTab({
@@ -68,7 +70,8 @@ App({
     userInfo: null,
     userID:'',
     isRegister:'',
-    stuID:''
+    stuID:'',
+    stuName:''
   },
 
 })
