@@ -34,7 +34,12 @@ App({
               wx.switchTab({
                 url: '../../pages/acti_list/acti_list'
               })
-            }            
+            }  
+            else{
+              wx.switchTab({
+                url: '../../pages/sign/sign'
+              })
+            }          
           },
 
           fail: function(err){

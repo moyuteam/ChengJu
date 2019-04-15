@@ -63,7 +63,7 @@ image{
   display: flex;
   justify-content: left;
   word-wrap: break-word;
-  font-size:100%;
+  font-size:110%;
   font-weight: bold;
   color:#212121;
   position:relative;
@@ -115,5 +115,5 @@ image{
   display: flex;
   position: relative;
   top:-90px;
-  left:95px;
+  left:105px;
 }

@@ -11,6 +11,7 @@ Page({
    */
   data: {
     signIn:false,
+    signInFirst:true,
     content: {
       image: '../image/Kites.PNG',
       title: '风筝-不一样的六一',
@@ -118,16 +119,11 @@ Page({
   onAddActi(){
     this.setData({
       signIn: false,
-      actID: this.data.actID
+      actID: this.data.actID,
+      signInFirst: false,
     })
-    console.log(actID)
-    console.log(this.data.actID)
     var that = this;
     joinAct.push(this.data.actID)
-    console.log(app.globalData.stuID)
-    console.log(joinAct)
-    console.log(this.data.joinAct)
-
     console.log(that.data.joinAct)
     wx.request({
       url: 'http://148.70.157.68:3000/user',

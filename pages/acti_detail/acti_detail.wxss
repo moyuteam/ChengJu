@@ -68,6 +68,18 @@
   justify-content: center;
 }
 
+.submit_btn_after{
+    color: white;
+  background: rgba(214, 213, 212, 0.788);
+  border-color:rgba(214, 213, 212, 0.788);
+  border-radius: 200rpx;
+  width: 40%;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .acti-button{
   display: flex;
 }

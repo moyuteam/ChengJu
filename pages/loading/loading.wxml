@@ -1,0 +1,4 @@
+<!--pages/loading/loading.wxml-->
+<view>
+<Myloading />
+</view>

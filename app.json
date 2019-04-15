@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/loading/loading",
     "pages/sign/sign",
     "pages/acti_list/acti_list",
     "pages/acti_detail/acti_detail",

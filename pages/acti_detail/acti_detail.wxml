@@ -11,7 +11,8 @@
     scroll-top="{{scrollTop}}"
   >
   <image src='http://148.70.157.68:3000{{content.picUrl}}'></image>
-    <text id="word_title">| {{content.name}}</text>
+  <view class="line"></view>
+    <text decode='{{true}}' id="word_title">|&nbsp;&nbsp;&nbsp;{{content.name}}</text>
     <view class="line"></view>
     <view class="time">
       <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
@@ -24,12 +25,12 @@
     </view>
     <view class="line"></view>
     <view class="time"> 
-      <image id="timeClock" src="../image/Place.png" mode="aspectFit"></image>
+      <image id="timeClock" src="../image/place.png" mode="aspectFit"></image>
       <text id="word_place">{{content.place}}</text>
     </view>
     <view class="line"></view>
     <view class="time">
-      <image id="timeClock" src="../image/User.png" mode="aspectFit"></image>
+      <image id="timeClock" src="../image/user.png" mode="aspectFit"></image>
       <text id="word_number">{{content.capacity}}</text>
     </view>
     <view class="line"></view>
@@ -39,7 +40,8 @@
 </scroll-view>
 </view>
   <view class="acti-button">
-    <button form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
+    <button wx:if="{{signInFirst}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
+    <button wx:else form-type="submit" class='submit_btn_after'>已报名</button>
     <button form-type="reset" class='submit_btn'>分享</button>
       <view class="mask" wx:if="{{signIn}}"></view>
       <view class="create-modal" wx:if="{{signIn}}">
@@ -51,3 +53,6 @@
       </view>  
    </view>
 </view>
+
+<view></view>
+<view></view>
