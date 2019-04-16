@@ -74,7 +74,18 @@ app.get('/user', function (req, res) {
         });
     });
 });
-app
+app.get('/user/exchange',function(req,res){
+ 
+    var openid = req.query.openID;
+ 
+    var stuid;
+    User.findOne({ openID:openid },function(err,a){
+        
+        res.send({ stuID:a.stuID,name:a.name });
+  
+    })
+    
+});
 
 
 //查询用户是否已注册
@@ -105,7 +116,7 @@ app.get('/user/isRegister', function (req, res_1) {
             }
             console.log(openid);
             console.log(isRegister);
-            res_1.send({ openID: openid, isRegister: isRegister });
+            res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
 
         });
     });
