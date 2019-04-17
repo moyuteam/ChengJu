@@ -40,7 +40,7 @@
 </scroll-view>
 </view>
   <view class="acti-button">
-    <button wx:if="{{signInFirst}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
+    <button wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
     <button wx:else form-type="submit" class='submit_btn_after'>已报名</button>
     <button form-type="reset" class='submit_btn'>分享</button>
       <view class="mask" wx:if="{{signIn}}"></view>

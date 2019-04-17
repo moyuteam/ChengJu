@@ -110,8 +110,71 @@ Page({
     that.setData({
       StudentID:app.globalData.stuID,
       StudentName: app.globalData.stuName
-    })
+    });
+    // 已报名界面
+    wx.request({
+      url: 'http://148.70.157.68:3000/act/join',
+      method: 'GET',
+      data: {
+        stuID: app.globalData.stuID
+      },
+      header: {
+        "Content-Type": "application/json"
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          joinAct: res.data.joinAct
+        });
+      },
+      fail: function (err) {
+        console.log("....fail....");
+        console.log(err.data);
+      }
+    });
+    // 已发布界面
+    wx.request({
+      url: 'http://148.70.157.68:3000/act/released',
+      method: 'GET',
+      data: {
+        stuID: app.globalData.stuID
+      },
+      header: {
+        "Content-Type": "application/json"
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          releasedAct: res.data.releasedAct
+        });
+      },
+      fail: function (err) {
+        console.log("....fail....");
+        console.log(err.data);
+      }
+    });
 
+
+    wx.request({
+      url: 'http://148.70.157.68:3000/act/collect',
+      method: 'GET',
+      data: {
+        stuID: app.globalData.stuID
+      },
+      header: {
+        "Content-Type": "application/json"
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          collectAct: res.data.collectAct
+        });
+      },
+      fail: function (err) {
+        console.log("....fail....");
+        console.log(err.data);
+      }
+    });
   },
 
   

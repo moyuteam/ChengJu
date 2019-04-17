@@ -21,25 +21,31 @@
     <view class="section">
     <block wx:if="{{true}}">
 
-      <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-        <navigator url="{{itemName.url}}">
-        <view id="white">
-          <view class="acti-image">
-            <image src="{{itemName.image}}" mode="aspectFit"></image>
+      <block class="contain" wx:for="{{joinAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
+      <view id="white">
+        <view class="acti-image">
+          <image src="http://148.70.157.68:3000{{itemName.picUrl}}" mode="aspectFit" ></image>
+        </view>
+        <view class="acti-info">
+          <text id="acti-title">{{itemName.name}}</text>
+          <view class="time">
+            <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+            <text id="acti-time">{{itemName.date}}</text>
+            <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+            <text id="acti-time">{{itemName.time}}</text>
           </view>
-          <view class="acti-info">
-            <text id="acti-title">{{itemName.title}}</text>
-            <view class="time">
-              <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.calendar}}</text>
-              <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.time}}</text>
-            </view>
+          <view class="acti-tag">
+            <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag2}}" wx:if="{{itemName.tag2}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag3}}" wx:if="{{itemName.tag3}}"/>
           </view>
         </view>
-        </navigator>
-      </block>
-
+      </view>
+      </navigator>
+    </block>
       </block>
     </view>
   </swiper-item> 
@@ -57,24 +63,31 @@
       scroll-top="{{scrollTop}}"
     >
 
-      <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-        <navigator url="{{itemName.url}}">
-        <view id="white">
-          <view class="acti-image">
-            <image src="{{itemName.image}}" mode="aspectFit"></image>
+      <block class="contain" wx:for="{{releasedAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
+      <view id="white">
+        <view class="acti-image">
+          <image src="http://148.70.157.68:3000{{itemName.picUrl}}" mode="aspectFit" ></image>
+        </view>
+        <view class="acti-info">
+          <text id="acti-title">{{itemName.name}}</text>
+          <view class="time">
+            <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+            <text id="acti-time">{{itemName.date}}</text>
+            <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+            <text id="acti-time">{{itemName.time}}</text>
           </view>
-          <view class="acti-info">
-            <text id="acti-title">{{itemName.title}}</text>
-            <view class="time">
-              <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.calendar}}</text>
-              <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.time}}</text>
-            </view>
+          <view class="acti-tag">
+            <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag2}}" wx:if="{{itemName.tag2}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag3}}" wx:if="{{itemName.tag3}}"/>
           </view>
         </view>
-        </navigator>
-      </block>
+      </view>
+      </navigator>
+    </block>
   
       </scroll-view>
       </block>

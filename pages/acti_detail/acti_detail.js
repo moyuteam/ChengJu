@@ -11,7 +11,6 @@ Page({
    */
   data: {
     signIn:false,
-    signInFirst:true,
     content: {
       image: '../image/Kites.PNG',
       title: '风筝-不一样的六一',
@@ -31,7 +30,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  show(){
+    this.onLoad()
+  },
   onLoad: function (options) {
+    console.log(options)
     this.setData({
       actID:options.actID
     })
@@ -41,6 +44,7 @@ Page({
       method: 'GET',
       data:{
         actID: this.data.actID,
+        stuID: app.globalData.stuID
       },
       success: function (res) {
         console.log(res.data)
@@ -120,11 +124,10 @@ Page({
     this.setData({
       signIn: false,
       actID: this.data.actID,
-      signInFirst: false,
+      isJoin: true,
     })
     var that = this;
     joinAct.push(this.data.actID)
-    console.log(that.data.joinAct)
     wx.request({
       url: 'http://148.70.157.68:3000/user',
       data: {
@@ -136,11 +139,27 @@ Page({
         'content-type': 'application/json'
       },// 设置请求的 header
       success: function (res) {
-        if (res.statusCode == 200) {
-
-        } else {
-          console.log("index.js wx.request CheckCallUser statusCode" + res.statusCode);
-        }
+        console.log(res.data)
+        console.log(that.data.actID)
+        wx.request({
+          url: 'http://148.70.157.68:3000/act',
+          method: 'GET',
+          data: {
+            actID: that.data.actID,
+            stuID: app.globalData.stuID
+          },
+          success: function (res) {
+            console.log(res.data)
+            that.setData({
+              content: res.data
+            });
+          },
+          fail: function (err) {
+            console.log("....fail....");
+            console.log(err.data);
+          }
+        })
+        
       },
       fail: function () {
         console.log("index.js wx.request CheckCallUser fail");

@@ -29,17 +29,19 @@ App({
               that.globalData.userID = res.data.openID
               that.globalData.stuID = res.data.stuID
               that.globalData.stuName = res.data.name
+            console.log("1")
             if (res.data.isRegister){
-              that.globalData.stuID = res.data.stuID
+              console.log("2")
               wx.switchTab({
-                url: '../../pages/acti_list/acti_list'
+                url: '/pages/acti_list/acti_list'
               })
-            }  
-            else{
-              wx.switchTab({
-                url: '../../pages/sign/sign'
+            } else{
+              console.log("4")
+              wx.redirectTo({
+                url: '/pages/sign/sign'
               })
             }          
+            console.log("5")
           },
 
           fail: function(err){
