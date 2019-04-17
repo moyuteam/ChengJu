@@ -17,8 +17,6 @@ var User = require('./modules/user.js');
 
 //使用POST方法来对数据库做增加操作
 app.post('/user', function (req, res) {
-<<<<<<< HEAD
-=======
     // var b = req.body.name;
     //console.log(b);
     //console.log(req);‘
@@ -33,7 +31,6 @@ app.post('/user', function (req, res) {
         releasedAct: req.body.releasedAct
     });
     console.log(a);
->>>>>>> refs/remotes/origin/back-end
     //查重操作，如果stuID有重复的就不会增加用户
     User.findOne({ stuID: req.body.stuID }, function (err, doc) {
         if (doc == null) {
@@ -111,26 +108,9 @@ app.get('/user/isRegister', function (req, res_1) {
             } else {
                 isRegister = false;
             }
-<<<<<<< HEAD
-            if(isRegister){
-                res_1.json({
-                    openID: openid,
-                    isRegister: isRegister,
-                    stuID: a.stuID
-                });
-            }
-            else{
-                res_1.json({
-                    openID: openid,
-                    isRegister: isRegister
-                });
-            }
-            
-=======
             console.log(openid);
             console.log(isRegister);
             res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
->>>>>>> refs/remotes/origin/back-end
 
         });
     });
@@ -276,8 +256,8 @@ app.post('/act', function (req, res) {
 app.get('/act', function (req, res) {
     var isjoin;
     if(req.query.stuID !== undefined){     //获取当前用户对指定活动的参与状态，isjoin的值true为已参与，false为未参与
-        User.findOne({ stuID: isjoin.stuID}, function(err, user){
-            if(user.joinAct.indexOf(isjoin.actID) === -1){
+        User.findOne({ stuID: req.query.stuID}, function(err, user){
+            if(user.joinAct.indexOf(req.query.actID) !== -1){
                 isjoin = true;
             }
             else{
