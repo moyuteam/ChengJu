@@ -1,14 +1,18 @@
 /* components/loading/loading.wxss */
 .loading {
+  padding-top: 300px;
+  padding-bottom: 300px;
+  margin-left: auto;
+  margin-right: auto;
   width: 70px;
   margin: 0 auto;
   text-align: center;
 }
 
 .loading > view {
-  width: 24rpx;
-  height: 24rpx;
-  background-color: rgba(255,160,0,0.8));
+  width: 30rpx;
+  height: 30rpx;
+  background-color: rgba(255,160,0,0.8);
 
   border-radius: 100%;
   display: inline-block;
@@ -16,11 +20,11 @@
 }
 
 .loading .bounce1 {
-  animation-delay: -0.32s;
+  animation-delay: -0.64s;
 }
 
 .loading .bounce2 {
-  animation-delay: -0.16s;
+  animation-delay: -0.32s;
 }
 
 @keyframes sk-bouncedelay {
