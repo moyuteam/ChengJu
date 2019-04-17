@@ -110,7 +110,13 @@ app.get('/user/isRegister', function (req, res_1) {
             }
             console.log(openid);
             console.log(isRegister);
-            res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
+            if(isRegister){
+                res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
+            }
+            else{
+                res_1.send({ openID: openid, isRegister: isRegister});
+            }
+            
 
         });
     });
@@ -208,6 +214,12 @@ app.put('/user', function (req, res) {
             }
         }
         user.save();
+        if(req.body.joinAct.length === 1){
+            res.json({
+                actID: req.body.joinAct
+            });
+        }
+            //提示服务器报名成功
     });
 });
 
@@ -257,11 +269,13 @@ app.get('/act', function (req, res) {
     var isjoin;
     if(req.query.stuID !== undefined){     //获取当前用户对指定活动的参与状态，isjoin的值true为已参与，false为未参与
         User.findOne({ stuID: req.query.stuID}, function(err, user){
-            if(user.joinAct.indexOf(req.query.actID) !== -1){
-                isjoin = true;
-            }
-            else{
-                isjoin = false;
+            if(user.joinAct !== undefined){
+                if(user.joinAct.indexOf(req.query.actID) !== -1){
+                    isjoin = true;
+                }
+                else{
+                    isjoin = false;
+                }
             }
         })
     }
@@ -279,7 +293,7 @@ app.get('/act', function (req, res) {
             tag2: a.tag2,
             tag3: a.tag3,
             picUrl: a.picUrl,
-            isJoin: isjoin
+            isJoin: isjoin?isjoin:false
         });
     })
 });
