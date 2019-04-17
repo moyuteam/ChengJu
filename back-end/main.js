@@ -17,6 +17,23 @@ var User = require('./modules/user.js');
 
 //使用POST方法来对数据库做增加操作
 app.post('/user', function (req, res) {
+<<<<<<< HEAD
+=======
+    // var b = req.body.name;
+    //console.log(b);
+    //console.log(req);‘
+    console.log(req);
+    var a = new User({
+        name: req.body.name,
+        stuID: req.body.stuID,
+        openID: req.body.openID,
+        sex: req.body.sex,
+        collectAct: req.body.collectAct,
+        joinAct: req.body.joinAct,
+        releasedAct: req.body.releasedAct
+    });
+    console.log(a);
+>>>>>>> refs/remotes/origin/back-end
     //查重操作，如果stuID有重复的就不会增加用户
     User.findOne({ stuID: req.body.stuID }, function (err, doc) {
         if (doc == null) {
@@ -57,10 +74,23 @@ app.get('/user', function (req, res) {
         });
     });
 });
-app
+app.get('/user/exchange',function(req,res){
+ 
+    var openid = req.query.openID;
+ 
+    var stuid;
+    User.findOne({ openID:openid },function(err,a){
+        
+        res.send({ stuID:a.stuID,name:a.name });
+  
+    })
+    
+});
 
 
 //查询用户是否已注册
+//与微信服务器通讯
+//返回openID（用户唯一标识）和isRegister（用户是否注册)
 app.get('/user/isRegister', function (req, res_1) {
     var async = require('async');
     var request = require('request');
@@ -81,6 +111,7 @@ app.get('/user/isRegister', function (req, res_1) {
             } else {
                 isRegister = false;
             }
+<<<<<<< HEAD
             if(isRegister){
                 res_1.json({
                     openID: openid,
@@ -95,6 +126,11 @@ app.get('/user/isRegister', function (req, res_1) {
                 });
             }
             
+=======
+            console.log(openid);
+            console.log(isRegister);
+            res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
+>>>>>>> refs/remotes/origin/back-end
 
         });
     });
@@ -282,7 +318,7 @@ app.put('/act', function (req, res) {
         tag2: req.body.tag2,
         tag3: req.body.tag3,
         picUrl: item.picUrl
-    }); -
+    });
         Act.findOne({ actID: a.actID }, function (err, doc) {
             doc.name = a.name;
             doc.place = a.place;
