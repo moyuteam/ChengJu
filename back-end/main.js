@@ -14,46 +14,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var User = require('./modules/user.js');
-//app.get('/api/user', function (req, res) {
-//  User.find({ approved: true }, function (err, attractions) {
-//    if (err) return res.send(500, 'Error occurred: database error.');
-//    res.json(User.map(function (a) {
-// return {
-//  name: a.name,
-//    stuID: a.stuID,
-//      sex: a.sex,
-//        campus: a.campus,
-//      }
-//    }));
-//  });
-//});
 
 //使用POST方法来对数据库做增加操作
 app.post('/user', function (req, res) {
-    // var b = req.body.name;
-    //console.log(b);
-    //console.log(req);
-    var a = new User({
-        name: req.body.name,
-        stuID: req.body.stuID,
-        openID: req.body.openID,
-        sex: req.body.sex,
-        collectAct: req.body.collectAct,
-        joinAct: req.body.joinAct,
-        releasedAct: req.body.releasedAct
-    });
-    console.log(a);
     //查重操作，如果stuID有重复的就不会增加用户
-    User.findOne({ stuID: a.stuID }, function (err, doc) {
+    User.findOne({ stuID: req.body.stuID }, function (err, doc) {
         if (doc == null) {
+            var a = new User({
+                name: req.body.name,
+                stuID: req.body.stuID,
+                openID: req.body.openID,
+                sex: req.body.sex,
+                campus: req.body.campus,
+                collectAct: req.body.collectAct,
+                joinAct: req.body.joinAct,
+                releasedAct: req.body.releasedAct
+            });
             a.save(function (err, a) {
                 if (err) return res.send(500, 'Error occurred: database error.');
                 res.send("success!");
             });
         }
         else {
-            //console.log("用户重复，未能成功添加记录... ...");
-            res.send("用户重复，未能成功添加记录... ...");
+            res.send("repeat!");
         }
     });
 
@@ -67,6 +50,7 @@ app.get('/user', function (req, res) {
             name: a.name,
             stuID: a.stuID,
             sex: a.sex,
+            campus: a.canpus,
             collectAct: req.body.collectAct,
             joinAct: a.joinAct,
             releasedAct: a.releasedAct
@@ -79,9 +63,7 @@ app
 //查询用户是否已注册
 app.get('/user/isRegister', function (req, res_1) {
     var async = require('async');
-    //console.log(req.query.code);
     var request = require('request');
-    // const https = require('https');
     var code = req.query.code;
     var openid;
     var isRegister = false;
@@ -92,7 +74,6 @@ app.get('/user/isRegister', function (req, res_1) {
         openid = res.body.split('openid":"');
         openid = openid[1].split('"');
         openid = openid[0];
-        //console.log(openid);
         User.findOne({ openID: openid }, function (err, a) {
             if (err) return res.send(500, 'Error occurred: database error.');
             if (a != undefined) {
@@ -100,9 +81,20 @@ app.get('/user/isRegister', function (req, res_1) {
             } else {
                 isRegister = false;
             }
-            console.log(openid);
-            console.log(isRegister);
-            res_1.send({ openID: openid, isRegister: isRegister });
+            if(isRegister){
+                res_1.json({
+                    openID: openid,
+                    isRegister: isRegister,
+                    stuID: a.stuID
+                });
+            }
+            else{
+                res_1.json({
+                    openID: openid,
+                    isRegister: isRegister
+                });
+            }
+            
 
         });
     });
@@ -110,120 +102,97 @@ app.get('/user/isRegister', function (req, res_1) {
 
 
 });
+
 //使用PUT方法来对数据库做修改操作
 app.put('/user', function (req, res) {
     var a = new User({
         name: req.body.name,
         stuID: req.body.stuID,
+        openID: req.body.openID,
         sex: req.body.sex,
+        campus: req.body.campus,
         collectAct: req.body.colAct,
         joinAct: req.body.joinAct,
         releasedAct: req.body.releasedAct
     });
-    //console.log(a);
-    if (a.name !== undefined) {
-        User.update({ stuID: a.stuID }, { name: a.name }).exec();
-    }
-    if (a.sex !== undefined) {
-        User.update({ stuID: a.stuID }, { sex: a.sex }).exec();
-    }
-    if (a.campus !== undefined) {
-        User.update({ stuID: a.stuID }, { campus: a.campus }).exec();
-    }
-    if (a.collectAct !== undefined) {
-        var add = true;
-        Act.findOne({ stuID: a.stuID }, function (err, user) {
+    User.findOne({ stuID: req.body.stuID }, function (err, user) {     //不空则更新，空则不更新
+        user.name = a.name ? a.name : user.name;
+        user.sex = a.sex ? a.sex : user.sex;
+        user.campus = a.campus ? a.campus : user.campus;
+        if (a.collectAct !== undefined) {
+            var add = true;
             try {
-                a.collectAct.forEach(function (item, index, arr) {
-                    var item1 = item;
-                    user.collectAct.forEach(function (item, index, arr) {
-                        if (item !== item1) {
-                            add = false;
-                            throw new Error("delete");
-                        }
-                    });
-
-                });
+                a.collectAct.forEach(function (item, index, arr) {  //判断更新还是删除
+                    if (user.collectAct.indexOf(item) !== -1) {      //若存在相同活动，则为删除
+                        add = false;
+                        throw new Error("delete");
+                    }
+                })
             } catch (e) {
 
             }
-        })
-        if (add) {
-            a.collectAct.forEach(function (item, index, arr) {
-                user.collectAct.push(item);
-            })
+            if (add) {
+                a.collectAct.forEach(function (item, index, arr) {
+                    user.collectAct.push(item);
+                })
+            }
+            else {
+                a.collectAct.forEach(function (item, index, arr) {
+                    var index1 = user.collectAct.indexOf(item);
+                    user.collectAct.splice(index1, 1);
+                })
+            }
         }
-        else {
-            a.collectAct.forEach(function (item, index, arr) {
-                var index1 = user.collectAct.indexOf(item);
-                user.collectAct.splice(index1, 1);
-            })
-        }
-        user.save();
-    }
-    
-
-if (a.joinAct !== undefined) {
-    var add = true;
-    Act.findOne({ stuID: a.stuID }, function (err, user) {
-        try {
-            a.joinAct.forEach(function (item, index, arr) {
-                var item1 = item;
-                user.joinAct.forEach(function (item, index, arr) {
-                    if (item !== item1) {
+        if (a.joinAct !== undefined) {
+            var add = true;
+            try {
+                a.joinAct.forEach(function (item, index, arr) {  //判断更新还是删除
+                    if (user.joinAct.indexOf(item) !== -1) {      //若存在相同活动，则为删除
                         add = false;
                         throw new Error("delete");
                     }
                 })
-            })
-        } catch (e) {
+            } catch (e) {
 
+            }
+            if (add) {
+                a.joinAct.forEach(function (item, index, arr) {
+                    user.joinAct.push(item);
+                })
+            }
+            else {
+                a.joinAct.forEach(function (item, index, arr) {
+                    var index1 = user.joinAct.indexOf(item);
+                    user.joinAct.splice(index1, 1);
+                })
+            }
         }
-        if (add) {
-            a.joinAct.forEach(function (item, index, arr) {
-                user.joinAct.push(item);
-            })
-        }
-        else {
-            a.joinAct.forEach(function (item, index, arr) {
-                var index1 = user.joinAct.indexOf(item);
-                user.joinAct.splice(index1, 1);
-            })
-        }
-        user.save();
-    });
-}
-if (a.releasedAct !== undefined) {
-    var add = true;
-    Act.findOne({ stuID: a.stuID }, function (err, user) {
-        try {
-            a.releasedAct.forEach(function (item, index, arr) {
-                var item1 = item;
-                user.releasedAct.forEach(function (item, index, arr) {
-                    if (item !== item1) {
+        if (a.releasedAct !== undefined) {
+            var add = true;
+            try {
+                a.releasedAct.forEach(function (item, index, arr) {  //判断更新还是删除
+                    if (user.releasedAct.indexOf(item) !== -1) {      //若存在相同活动，则为删除
                         add = false;
                         throw new Error("delete");
                     }
                 })
-            })
-        } catch (e) {
+            } catch (e) {
 
-        }
-        if (add) {
-            a.releasedAct.forEach(function (item, index, arr) {
-                user.releasedAct.push(item);
-            })
-        }
-        else {
-            a.releasedAct.forEach(function (item, index, arr) {
-                var index1 = user.releasedAct.indexOf(item);
-                user.releasedAct.splice(index1, 1);
-            })
+            }
+            if (add) {
+                a.releasedAct.forEach(function (item, index, arr) {
+                    user.releasedAct.push(item);
+                })
+            }
+            else {
+                a.releasedAct.forEach(function (item, index, arr) {
+                    var index1 = user.releasedAct.indexOf(item);
+                    user.releasedAct.splice(index1, 1);
+                })
+            }
         }
         user.save();
     });
-}
-res.send("success!");
 });
 
 //使用DELETE方法对数据库做删除操作
@@ -258,7 +227,7 @@ app.post('/act', function (req, res) {
     });
     a.actID = a._id.toString();
     a.save(function (err, doc) {
-        User.findOne({ stuID: a.ownerID }, function (err, doc) {
+        User.findOne({ stuID: a.ownerID }, function (err, doc) {  //ObjectID到actID映射
             doc.releasedAct.push(a.actID);
             doc.save();
         });
@@ -269,6 +238,17 @@ app.post('/act', function (req, res) {
 
 //使用GET方法来对活动数据库做查询操作
 app.get('/act', function (req, res) {
+    var isjoin;
+    if(req.query.stuID !== undefined){     //获取当前用户对指定活动的参与状态，isjoin的值true为已参与，false为未参与
+        User.findOne({ stuID: isjoin.stuID}, function(err, user){
+            if(user.joinAct.indexOf(isjoin.actID) === -1){
+                isjoin = true;
+            }
+            else{
+                isjoin = false;
+            }
+        })
+    }
     Act.findOne({ actID: req.query.actID }, function (err, a) {
         if (err) return res.send(500, 'Error occurred: database error.');
         res.json({
@@ -282,7 +262,8 @@ app.get('/act', function (req, res) {
             tag1: a.tag1,
             tag2: a.tag2,
             tag3: a.tag3,
-            picUrl: a.picUrl
+            picUrl: a.picUrl,
+            isJoin: isjoin
         });
     })
 });
@@ -313,9 +294,11 @@ app.put('/act', function (req, res) {
             doc.tag2 = a.tag2;
             doc.tag3 = a.tag3;
             doc.picUrl = a.picUrl;
-            doc.save();
+            doc.save(function (err, doc) {
+                if (err) return res.send(500, "Error occurred: database error.")
+                res.send("success!")
+            });
         })
-    res.send("success!")
 });
 
 //使用DELETE方法对活动数据库做删除操作
@@ -422,8 +405,8 @@ app.get('/act/query/name', function (req, res) {
     var name = req.query.name;
     var length = name.length;
     var i = 0;
-    var regexp1 = name;
-    var regexp2 = '[' + name + ']+'
+    var regexp1 = name;        //匹配包含关键字活动
+    var regexp2 = '[' + name + ']+'      //匹配包含部分关键字活动
     Act.find({ $or: [{ name: { $regex: new RegExp(regexp1) } }, { name: { $regex: new RegExp(regexp2) } }] }, function (err, docs) {
         docs.forEach(function (item, index, arr) {
             var act = {
