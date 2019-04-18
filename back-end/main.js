@@ -103,15 +103,20 @@ app.get('/user/isRegister', function (req, res_1) {
         openid = openid[0];
         User.findOne({ openID: openid }, function (err, a) {
             if (err) return res.send(500, 'Error occurred: database error.');
+            //判断用户数据是否存在数据库中
             if (a != undefined) {
                 isRegister = true;
             } else {
                 isRegister = false;
             }
-            console.log(openid);
-            console.log(isRegister);
-            res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
-
+            
+            //根据用户是否已注册返回不同的数据
+            if(isRegister == true){
+                res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
+            }else{
+                res_1.send({ openID: openid, isRegister: isRegister });
+            }
+            
         });
     });
 
@@ -467,11 +472,8 @@ app.get('/act/query/tag', function (req, res) {
     });
 });
 
-//测试图片上传功能
-
+//图片上传功能逻辑
 var fs = require('fs');
-
-
 app.post('/pic', function (req, res) {
     var form = new formidable.IncomingForm();
     var targetFile = path.join(__dirname, './resources/pic/act_pic');
