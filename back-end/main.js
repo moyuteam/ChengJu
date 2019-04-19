@@ -1,3 +1,10 @@
+//部署HTTPS证书
+// const https = require('https');
+// const fs_1 = require('fs');
+// const options = {
+//     pfx: fs_1.readFileSync('../../SSL/diaosudev.cn.pfx'),
+//     passphrase: '873340a0lc6w5'
+//   };
 //添加依赖
 var mongoose = require('mongoose');
 var express = require('express');
@@ -5,7 +12,7 @@ var app = express();
 //增加静态文件访问的中间件
 app.use(express.static('resources'));
 
-
+// var httpsServer = https.createServer(options,app);
 var path = require('path');
 var bodyParser = require('body-parser');//用于req.body获取值的
 var formidable = require('formidable');
@@ -361,6 +368,9 @@ app.get('/act/all', function (req, res) {
 app.get('/act/collect', function (req, res) {
     User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var collectAct = new Array(0);
+        if(user.releasedAct == undefined){
+            res.send("No Act Found!");
+        }else{
         user.collectAct.forEach(function (item, index, arr) {
             Act.findOne({ actID: item }, function (err, act) {
                 var act = {
@@ -374,7 +384,7 @@ app.get('/act/collect', function (req, res) {
             res.json({
                 collectAct: collectAct
             });
-        })
+        })}
     })
 })
 
@@ -382,6 +392,8 @@ app.get('/act/collect', function (req, res) {
 app.get('/act/join', function (req, res) {
     User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var joinAct = new Array(0);
+        if(user.releasedAct == undefined){
+            res.send("No Act Found!");}else{
         user.joinAct.forEach(function (item, index, arr) {
             Act.findOne({ actID: item }, function (err, act) {
                 var act = {
@@ -395,7 +407,7 @@ app.get('/act/join', function (req, res) {
             res.json({
                 joinAct: joinAct
             });
-        })
+        })}
     })
 })
 
@@ -403,6 +415,9 @@ app.get('/act/join', function (req, res) {
 app.get('/act/released', function (req, res) {
     User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var releasedAct = new Array(0);
+        if(user.releasedAct == undefined){
+            res.send("No Act Found!");
+        }else{
         user.releasedAct.forEach(function (item, index, arr) {
             Act.findOne({ actID: item }, function (err, act) {
                 var act = {
@@ -416,7 +431,7 @@ app.get('/act/released', function (req, res) {
             res.json({
                 releasedAct: releasedAct
             });
-        })
+        })}
     })
 })
 
