@@ -42,39 +42,45 @@
   margin: 10rpx;
 }
 
-image{
-  width: 30%;
-  height: 90px;
+.image{
+  margin: 10px;
+  width: 100px;
+  height: 70px;
+  position: relative;
+
 }
 
 .acti-image{
-  align-items: left;
-  position:relative;
-  margin:0px;
+  position: absolute;
   width:100%;
-  height: 110px;  
+  height:100%;  
   overflow:hidden;
-  display: block;
-  border-radius:50rpx;
+  border-radius:15rpx;
+}
+
+.acti-info{
+  margin-top: 10px;
+  
 }
 
 #acti-title{
   width:250px;
-  display: flex;
   justify-content: left;
   word-wrap: break-word;
   font-size:110%;
   font-weight: bold;
   color:#212121;
   position:relative;
-  left:105px;
-  top:-100px;
 }
 
 #acti-time{
-  position:relative;
-  left:-5px;
-  top:-53px;
+  width: 300rpx;
+  margin-right: 10rpx;
+  font-size:80%;
+  color:#757575;
+}
+
+#acti-date{
   font-size:80%;
   color:#757575;
 }
@@ -87,26 +93,23 @@ image{
     background-color: rgb(255, 255, 255);
     height:90px;
     margin: 18rpx;
-    padding: 18rpx;
-    top:10rpx;
     border:2px solid;
     border-radius: 18rpx;
     border-color:  rgba(255,255,255,0.8);
     box-shadow: 0 6rpx 24rpx rgba(54, 125, 196, 0.12);
+    display: flex;
 }
 
 #timeClock{
   position:relative;
-  top:-53px;
-  left:10px;
   width: 20%;
   height: 20px;
+  margin-right: 5rpx;
 }
 
 .time{
+  margin-top: 10rpx;
   position:relative;
-  top:-43px;
-  left:70px;
   align-items: center;
   display:flex;
 }
@@ -114,6 +117,5 @@ image{
 .acti-tag{
   display: flex;
   position: relative;
-  top:-90px;
-  left:105px;
+
 }

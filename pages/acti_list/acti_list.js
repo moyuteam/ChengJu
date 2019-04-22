@@ -37,7 +37,7 @@ Page({
     })
     var that = this
     wx.request({
-      url:'http://148.70.157.68:3000/act/query/name',
+      url:'https://diaosudev.cn:3000/act/query/name',
       data:{
         name: this.data.inputValue
       },
@@ -101,7 +101,7 @@ onShow: function(){
   onLoad: function(options){
     var that = this;
     wx.request({
-      url: 'http://148.70.157.68:3000/act/all',
+      url: 'https://diaosudev.cn:3000/act/all',
       method: 'GET',
       header: {
         "Content-Type": "application/json"
@@ -119,7 +119,7 @@ onShow: function(){
     });
 
     wx.downloadFile({
-      url: 'http://148.70.157.68:3000/act/all',
+      url: 'https://diaosudev.cn:3000/act/all',
       success: function (res) {
         console.log(res.data);
       }

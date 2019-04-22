@@ -113,7 +113,7 @@ Page({
     });
     // 已报名界面
     wx.request({
-      url: 'http://148.70.157.68:3000/act/join',
+      url: 'https://diaosudev.cn:3000/act/join',
       method: 'GET',
       data: {
         stuID: app.globalData.stuID
@@ -134,7 +134,7 @@ Page({
     });
     // 已发布界面
     wx.request({
-      url: 'http://148.70.157.68:3000/act/released',
+      url: 'https://diaosudev.cn:3000/act/released',
       method: 'GET',
       data: {
         stuID: app.globalData.stuID
@@ -156,7 +156,7 @@ Page({
 
 
     wx.request({
-      url: 'http://148.70.157.68:3000/act/collect',
+      url: 'https://diaosudev.cn:3000/act/collect',
       method: 'GET',
       data: {
         stuID: app.globalData.stuID

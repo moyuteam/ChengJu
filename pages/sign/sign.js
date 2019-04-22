@@ -20,7 +20,7 @@ Page({
     })
 
       wx.request({
-        url: 'http://148.70.157.68:3000/user',
+        url: 'https://diaosudev.cn:3000/user',
         data:{
           name:e.detail.value.name,
           stuID:e.detail.value.stuID,

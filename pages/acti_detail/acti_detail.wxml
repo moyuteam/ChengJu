@@ -10,7 +10,7 @@
     scroll-into-view="{{toView}}"
     scroll-top="{{scrollTop}}"
   >
-  <image src='http://148.70.157.68:3000{{content.picUrl}}'></image>
+  <image src='https://diaosudev.cn:3000{{content.picUrl}}'></image>
   <view class="line"></view>
     <text decode='{{true}}' id="word_title">|&nbsp;&nbsp;&nbsp;{{content.name}}</text>
     <view class="line"></view>
@@ -40,9 +40,9 @@
 </scroll-view>
 </view>
   <view class="acti-button">
-    <button wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
-    <button wx:else form-type="submit" class='submit_btn_after'>已报名</button>
-    <button form-type="reset" class='submit_btn'>分享</button>
+    <view wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</view>
+    <view wx:else form-type="submit" class='submit_btn_after'>已报名</view>
+    <view form-type="reset" class='submit_btn'>分享</view>
       <view class="mask" wx:if="{{signIn}}"></view>
       <view class="create-modal" wx:if="{{signIn}}">
         <view class="modal-title">确定报名？</view>

@@ -45,8 +45,8 @@
     <block class="contain" wx:for="{{allAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
       <view id="white">
-        <view class="acti-image">
-          <image src="http://148.70.157.68:3000{{itemName.picUrl}}" mode="aspectFit" ></image>
+        <view class="image">
+          <image class='acti-image' src="https://diaosudev.cn:3000{{itemName.picUrl}}"></image>
         </view>
         <view class="acti-info">
           <text id="acti-title">{{itemName.name}}</text>
@@ -54,7 +54,7 @@
             <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
             <text id="acti-time">{{itemName.date}}</text>
             <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.time}}</text>
+            <text id="acti-date">{{itemName.time}}</text>
           </view>
           <view class="acti-tag">
             <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
@@ -75,8 +75,8 @@
     <block class="contain" wx:for="{{queryAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="{{itemName.url}}">
       <view id="white">
-        <view class="acti-image">
-          <image src="http://148.70.157.68:3000{{itemName.picUrl}}" mode="aspectFit"></image>
+        <view class="image">
+          <image class='acti-image' src="https://diaosudev.cn:3000{{itemName.picUrl}}" mode="aspectFit"></image>
         </view>
         <view class="acti-info">
           <text id="acti-title">{{itemName.name}}</text>
@@ -84,7 +84,7 @@
             <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
             <text id="acti-time">{{itemName.date}}</text>
             <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.time}}</text>
+            <text id="acti-date">{{itemName.time}}</text>
           </view>
           <view class="acti-tag">
             <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>

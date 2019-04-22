@@ -17,7 +17,7 @@ App({
         console.log(res.code)
         //发送请求
         wx.request({
-          url: 'http://148.70.157.68:3000/user/isRegister', //刁溯服务器接口
+          url: 'https://diaosudev.cn:3000/user/isRegister', //刁溯服务器接口
           data: {
             code: res.code 
           },

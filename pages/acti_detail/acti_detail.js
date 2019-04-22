@@ -40,7 +40,7 @@ Page({
     })
     var that = this;
     wx.request({
-      url: 'http://148.70.157.68:3000/act',
+      url: 'https://diaosudev.cn:3000/act',
       method: 'GET',
       data:{
         actID: this.data.actID,
@@ -129,7 +129,7 @@ Page({
     var that = this;
     joinAct.push(this.data.actID)
     wx.request({
-      url: 'http://148.70.157.68:3000/user',
+      url: 'https://diaosudev.cn:3000/user',
       data: {
         stuID: app.globalData.stuID,
         joinAct: joinAct
@@ -142,7 +142,7 @@ Page({
         console.log(res.data)
         console.log(that.data.actID)
         wx.request({
-          url: 'http://148.70.157.68:3000/act',
+          url: 'https://diaosudev.cn:3000/act',
           method: 'GET',
           data: {
             actID: that.data.actID,

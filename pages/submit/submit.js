@@ -53,7 +53,7 @@ Page({
       })
     } else {
       wx.request({
-        url: 'http://148.70.157.68:3000/act',
+        url: 'https://diaosudev.cn:3000/act',
         header: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
@@ -125,7 +125,7 @@ Page({
         });
 
         wx.uploadFile({
-          url: 'http://148.70.157.68:3000/pic',
+          url: 'https://diaosudev.cn:3000/pic',
           filePath: tempFilePaths[0],
           name: 'Pic',
           formData: {
