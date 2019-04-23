@@ -45,7 +45,7 @@
 .image{
   margin: 10px;
   width: 100px;
-  height: 70px;
+  height: 80px;
   position: relative;
 
 }
@@ -91,7 +91,7 @@
 
 #white{
     background-color: rgb(255, 255, 255);
-    height:90px;
+    height:100px;
     margin: 18rpx;
     border:2px solid;
     border-radius: 18rpx;
@@ -117,5 +117,5 @@
 .acti-tag{
   display: flex;
   position: relative;
-
+  margin-top: 10rpx;
 }

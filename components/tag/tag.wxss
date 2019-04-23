@@ -2,9 +2,9 @@
 .tag {
   font-size: 30rpx;
   background-color: rgba(255, 162, 0, 0.7);
-  padding: 2rpx 5rpx 2px 5rpx;
+  height: 40rpx;
   color: white;
   border-radius: 10rpx;
-  display: inline-block;
-  align-items: center;
+  padding: 1rpx;
+  justify-content: center;
 }

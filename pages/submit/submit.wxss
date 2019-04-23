@@ -99,18 +99,14 @@
   color: white;
   background: rgba(255, 162, 0, 0.788);
   border-color:rgba(255, 162, 0, 0.788);
-  border-radius: 30rpx;
-  width: 35%;
+  border-radius: 20rpx;
+  width: 45%;
   height: 100rpx;
-  margin: 20rpx;
-  display: flex;
   align-items: center;
   justify-content: center;
+  display:block;
+  margin: 0 auto;
 }
-.button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 

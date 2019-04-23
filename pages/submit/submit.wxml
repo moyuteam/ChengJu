@@ -41,7 +41,9 @@
   <view class='input'>
     <image src='../image/Place.png' class='icon' mode='aspectFit'></image>
     <view class='input_title'>活动地点</view>
-    <input class='input_content' name='place'/>
+    <view class='input_content' name='place' bindtap='onChangeAddress'>
+      {{address}}
+    </view>
   </view>
 
   <view class="divLine"></view>
@@ -60,7 +62,7 @@
     <input name='tag3' maxlength='4' class="input_tag" />
   </view>
   
-    <button form-type="submit" class='submit_btn' >发布活动</button>
+  <button form-type="submit" class='submit_btn' >发布活动</button>
 
 </view>
 

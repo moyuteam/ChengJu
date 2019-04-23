@@ -1,0 +1,64 @@
+<view class='time-axis'>
+  
+  <view class='date'>
+    2019-04-10
+  </view>
+
+  <view class='line'>
+    <view class='online-top-close'></view>
+    <view class='dot-close'></view>
+    <view class='online-bottom'></view>
+  </view>
+
+  <view class='white'>
+    <view class='name'>唱歌</view>
+    <image class='image' src='../image/test1.jpg'></image>
+  </view>
+
+</view>
+
+<view class='time-axis'>
+  
+  <view class='date'>
+    2019-04-10
+  </view>
+
+  <view class='line'>
+    <view class='online-top-close'></view>
+    <view class='dot-close'></view>
+    <view class='online-bottom'></view>
+  </view>
+
+  <view class='white'>
+    <view class='name'>唱歌</view>
+    <image class='image' src='../image/test2.jpg'></image>
+  </view>
+
+</view>
+
+<view class='time-axis'>
+  
+  <view class='date'>
+    2019-04-10
+  </view>
+
+  <view class='line'>
+    <view class='online-top-close'></view>
+    <view class='dot-close'></view>
+    <view class='online-bottom'></view>
+  </view>
+
+  <view class='white'>
+    <view class='name'>唱歌</view>
+    <image class='image'></image>
+  </view>
+
+</view>
+
+
+
+
+
+
+
+
