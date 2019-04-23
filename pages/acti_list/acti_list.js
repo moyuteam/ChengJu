@@ -94,6 +94,9 @@ Page({
   },
   
 onShow: function(){
+  this.setData({
+    searchItem: false
+  })
   this.onLoad()
 },
 

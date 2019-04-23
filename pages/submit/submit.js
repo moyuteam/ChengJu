@@ -26,12 +26,21 @@ Page({
     imgBoolean: true
   },
 
+
   formReset:function(e){
     console.log('form发生了reset事件',e.detail.value)
     this.setData({
       allValue:''
     })
   },
+
+
+  clear(e){
+    this.setData({
+      allValue:''
+    })
+  },
+
   formSubmit:function(e){
 
     var that = this;

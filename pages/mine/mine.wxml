@@ -63,7 +63,7 @@
       scroll-top="{{scrollTop}}"
     >
 
-<block class="contain" wx:for="{{allAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+<block class="contain" wx:for="{{release}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
       <view id="white">
         <view class="image">

@@ -2,6 +2,7 @@
 const app = getApp()
 
 var join_Act = new Array(0)
+var release_Act = new Array(0)
 Page({
 
   /**
@@ -9,6 +10,7 @@ Page({
    */
   data: {
     join:[],
+    release:[],
     openID:'',
     StudentName:'',
     StudentId:'',
@@ -66,7 +68,7 @@ Page({
       },
       success: function (res) {
         console.log(res.data)
-
+        join_Act = []
         var i = 0
         while(res.data.joinAct[i]){
           var a = res.data.joinAct[i++].actID
@@ -105,9 +107,27 @@ Page({
       },
       success: function (res) {
         console.log(res.data)
-        that.setData({
-          releasedAct: res.data.releasedAct
-        });
+        release_Act = []
+        var i = 0
+        while (res.data.releasedAct[i]) {
+          var a = res.data.releasedAct[i++].actID
+          wx.request({
+            url: 'https://diaosudev.cn:3000/act',
+            method: 'GET',
+            data: {
+              actID: a
+            },
+            header: {
+              "Content-Type": "application/json"
+            },
+            success: function (res) {
+              release_Act.push(res.data)
+              that.setData({
+                release: release_Act
+              })
+            }
+          })
+        }
       },
       fail: function (err) {
         console.log("....fail....");
@@ -169,7 +189,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.onLoad();
     var that = this;
     var query = wx.createSelectorQuery()//创建节点查询器 query
     query.select('#fix').boundingClientRect()//选择Id的节点，获取节点位置信息的查询请求

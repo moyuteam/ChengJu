@@ -27,7 +27,7 @@
         "selectedIconPath": "pages/icon/acti-after.png"
       },
       {
-        "pagePath": "pages/time_axis/time_axis",
+        "pagePath": "pages/submit/submit",
         "text": "发布",
         "color": "#8a8a8a",
         "selectedColor": "#FFA000",
