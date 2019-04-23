@@ -14,33 +14,6 @@
   >
 
   <view wx:if="{{!searchItem}}">
-<!--js手写数据
-    <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-      <navigator url="{{itemName.url}}">
-      <view id="white">
-        <view class="acti-image">
-          <image src="{{itemName.image}}" mode="aspectFit"></image>
-        </view>
-        <view class="acti-info">
-          <text id="acti-title">{{itemName.title}}</text>
-          <view class="time">
-            <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.calendar}}</text>
-            <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.time}}</text>
-          </view>
-          <view class="acti-tag">
-            <Mytag text="{{'111111'}}"/>
-            <text decode='{{true}}'>&nbsp;&nbsp;</text>
-            <Mytag text="{{'222222'}}"/>
-            <text decode='{{true}}'>&nbsp;&nbsp;</text>
-            <Mytag text="{{'333333'}}"/>
-          </view>
-        </view>
-      </view>
-      </navigator>
-    </block>
-    -->
   <!--数据库数据-->
     <block class="contain" wx:for="{{allAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
       <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">

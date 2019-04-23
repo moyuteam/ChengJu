@@ -1,12 +1,14 @@
 // pages/mine/mine.js
 const app = getApp()
 
+var join_Act = new Array(0)
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    join:[],
     openID:'',
     StudentName:'',
     StudentId:'',
@@ -64,9 +66,27 @@ Page({
       },
       success: function (res) {
         console.log(res.data)
-        that.setData({
-          joinAct: res.data.joinAct
-        });
+
+        var i = 0
+        while(res.data.joinAct[i]){
+          var a = res.data.joinAct[i++].actID
+          wx.request({
+            url: 'https://diaosudev.cn:3000/act',
+            method: 'GET',
+            data: {
+              actID: a
+            },
+            header: {
+              "Content-Type": "application/json"
+            },
+            success: function(res){
+              join_Act.push(res.data)
+              that.setData({
+                join: join_Act
+              })
+            }
+          })
+        } 
       },
       fail: function (err) {
         console.log("....fail....");
