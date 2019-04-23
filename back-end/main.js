@@ -1,10 +1,10 @@
 //部署HTTPS证书
-// const https = require('https');
-// const fs_1 = require('fs');
-// const options = {
-//     pfx: fs_1.readFileSync('../../SSL/diaosudev.cn.pfx'),
-//     passphrase: '873340a0lc6w5'
-//   };
+const https = require('https');
+const fs_1 = require('fs');
+const options = {
+    pfx: fs_1.readFileSync('../../SSL/diaosudev.cn.pfx'),
+    passphrase: '873340a0lc6w5'
+  };
 //添加依赖
 var mongoose = require('mongoose');
 var express = require('express');
@@ -12,7 +12,7 @@ var app = express();
 //增加静态文件访问的中间件
 app.use(express.static('resources'));
 
-// var httpsServer = https.createServer(options,app);
+var httpsServer = https.createServer(options,app);
 var path = require('path');
 var bodyParser = require('body-parser');//用于req.body获取值的
 var formidable = require('formidable');
@@ -116,18 +116,6 @@ app.get('/user/isRegister', function (req, res_1) {
             } else {
                 isRegister = false;
             }
-<<<<<<< HEAD
-            console.log(openid);
-            console.log(isRegister);
-            if(isRegister){
-                res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
-            }
-            else{
-                res_1.send({ openID: openid, isRegister: isRegister});
-            }
-            
-
-=======
             
             //根据用户是否已注册返回不同的数据
             if(isRegister == true){
@@ -136,7 +124,6 @@ app.get('/user/isRegister', function (req, res_1) {
                 res_1.send({ openID: openid, isRegister: isRegister });
             }
             
->>>>>>> 4a19487be4262188d2436e9c29f0d562f8a6617a
         });
     });
 
@@ -524,6 +511,4 @@ app.post('/pic', function (req, res) {
 });
 
 
-
-app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'));
+httpsServer.listen(3000);
