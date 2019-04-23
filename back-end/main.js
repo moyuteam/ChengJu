@@ -371,19 +371,14 @@ app.get('/act/collect', function (req, res) {
     User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var collectAct = new Array(0);
         user.collectAct.forEach(function (item, index, arr) {
-            Act.findOne({ actID: item }, function (err, act) {
-                var act = {
-                    name: item.name,
-                    actID: item.actID,
-                    date: item.date,
-                    time: item.time
-                }
-                collectAct.push(act);
-            })
-            res.json({
-                collectAct: collectAct
-            });
+            var acts = {
+                actID: item.actID
+            }
+            collectAct.push(acts)
         })
+        res.json({
+            collectAct: collectAct
+        });
     })
 })
 
@@ -392,19 +387,14 @@ app.get('/act/join', function (req, res) {
     User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var joinAct = new Array(0);
         user.joinAct.forEach(function (item, index, arr) {
-            Act.findOne({ actID: item }, function (err, act) {
-                var act = {
-                    name: item.name,
-                    actID: item.actID,
-                    date: item.date,
-                    time: item.time
-                }
-                joinAct.push(act);
-            })
-            res.json({
-                joinAct: joinAct
-            });
+            var acts = {
+                actID: item.actID
+            }
+            joinAct.push(acts)
         })
+        res.json({
+            joinAct: joinAct
+        });
     })
 })
 
@@ -413,19 +403,14 @@ app.get('/act/released', function (req, res) {
     User.findOne({ stuID: req.query.stuID }, function (err, user) {
         var releasedAct = new Array(0);
         user.releasedAct.forEach(function (item, index, arr) {
-            Act.findOne({ actID: item }, function (err, act) {
-                var act = {
-                    name: item.name,
-                    actID: item.actID,
-                    date: item.date,
-                    time: item.time
-                }
-                releasedAct.push(act);
-            })
-            res.json({
-                releasedAct: releasedAct
-            });
+            var acts = {
+                actID: item.actID
+            }
+            releasedAct.push(acts)
         })
+        res.json({
+            releasedAct: releasedAct
+        });
     })
 })
 
