@@ -28,7 +28,7 @@
 
 .online-top-close {
   width: 1rpx;
-  height: 114rpx;
+  height: 124rpx;
   background: rgba(255, 162, 0, 0.788);
 }
 
@@ -44,9 +44,8 @@
 
 .online-bottom {
   width: 1rpx;
-  height: 114rpx;
+  height: 124rpx;
   background: rgba(255, 162, 0, 0.788);
-
 }
 .white {
   width: 72%;

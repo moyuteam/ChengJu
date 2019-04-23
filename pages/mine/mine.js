@@ -18,6 +18,7 @@ Page({
     message: 'Hello Minia~',
     toView: 'red',
     scrollTop: 100,
+    currentData:0
   },
 
   scroll(e) {

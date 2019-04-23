@@ -11,7 +11,7 @@
   <view class='menu'>
     <view class='{{currentData == 0 ? "choose_left_select" : "choose_left_unselect"}}'  data-current = "0" bindtap='checkCurrent'>已报名</view>
     <view class='{{currentData == 1 ? "choose_middle_select" : "choose_middle_unselect"}}'  data-current = "1" bindtap='checkCurrent'>已发布</view>
-    <view class='{{currentData == 2 ? "choose_right_select" : "choose_right_unselect"}}'  data-current = "2" bindtap='checkCurrent'>已收藏</view>
+    <view class='{{currentData == 2 ? "choose_right_select" : "choose_right_unselect"}}'  data-current = "2" bindtap='checkCurrent'>已参加</view>
   </view>
 </view>
 
