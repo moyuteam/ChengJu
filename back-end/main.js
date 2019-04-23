@@ -1,3 +1,10 @@
+//部署HTTPS证书
+// const https = require('https');
+// const fs_1 = require('fs');
+// const options = {
+//     pfx: fs_1.readFileSync('../../SSL/diaosudev.cn.pfx'),
+//     passphrase: '873340a0lc6w5'
+//   };
 //添加依赖
 var mongoose = require('mongoose');
 var express = require('express');
@@ -5,7 +12,7 @@ var app = express();
 //增加静态文件访问的中间件
 app.use(express.static('resources'));
 
-
+// var httpsServer = https.createServer(options,app);
 var path = require('path');
 var bodyParser = require('body-parser');//用于req.body获取值的
 var formidable = require('formidable');
@@ -103,11 +110,13 @@ app.get('/user/isRegister', function (req, res_1) {
         openid = openid[0];
         User.findOne({ openID: openid }, function (err, a) {
             if (err) return res.send(500, 'Error occurred: database error.');
+            //判断用户数据是否存在数据库中
             if (a != undefined) {
                 isRegister = true;
             } else {
                 isRegister = false;
             }
+<<<<<<< HEAD
             console.log(openid);
             console.log(isRegister);
             if(isRegister){
@@ -118,6 +127,16 @@ app.get('/user/isRegister', function (req, res_1) {
             }
             
 
+=======
+            
+            //根据用户是否已注册返回不同的数据
+            if(isRegister == true){
+                res_1.send({ openID: openid, isRegister: isRegister, stuID:a.stuID,name:a.name });
+            }else{
+                res_1.send({ openID: openid, isRegister: isRegister });
+            }
+            
+>>>>>>> 4a19487be4262188d2436e9c29f0d562f8a6617a
         });
     });
 
@@ -367,52 +386,64 @@ app.get('/act/all', function (req, res) {
 });
 
 //使用GET方法来查询用户已收藏活动
-app.get('/act/collect', function (req, res) {
-    User.findOne({ stuID: req.query.stuID }, function (err, user) {
+app.get('/act/collect', function(req, res) {
+    User.findOne({ stuID: req.query.stuID}, function(err, user){
         var collectAct = new Array(0);
-        user.collectAct.forEach(function (item, index, arr) {
-            var acts = {
-                actID: item.actID
-            }
-            collectAct.push(acts)
-        })
-        res.json({
-            collectAct: collectAct
-        });
+        if(user.collectAct == undefined){
+            res.send("No Act Found!");
+        }else{
+            user.collectAct.forEach(function (item, index, arr) {
+                var acts = {
+                    actID: item.actID
+                }
+                collectAct.push(acts);
+            })
+            res.json({
+                collectAct: collectAct
+            });
+        }
     })
-})
+});
 
 //使用GET方法来查询用户已参与活动
-app.get('/act/join', function (req, res) {
-    User.findOne({ stuID: req.query.stuID }, function (err, user) {
+app.get('/act/join', function(req, res) {
+    User.findOne({ stuID: req.query.stuID}, function(err, user){
         var joinAct = new Array(0);
-        user.joinAct.forEach(function (item, index, arr) {
-            var acts = {
-                actID: item.actID
-            }
-            joinAct.push(acts)
-        })
-        res.json({
-            joinAct: joinAct
-        });
+        if(user.joinAct == undefined){
+            res.send("No Act Found!");
+        }else{
+            user.joinAct.forEach(function (item, index, arr) {
+                var acts = {
+                    actID: item.actID
+                }
+                joinAct.push(acts)
+            })
+            res.json({
+                joinAct: joinAct
+            });
+        }
     })
-})
+});
 
 //使用GET方法来查询用户已发布活动
-app.get('/act/released', function (req, res) {
-    User.findOne({ stuID: req.query.stuID }, function (err, user) {
+app.get('/act/released', function(req, res) {
+    User.findOne({ stuID: req.query.stuID}, function(err, user){
         var releasedAct = new Array(0);
-        user.releasedAct.forEach(function (item, index, arr) {
-            var acts = {
-                actID: item.actID
-            }
-            releasedAct.push(acts)
-        })
-        res.json({
-            releasedAct: releasedAct
-        });
+        if(user.releasedAct == undefined){
+            res.send("No Act Found!");
+        }else{
+            user.releasedAct.forEach(function (item, index, arr) {
+                var acts = {
+                    actID: item.actID
+                }
+                releasedAct.push(acts)
+            })
+            res.json({
+                releasedAct: releasedAct
+            });
+        }
     })
-})
+});
 
 //使用GET方法来查询活动数据库中相应名称的活动
 app.get('/act/query/name', function (req, res) {
@@ -466,11 +497,8 @@ app.get('/act/query/tag', function (req, res) {
     });
 });
 
-//测试图片上传功能
-
+//图片上传功能逻辑
 var fs = require('fs');
-
-
 app.post('/pic', function (req, res) {
     var form = new formidable.IncomingForm();
     var targetFile = path.join(__dirname, './resources/pic/act_pic');
