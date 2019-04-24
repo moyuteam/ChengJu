@@ -28,7 +28,7 @@
         "selectedIconPath": "pages/icon/acti-after.png"
       },
       {
-        "pagePath": "pages/impression/impression",
+        "pagePath": "pages/submit/submit",
         "text": "发布",
         "color": "#8a8a8a",
         "selectedColor": "#FFA000",

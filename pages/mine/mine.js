@@ -57,15 +57,39 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    that.setData({
+      StudentID: app.globalData.stuID,
+      StudentName: app.globalData.stuName
+    });
+  },
+  
+  bindchange: function (e) {
+    const that = this;
+    that.setData({
+      currentData: e.detail.current
+    })
+  },
+  //点击切换，滑块index赋值
+  checkCurrent: function (e) {
+    const that = this;
+
+    if (that.data.currentData === e.target.dataset.current) {
+      return false;
+    } else {
+
+      that.setData({
+        currentData: e.target.dataset.current
+      })
+    }
 
     var time = util.formatTime(new Date());
     this.setData({
       now: time
     });
 
-    var that = this
     that.setData({
-      StudentID:app.globalData.stuID,
+      StudentID: app.globalData.stuID,
       StudentName: app.globalData.stuName
     });
     // 已报名界面
@@ -82,9 +106,9 @@ Page({
         console.log(res.data)
         join_Act = []
         joined_Act = []
-        var i = 0
-        while(res.data.joinAct[i]){
-          var a = res.data.joinAct[i++].actID
+        for (var i = 0; i < res.data.joinAct.length; i++) {
+          var a = res.data.joinAct[i].actID
+          console.log(i + a)
           wx.request({
             url: 'https://diaosudev.cn:3000/act',
             method: 'GET',
@@ -94,20 +118,26 @@ Page({
             header: {
               "Content-Type": "application/json"
             },
-            success: function(res){
+            success: function (res) {
+              console.log(i + res.data)
               join_Act.push(res.data)
+              console.log(i + join_Act)
               that.setData({
                 join: join_Act
               })
-              if (that.data.now.substring(0, 10) > res.data.date){
+              console.log(join_Act)
+              if (that.data.now.substring(0, 10) > res.data.date) {
                 joined_Act.push(res.data)
                 that.setData({
                   joined: joined_Act
                 })
               }
+            },
+            fail: function (err) {
+              console.log("....fail..wulaalla.");
             }
           })
-        } 
+        }
       },
       fail: function (err) {
         console.log("....fail....");
@@ -153,26 +183,6 @@ Page({
         console.log(err.data);
       }
     });
-  },
-  
-  bindchange: function (e) {
-    const that = this;
-    that.setData({
-      currentData: e.detail.current
-    })
-  },
-  //点击切换，滑块index赋值
-  checkCurrent: function (e) {
-    const that = this;
-
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
