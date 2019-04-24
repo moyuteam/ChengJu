@@ -92,7 +92,48 @@
       </scroll-view>
       </block>
     </view>
-  </swiper-item> 
+  </swiper-item>  
+
+
+  <swiper-item>
+    <view class="section">
+    <block wx:if="{{true}}">
+    <scroll-view
+      scroll-y
+      style="height: 2000px;"
+      bindscrolltoupper="upper"
+      bindscrolltolower="lower"
+      bindscroll="scroll"
+      scroll-into-view="{{toView}}"
+      scroll-top="{{scrollTop}}"
+    >
+
+    <block class="contain" wx:for="{{joined}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+          <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
+            <view class='time-axis'>
+              <view class='date'>
+                {{itemName.date}}
+              </view>
+
+              <view class='line'>
+                <view class='online-top-close'></view>
+                <view class='dot-close'></view>
+                <view class='online-bottom'></view>
+              </view>
+
+              <view class='white-joined'>
+                <view class='name'>{{itemName.name}}</view>
+                <image class='image-joined' src='https://diaosudev.cn:3000{{itemName.picUrl}}'></image>
+              </view>
+
+            </view>
+          </navigator>
+        </block>
+      
+          </scroll-view>
+          </block>
+        </view>
+      </swiper-item>  
   
 </swiper>
 

@@ -1,8 +1,12 @@
 // pages/mine/mine.js
-const app = getApp()
 
+
+var util = require('../../utils/util.js');
+
+const app = getApp()
 var join_Act = new Array(0)
 var release_Act = new Array(0)
+var joined_Act = new Array(0)
 Page({
 
   /**
@@ -11,6 +15,7 @@ Page({
   data: {
     join:[],
     release:[],
+    joined:[],
     openID:'',
     StudentName:'',
     StudentId:'',
@@ -18,7 +23,8 @@ Page({
     message: 'Hello Minia~',
     toView: 'red',
     scrollTop: 100,
-    currentData:0
+    currentData:0,
+    now:''
   },
 
   scroll(e) {
@@ -52,11 +58,17 @@ Page({
    */
   onLoad: function (options) {
 
+    var time = util.formatTime(new Date());
+    this.setData({
+      now: time
+    });
+
     var that = this
     that.setData({
       StudentID:app.globalData.stuID,
       StudentName: app.globalData.stuName
     });
+
     // 已报名界面
     wx.request({
       url: 'https://diaosudev.cn:3000/act/join',
@@ -70,6 +82,7 @@ Page({
       success: function (res) {
         console.log(res.data)
         join_Act = []
+        joined_Act = []
         var i = 0
         while(res.data.joinAct[i]){
           var a = res.data.joinAct[i++].actID
@@ -87,6 +100,12 @@ Page({
               that.setData({
                 join: join_Act
               })
+              if (that.data.now.substring(0, 10) > res.data.date){
+                joined_Act.push(res.data)
+                that.setData({
+                  joined: joined_Act
+                })
+              }
             }
           })
         } 
@@ -135,30 +154,7 @@ Page({
         console.log(err.data);
       }
     });
-
-
-    wx.request({
-      url: 'https://diaosudev.cn:3000/act/collect',
-      method: 'GET',
-      data: {
-        stuID: app.globalData.stuID
-      },
-      header: {
-        "Content-Type": "application/json"
-      },
-      success: function (res) {
-        console.log(res.data)
-        that.setData({
-          collectAct: res.data.collectAct
-        });
-      },
-      fail: function (err) {
-        console.log("....fail....");
-        console.log(err.data);
-      }
-    });
   },
-
   
   bindchange: function (e) {
     const that = this;
@@ -202,44 +198,6 @@ Page({
     });
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
-  /**
-   * 监听滚动事件
-   */
   onPageScroll: function (e) {
     console.log(e);//{scrollTop:99}
     var that = this;

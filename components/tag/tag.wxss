@@ -5,7 +5,9 @@
   height: 40rpx;
   color: white;
   border-radius: 10rpx;
-  padding: 1rpx;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  text-align:center;  
   display: flex;
 }
