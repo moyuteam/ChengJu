@@ -177,12 +177,14 @@ app.put('/user', function (req, res) {
                 a.joinAct.forEach(function (item, index, arr) {  //判断更新还是删除
                     if (user.joinAct.indexOf(item) !== -1) {      //若存在相同活动，则为删除
                         add = false;
+                        console.log(item)
                         throw new Error("delete");
                     }
                 })
             } catch (e) {
 
             }
+            console.log(add);
             if (add) {
                 a.joinAct.forEach(function (item, index, arr) {
                     user.joinAct.push(item);
@@ -379,9 +381,10 @@ app.get('/act/collect', function(req, res) {
         if(user.collectAct == undefined){
             res.send("No Act Found!");
         }else{
+            var acts;
             user.collectAct.forEach(function (item, index, arr) {
-                var acts = {
-                    actID: item.actID
+                acts = {
+                    actID: item
                 }
                 collectAct.push(acts);
             })
@@ -399,9 +402,10 @@ app.get('/act/join', function(req, res) {
         if(user.joinAct == undefined){
             res.send("No Act Found!");
         }else{
+            var acts;
             user.joinAct.forEach(function (item, index, arr) {
                 var acts = {
-                    actID: item.actID
+                    actID: item
                 }
                 joinAct.push(acts)
             })
@@ -419,9 +423,10 @@ app.get('/act/released', function(req, res) {
         if(user.releasedAct == undefined){
             res.send("No Act Found!");
         }else{
+            var acts;
             user.releasedAct.forEach(function (item, index, arr) {
                 var acts = {
-                    actID: item.actID
+                    actID: item
                 }
                 releasedAct.push(acts)
             })
@@ -449,7 +454,8 @@ app.get('/act/query/name', function (req, res) {
                 time: item.time,
                 tag1: item.tag1,
                 tag2: item.tag2,
-                tag3: item.tag3
+                tag3: item.tag3,
+                picUrl: item.picUrl
             };
             query.push(act);
         });
