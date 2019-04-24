@@ -24,7 +24,10 @@
     <image src='../image/Calendar.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">活动日期</view>
       <picker name='date' mode="date" value="{{date}}" start="2019-04-01" end="2020-12-31" bindchange="bindDateChange" >
-      <input value='{{date}}' class='input_content'/>
+      <!--input value='{{date}}' class='input_content'/-->
+      <view class='input_content'>
+      <text decode='{{true}}'>&nbsp;{{date}}</text>
+      </view>
       </picker>
   </view>
 
@@ -33,7 +36,10 @@
     <image src='../image/Time.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">活动时间</view>
     <picker name='time' mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
-      <input value='{{time}}' class='input_content'/>
+      <!--input value='{{time}}' class='input_content'/-->
+      <view class='input_content'>
+      <text decode='{{true}}'>&nbsp;{{time}}</text>
+      </view>
     </picker>
   </view>
 

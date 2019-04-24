@@ -46,7 +46,7 @@
 <!--搜索后的页面-->
 
     <block class="contain" wx:for="{{queryAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-      <navigator url="{{itemName.url}}">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
       <view id="white">
         <view class="image">
           <image class='acti-image' src="https://diaosudev.cn:3000{{itemName.picUrl}}" mode="aspectFit"></image>

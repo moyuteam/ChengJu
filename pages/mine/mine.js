@@ -68,7 +68,6 @@ Page({
       StudentID:app.globalData.stuID,
       StudentName: app.globalData.stuName
     });
-
     // 已报名界面
     wx.request({
       url: 'https://diaosudev.cn:3000/act/join',
