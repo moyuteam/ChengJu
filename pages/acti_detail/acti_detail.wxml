@@ -38,6 +38,8 @@
     <text id="word_detail">{{content.des}}</text>
   
 </scroll-view>
+
+
 </view>
   <view class="acti-button">
     <view wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</view>

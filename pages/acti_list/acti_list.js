@@ -55,40 +55,6 @@ Page({
             searchLists: res.data
           }
         })
-
-
-/*
-        if(!that.data.inputValue){
-          wx.showToast({
-            title:'请重新输入',
-            icon:'loading',
-            duration:2000,
-          })
-        } else if (searchData.search.length == 0){
-          wx.showToast({
-            title:'关键词不存在',
-            icon:'loading',
-            duration:2000,
-          })
-        } else {
-          var searchIndex = searchData.search.length
-          var d = 0;
-          for (var i = 0; i <= searchIndex - 1; i++){
-            var searchTitle = searchData.search[d].title.console.log(searchTitle)
-            d = d + 1;
-
-            for (var x = 0; x <= searchTitle.length; x++) {
-              for (var y = 0; y <= searchTitle.length; y++) { 
-                var keyWord = searchTitle.length.substring(x, y);
-                console.log(keyWord)                
-               }
-            }
-
-            wx.navigateTo({
-              url: 'pages/acti_list' ,
-            })
-          }
-        }*/
       }
     })
   },
