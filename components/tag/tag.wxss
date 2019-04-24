@@ -1,11 +1,14 @@
 /* components/tag/tag.wxss */
 .tag {
-  font-size: 30rpx;
-  background-color: rgba(255, 162, 0, 0.7);
-  height: 40rpx;
-  color: white;
-  border-radius: 10rpx;
-  padding: 1rpx;
+  font-size: 25rpx;
+  height: 30rpx;
+  color: rgba(255, 162, 0, 1);
+  padding:2rpx;
+  border: 1rpx solid;
+  border-radius: 7rpx;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  text-align:center;  
   display: flex;
 }

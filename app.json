@@ -6,7 +6,8 @@
     "pages/acti_detail/acti_detail",
     "pages/submit/submit",
     "pages/mine/mine",
-    "pages/time_axis/time_axis"
+    "pages/time_axis/time_axis",
+    "pages/impression/impression"
   
   ],
   "window": {
@@ -27,7 +28,7 @@
         "selectedIconPath": "pages/icon/acti-after.png"
       },
       {
-        "pagePath": "pages/submit/submit",
+        "pagePath": "pages/impression/impression",
         "text": "发布",
         "color": "#8a8a8a",
         "selectedColor": "#FFA000",
