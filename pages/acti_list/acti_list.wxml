@@ -6,46 +6,20 @@
 <view class="section">
   <block wx:if="{{true}}">
   <scroll-view
-    scroll-y
-    style="height: 2000px;"
+    scroll-y="true"
+    scroll-x="false"
+    style="height: 990px;"
     bindscrolltoupper="upper"
     bindscrolltolower="lower"
-    bindscroll="scroll"
-    scroll-into-view="{{toView}}"
-    scroll-top="{{scrollTop}}"
   >
-<!--js手写数据-->
-    <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-      <navigator url="{{itemName.url}}">
-      <view id="white">
-        <view class="acti-image">
-          <image src="{{itemName.image}}" mode="aspectFit"></image>
-        </view>
-        <view class="acti-info">
-          <text id="acti-title">{{itemName.title}}</text>
-          <view class="time">
-            <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.calendar}}</text>
-            <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.time}}</text>
-          </view>
-          <view class="acti-tag">
-            <Mytag text="{{'111111'}}"/>
-            <text decode='{{true}}'>&nbsp;&nbsp;</text>
-            <Mytag text="{{'222222'}}"/>
-            <text decode='{{true}}'>&nbsp;&nbsp;</text>
-            <Mytag text="{{'333333'}}"/>
-          </view>
-        </view>
-      </view>
-      </navigator>
-    </block>
+
+  <view wx:if="{{!searchItem}}">
   <!--数据库数据-->
     <block class="contain" wx:for="{{allAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-      <navigator url="{{itemName.url}}">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
       <view id="white">
-        <view class="acti-image">
-          <image src="{{itemName.image}}" mode="aspectFit"></image>
+        <view class="image">
+          <image class='acti-image' src="https://diaosudev.cn:3000{{itemName.picUrl}}"></image>
         </view>
         <view class="acti-info">
           <text id="acti-title">{{itemName.name}}</text>
@@ -53,7 +27,7 @@
             <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
             <text id="acti-time">{{itemName.date}}</text>
             <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-            <text id="acti-time">{{itemName.time}}</text>
+            <text id="acti-date">{{itemName.time}}</text>
           </view>
           <view class="acti-tag">
             <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
@@ -66,6 +40,37 @@
       </view>
       </navigator>
     </block>
+</view>
+
+<view wx:else>
+<!--搜索后的页面-->
+
+    <block class="contain" wx:for="{{queryAct}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
+      <view id="white">
+        <view class="image">
+          <image class='acti-image' src="https://diaosudev.cn:3000{{itemName.picUrl}}" mode="aspectFit"></image>
+        </view>
+        <view class="acti-info">
+          <text id="acti-title">{{itemName.name}}</text>
+          <view class="time">
+            <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+            <text id="acti-time">{{itemName.date}}</text>
+            <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+            <text id="acti-date">{{itemName.time}}</text>
+          </view>
+          <view class="acti-tag">
+            <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag2}}" wx:if="{{itemName.tag2}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag3}}" wx:if="{{itemName.tag3}}"/>
+          </view>
+        </view>
+      </view>
+      </navigator>
+    </block>
+</view>
 
   </scroll-view>
   </block>

@@ -1,0 +1,25 @@
+<form bindsubmit='formSubmit' bindreset='formReset'>
+
+<view class="body">
+  <input class="name" placeholder='写个名字吧' name='name'/>
+
+  <view class="divLine"></view>
+  <textarea class="description" placeholder='一点感受' maxlength='500' name='des' ></textarea>
+
+    <view class="item">
+      <!-- 添加按钮 -->
+      <image src='../image/add_photo.png'  class="add_photo" bindtap="chooseImage" wx:if="{{imgBoolean}}">
+      </image>
+      <!-- 上传的图 -->
+      <view class='itemImg' >
+        <image  src="{{item}}" data-src="{{item}}" bindtap="previewImage"  mode="aspectFill" />
+        <!-- 删除按钮 -->
+        <view class="delete" bindtap="deleteImg" data-index="{{index}}">X</view>
+      </view>
+    </view>
+  
+  <button form-type="submit" class='submit_btn'>提交</button>
+
+</view>
+</form>
+

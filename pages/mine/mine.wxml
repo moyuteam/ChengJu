@@ -1,8 +1,8 @@
 <view class='user-info-container'>
-  <image class='avatar' src='{{userInfo.avatarUrl}}' mode='aspectFit'></image>
+  <open-data type="userAvatarUrl" class="avatar"></open-data>
   <view class='info'>
-    <view class='name' >StudentName</view>
-    <view class="statistics">StudentID</view>
+    <view class='name' >{{StudentName}}</view>
+    <view class="statistics">{{StudentID}}</view>
   </view>
 </view>
 
@@ -11,7 +11,7 @@
   <view class='menu'>
     <view class='{{currentData == 0 ? "choose_left_select" : "choose_left_unselect"}}'  data-current = "0" bindtap='checkCurrent'>已报名</view>
     <view class='{{currentData == 1 ? "choose_middle_select" : "choose_middle_unselect"}}'  data-current = "1" bindtap='checkCurrent'>已发布</view>
-    <view class='{{currentData == 2 ? "choose_right_select" : "choose_right_unselect"}}'  data-current = "2" bindtap='checkCurrent'>已收藏</view>
+    <view class='{{currentData == 2 ? "choose_right_select" : "choose_right_unselect"}}'  data-current = "2" bindtap='checkCurrent'>已参加</view>
   </view>
 </view>
 
@@ -21,25 +21,31 @@
     <view class="section">
     <block wx:if="{{true}}">
 
-      <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-        <navigator url="{{itemName.url}}">
-        <view id="white">
-          <view class="acti-image">
-            <image src="{{itemName.image}}" mode="aspectFit"></image>
+<block class="contain" wx:for="{{join}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
+      <view id="white">
+        <view class="image">
+          <image class='acti-image' src="https://diaosudev.cn:3000{{itemName.picUrl}}"></image>
+        </view>
+        <view class="acti-info">
+          <text id="acti-title">{{itemName.name}}</text>
+          <view class="time">
+            <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+            <text id="acti-time">{{itemName.date}}</text>
+            <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+            <text id="acti-date">{{itemName.time}}</text>
           </view>
-          <view class="acti-info">
-            <text id="acti-title">{{itemName.title}}</text>
-            <view class="time">
-              <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.calendar}}</text>
-              <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.time}}</text>
-            </view>
+          <view class="acti-tag">
+            <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag2}}" wx:if="{{itemName.tag2}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag3}}" wx:if="{{itemName.tag3}}"/>
           </view>
         </view>
-        </navigator>
-      </block>
-
+      </view>
+      </navigator>
+    </block>
       </block>
     </view>
   </swiper-item> 
@@ -57,29 +63,77 @@
       scroll-top="{{scrollTop}}"
     >
 
-      <block class="contain" wx:for="{{imageArray}}" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
-        <navigator url="{{itemName.url}}">
-        <view id="white">
-          <view class="acti-image">
-            <image src="{{itemName.image}}" mode="aspectFit"></image>
+<block class="contain" wx:for="{{release}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+      <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
+      <view id="white">
+        <view class="image">
+          <image class='acti-image' src="https://diaosudev.cn:3000{{itemName.picUrl}}"></image>
+        </view>
+        <view class="acti-info">
+          <text id="acti-title">{{itemName.name}}</text>
+          <view class="time">
+            <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
+            <text id="acti-time">{{itemName.date}}</text>
+            <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
+            <text id="acti-date">{{itemName.time}}</text>
           </view>
-          <view class="acti-info">
-            <text id="acti-title">{{itemName.title}}</text>
-            <view class="time">
-              <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.calendar}}</text>
-              <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
-              <text id="acti-time">{{itemName.time}}</text>
-            </view>
+          <view class="acti-tag">
+            <Mytag text="{{itemName.tag1}}" wx:if="{{itemName.tag1}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag2}}" wx:if="{{itemName.tag2}}"/>
+            <text decode='{{true}}' wx:if="{{itemName.tag1}}">&nbsp;&nbsp;</text>
+            <Mytag text="{{itemName.tag3}}" wx:if="{{itemName.tag3}}"/>
           </view>
         </view>
-        </navigator>
-      </block>
+      </view>
+      </navigator>
+    </block>
   
       </scroll-view>
       </block>
     </view>
-  </swiper-item> 
+  </swiper-item>  
+
+
+  <swiper-item>
+    <view class="section">
+    <block wx:if="{{true}}">
+    <scroll-view
+      scroll-y
+      style="height: 2000px;"
+      bindscrolltoupper="upper"
+      bindscrolltolower="lower"
+      bindscroll="scroll"
+      scroll-into-view="{{toView}}"
+      scroll-top="{{scrollTop}}"
+    >
+
+    <block class="contain" wx:for="{{joined}}" wx:key="list" wx:for-index="idx" wx:for-item="itemName" bind:tap="onGoalClick">
+          <navigator url="/pages/acti_detail/acti_detail?actID={{itemName.actID}}">
+            <view class='time-axis'>
+              <view class='date'>
+                {{itemName.date}}
+              </view>
+
+              <view class='line'>
+                <view class='online-top-close'></view>
+                <view class='dot-close'></view>
+                <view class='online-bottom'></view>
+              </view>
+
+              <view class='white-joined'>
+                <view class='name'>{{itemName.name}}</view>
+                <image class='image-joined' src='https://diaosudev.cn:3000{{itemName.picUrl}}'></image>
+              </view>
+
+            </view>
+          </navigator>
+        </block>
+      
+          </scroll-view>
+          </block>
+        </view>
+      </swiper-item>  
   
 </swiper>
 

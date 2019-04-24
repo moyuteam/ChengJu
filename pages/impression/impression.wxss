@@ -16,13 +16,15 @@
 }
 .description{
   margin: 20rpx;
+  height:700rpx;
 }
 
 .item {    
   position:relative;
-  width:180rpx;
-  height:180rpx;
+  width:210rpx;
+  height:210rpx;
   margin: 25rpx;
+  margin-bottom: 20rpx;
   /* overflow:hidden; */
 }
 .itemImg{
@@ -64,37 +66,6 @@
   background-color:#999;
 }
 
-.input{
-  display: flex;
-}
-.icon{
-  width: 20%;
-  height: 20px;
-  margin-left: -30rpx;
-  margin-right: -40rpx;
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-}
-.input_title{
-  margin: 20rpx;
-  color:#212121;
-}
-.input_content{
-  margin:20rpx;
-  color: #212121;
-}
-.input_tag{
-  width: 140rpx;
-  font-size: 9.5pt;
-  background-color: rgba(255, 162, 0, 0.2);
-  margin:20rpx 5rpx 20rpx 5rpx;
-  color: #212121;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align:center;  
-  border-radius: 12rpx;
-}
 .submit_btn{
   color: white;
   background: rgba(255, 162, 0, 0.788);
@@ -107,6 +78,3 @@
   display:block;
   margin: 0 auto;
 }
-
-
-

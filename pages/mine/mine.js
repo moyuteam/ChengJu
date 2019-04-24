@@ -1,74 +1,32 @@
 // pages/mine/mine.js
+
+
+var util = require('../../utils/util.js');
+
+const app = getApp()
+var join_Act = new Array(0)
+var release_Act = new Array(0)
+var joined_Act = new Array(0)
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    join:[],
+    release:[],
+    joined:[],
+    openID:'',
+    StudentName:'',
+    StudentId:'',
     inputValue: '',
     message: 'Hello Minia~',
     toView: 'red',
     scrollTop: 100,
-    imageArray: [
-      {
-        color: 'white',
-        image: '../image/Eat.png',
-        title: '食堂约饭',
-        time: '12:00~13:00',
-        calendar: '4/1',
-        url: '/pages/acti_detail/acti_detail',
-      }, {
-        color: 'yellow',
-        image: '../image/Activity.png',
-        title: '风筝-不一样的六一',
-        time: '14:30~17:00',
-        calendar: '6/1',
-        url: '/pages/acti_detail/acti_detail',
-      }, {
-        color: 'blue',
-        image: '../image/Meeting.png',
-        title: '有关人工智能的讲座',
-        time: '16:00~17:00',
-        calendar: '5/23~5/25',
-        url: '/pages/acti_detail/acti_detail',
-      }, {
-        color: 'green',
-        image: '../image/Sing.png',
-        title: '放声歌唱',
-        time: '20:00~22:00',
-        calendar: '5/2',
-        url: '/pages/acti_detail/acti_detail',
-      }, {
-        color: 'red',
-        image: '../image/Sport.png',
-        title: '夜跑-点亮生命',
-        time: '16:00~17:00',
-        calendar: '4/6',
-        url: '/pages/acti_detail/acti_detail',
-      }, {
-        color: 'white',
-        image: '../image/Study.png',
-        title: '周末图书馆约学习',
-        time: '8:00~22:00',
-        calendar: '3/30',
-        url: '/pages/acti_detail/acti_detail',
-      }, {
-        color: 'white',
-        image: '../image/Eat.png',
-        title: '寻找成都的美食',
-        time: '8:00~12:00',
-        calendar: '4/12',
-        url: '/pages/acti_detail/acti_detail',
-      }, {
-        color: 'white',
-        image: '../image/Meeting.png',
-        title: '班长会议',
-        time: '14:00~16:00',
-        calendar: '4/15',
-        url: '/pages/acti_detail/acti_detail',
-      }
-    ]
+    currentData:0,
+    now:''
   },
+
   scroll(e) {
     console.log(e)
   },
@@ -94,28 +52,17 @@ Page({
     })
   },
 
-  getUserInfo: function () {
-    var that = this
-    _getUserInfo();
-    function _getUserInfo() {
-      wx.getUserInfo({
-        success: function (res) {
-          that.setData({
-            userInfo: res.userInfo
-          })
-          that.update()
-        }
-      })
-    }
-  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    that.setData({
+      StudentID: app.globalData.stuID,
+      StudentName: app.globalData.stuName
+    });
   },
-
   
   bindchange: function (e) {
     const that = this;
@@ -135,6 +82,107 @@ Page({
         currentData: e.target.dataset.current
       })
     }
+
+    var time = util.formatTime(new Date());
+    this.setData({
+      now: time
+    });
+
+    that.setData({
+      StudentID: app.globalData.stuID,
+      StudentName: app.globalData.stuName
+    });
+    // 已报名界面
+    wx.request({
+      url: 'https://diaosudev.cn:3000/act/join',
+      method: 'GET',
+      data: {
+        stuID: app.globalData.stuID
+      },
+      header: {
+        "Content-Type": "application/json"
+      },
+      success: function (res) {
+        console.log(res.data)
+        join_Act = []
+        joined_Act = []
+        for (var i = 0; i < res.data.joinAct.length; i++) {
+          var a = res.data.joinAct[i].actID
+          console.log(i + a)
+          wx.request({
+            url: 'https://diaosudev.cn:3000/act',
+            method: 'GET',
+            data: {
+              actID: a
+            },
+            header: {
+              "Content-Type": "application/json"
+            },
+            success: function (res) {
+              console.log(i + res.data)
+              join_Act.push(res.data)
+              console.log(i + join_Act)
+              that.setData({
+                join: join_Act
+              })
+              console.log(join_Act)
+              if (that.data.now.substring(0, 10) > res.data.date) {
+                joined_Act.push(res.data)
+                that.setData({
+                  joined: joined_Act
+                })
+              }
+            },
+            fail: function (err) {
+              console.log("....fail..wulaalla.");
+            }
+          })
+        }
+      },
+      fail: function (err) {
+        console.log("....fail....");
+        console.log(err.data);
+      }
+    });
+    // 已发布界面
+    wx.request({
+      url: 'https://diaosudev.cn:3000/act/released',
+      method: 'GET',
+      data: {
+        stuID: app.globalData.stuID
+      },
+      header: {
+        "Content-Type": "application/json"
+      },
+      success: function (res) {
+        console.log(res.data)
+        release_Act = []
+        var i = 0
+        while (res.data.releasedAct[i]) {
+          var a = res.data.releasedAct[i++].actID
+          wx.request({
+            url: 'https://diaosudev.cn:3000/act',
+            method: 'GET',
+            data: {
+              actID: a
+            },
+            header: {
+              "Content-Type": "application/json"
+            },
+            success: function (res) {
+              release_Act.push(res.data)
+              that.setData({
+                release: release_Act
+              })
+            }
+          })
+        }
+      },
+      fail: function (err) {
+        console.log("....fail....");
+        console.log(err.data);
+      }
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -147,7 +195,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.onLoad();
     var that = this;
     var query = wx.createSelectorQuery()//创建节点查询器 query
     query.select('#fix').boundingClientRect()//选择Id的节点，获取节点位置信息的查询请求
@@ -159,44 +207,6 @@ Page({
     });
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
-  /**
-   * 监听滚动事件
-   */
   onPageScroll: function (e) {
     console.log(e);//{scrollTop:99}
     var that = this;

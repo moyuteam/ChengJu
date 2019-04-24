@@ -1,18 +1,18 @@
 <!--pages/acti_detail/acti_detail.wxml-->
 <view class="section">
-    <scroll-view
+  <view class="white">
+  <scroll-view
     scroll-y
-    style="height: 2000px;"
+    style="height: 990px;"
     bindscrolltoupper="upper"
     bindscrolltolower="lower"
     bindscroll="scroll"
     scroll-into-view="{{toView}}"
     scroll-top="{{scrollTop}}"
   >
- 
-  <view class="white">
-  <image src=''></image>
-    <text id="word_title">| {{content.title}}</text>
+  <image src='https://diaosudev.cn:3000{{content.picUrl}}'></image>
+  <view class="line"></view>
+    <text decode='{{true}}' id="word_title">|&nbsp;&nbsp;&nbsp;{{content.name}}</text>
     <view class="line"></view>
     <view class="time">
       <image id="timeClock" src="../image/Time.png" mode="aspectFit"></image>
@@ -21,26 +21,28 @@
     <view class="line"></view>
     <view class="time">
       <image id="timeClock" src="../image/Calendar.png" mode="aspectFit"></image>
-      <text id="word_calendar">{{content.calendar}}</text>
+      <text id="word_calendar">{{content.date}}</text>
     </view>
     <view class="line"></view>
     <view class="time"> 
-      <image id="timeClock" src="../image/place.png" mode="aspectFit"></image>
+      <image id="timeClock" src="../image/Place.png" mode="aspectFit"></image>
       <text id="word_place">{{content.place}}</text>
     </view>
     <view class="line"></view>
     <view class="time">
-      <image id="timeClock" src="../image/user.png" mode="aspectFit"></image>
-      <text id="word_number">{{content.number}}</text>
+      <image id="timeClock" src="../image/User.png" mode="aspectFit"></image>
+      <text id="word_number">{{content.capacity}}</text>
     </view>
     <view class="line"></view>
     <text>\n\r</text>
-    <text id="word_detail">{{content.detail}}</text>
-  </view>
-
+    <text id="word_detail">{{content.des}}</text>
+  
+</scroll-view>
+</view>
   <view class="acti-button">
-    <button form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
-    <button form-type="reset" class='submit_btn'>分享</button>
+    <view wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</view>
+    <view wx:else form-type="submit" class='submit_btn_after'>已报名</view>
+    <view form-type="reset" class='submit_btn'>分享</view>
       <view class="mask" wx:if="{{signIn}}"></view>
       <view class="create-modal" wx:if="{{signIn}}">
         <view class="modal-title">确定报名？</view>
@@ -49,6 +51,8 @@
           <view class="confirm" bind:tap="onAddActi">确定</view>
         </view>
       </view>  
-  </view>
-  </scroll-view>
+   </view>
 </view>
+
+<view></view>
+<view></view>

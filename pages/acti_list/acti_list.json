@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "Mytag":"../../components/tag/tag"
+    "Mytag":"../../components/tag/tag",
+    "Myloading": "../../components/loading/loading"
   }
 }

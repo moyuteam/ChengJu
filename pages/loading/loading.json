@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "Myloading": "../../components/loading/loading"
+  }
+}

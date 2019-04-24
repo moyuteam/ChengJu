@@ -4,8 +4,7 @@
   <input class="name" placeholder='活动名称' name='name'/>
 
   <view class="divLine"></view>
-  <textarea class="description" placeholder='活动描述' maxlength='200' name='des'></textarea>
-
+  <textarea class="description" placeholder='活动描述' maxlength='200' name='des' ></textarea>
 
     <view class="item">
       <!-- 添加按钮 -->
@@ -13,7 +12,7 @@
       </image>
       <!-- 上传的图 -->
       <view class='itemImg' >
-        <image name="image" src="{{item}}" data-src="{{item}}" bindtap="previewImage"  mode="aspectFill" />
+        <image  src="{{item}}" data-src="{{item}}" bindtap="previewImage"  mode="aspectFill" />
         <!-- 删除按钮 -->
         <view class="delete" bindtap="deleteImg" data-index="{{index}}">X</view>
       </view>
@@ -25,7 +24,10 @@
     <image src='../image/Calendar.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">活动日期</view>
       <picker name='date' mode="date" value="{{date}}" start="2019-04-01" end="2020-12-31" bindchange="bindDateChange" >
-      <input value='{{date}}' class='input_content'/>
+      <!--input value='{{date}}' class='input_content'/-->
+      <view class='input_content'>
+      <text decode='{{true}}'>&nbsp;{{date}}</text>
+      </view>
       </picker>
   </view>
 
@@ -33,8 +35,11 @@
   <view class="input">
     <image src='../image/Time.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">活动时间</view>
-    <picker name='time' mode="time" value="{{time}}" start="00:00" end="23:59"       bindchange="bindTimeChange">
-      <input value='{{time}}' class='input_content'/>
+    <picker name='time' mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+      <!--input value='{{time}}' class='input_content'/-->
+      <view class='input_content'>
+      <text decode='{{true}}'>&nbsp;{{time}}</text>
+      </view>
     </picker>
   </view>
 
@@ -42,25 +47,30 @@
   <view class='input'>
     <image src='../image/Place.png' class='icon' mode='aspectFit'></image>
     <view class='input_title'>活动地点</view>
-    <input class='input_content'/>
+    <input class='input_content' name='place' bindtap='onChangeAddress'>
+      {{address}}
+    </input>
   </view>
 
   <view class="divLine"></view>
   <view class="input">
     <image src='../image/User.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">活动人数</view>
-    <input name='capacity' class="input_content"  ype='number' />
+    <input name='capacity' class="input_content"  type='number' />
   </view>
 
   <view class="divLine"></view>
   <view class="input">
     <image src='../image/Tag.png' class='icon' mode='aspectFit'></image>
     <view class="input_title">添加标签</view>
+    <input name='tag1' maxlength='4' class="input_tag" placeholder='选填'/>
+    <input name='tag2' maxlength='4' class="input_tag" />
+    <input name='tag3' maxlength='4' class="input_tag" />
   </view>
   
-  <button form-type="submit" class='submit_btn' >发布活动</button>
-  <view style='height:40rpx'></view>
-  <button form-type="reset" class='submit_btn'>重置</button>
+  <button form-type="submit" class='submit_btn'>发布活动</button>
+  
+
 </view>
 
 </form>

@@ -1,31 +1,55 @@
 //app.js
-const app = getApp()
+
 App({
 
-  login: function () {
+  
+
+  onLaunch: function () {
+
+    var that = this
+    // 展示本地存储能力
+    var logs = wx.getStorageSync('logs') || []
+    logs.unshift(Date.now())
+    wx.setStorageSync('logs', logs)
+
     wx.login({
       success: function (res) {
         console.log(res.code)
         //发送请求
         wx.request({
-          url: 'test.php', //接口地址
-          data: { code: res.code },
+          url: 'https://diaosudev.cn:3000/user/isRegister', //刁溯服务器接口
+          data: {
+            code: res.code 
+          },
           header: {
-            'content-type': 'application/json' //默认值
+            'content-type': 'application/x-www-form-urlencoded' //默认值
           },
           success: function (res) {
             console.log(res.data)
+              that.globalData.userID = res.data.openID
+              that.globalData.stuID = res.data.stuID
+              that.globalData.stuName = res.data.name
+            console.log("1")
+            if (res.data.isRegister){
+              console.log("2")
+              wx.switchTab({
+                url: '/pages/acti_list/acti_list'
+              })
+            } else{
+              console.log("4")
+              wx.redirectTo({
+                url: '/pages/sign/sign'
+              })
+            }          
+            console.log("5")
+          },
+
+          fail: function(err){
+            console.log('fail.....')
           }
         })
       }
     })
-  },
-
-  onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
 
     // 获取用户信息
     wx.getSetting({
@@ -48,7 +72,13 @@ App({
       }
     })
   },
+  
   globalData: {
-    userInfo: null
-  }
+    userInfo: null,
+    userID:'',
+    isRegister:'',
+    stuID:'',
+    stuName:''
+  },
+
 })

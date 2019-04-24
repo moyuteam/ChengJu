@@ -1,58 +1,36 @@
-// pages/submit/submit.js
+// pages/impression/impression.js
 var util = require('../../utils/util.js');
 const app = getApp();
-var time ;
 var img_url = '';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: util.json2Form({
-    name:'活动名称',
-    des:'活动描述',
-    date:'2019-4-1',
-    time:'16:00',
-    place:'活动地点',
-    capacity:'20',
-    img_url:'',
+    name: '活动名称',
+    des: '活动描述',
+    img_url: '',
     stuID: '',
-    picUrl:'',
-    allValue:''
   }),
 
-  data:{
+
+  data: {
     uploadedImages: [],
     imgBoolean: true
   },
-
-
-  formReset:function(e){
-    console.log('form发生了reset事件',e.detail.value)
-    this.setData({
-      allValue:''
-    })
-  },
-
-
-  clear(e){
-    this.setData({
-      allValue:''
-    })
-  },
-
-  formSubmit:function(e){
+  formSubmit: function (e) {
 
     var that = this;
 
     that.setData({
-      stuID:app.globalData.stuID
+      stuID: app.globalData.stuID
     })
-
 
     console.log('form 发生了submit事件', e.detail.value)
     this.setData({
-      allValue:e.detail.value
+      allValue: e.detail.value
     })
     if (e.detail.value.name == 0) {
       wx.showToast({
@@ -68,29 +46,22 @@ Page({
         },
         method: "POST",
         data: {
-          ownerID:that.data.stuID,
+          ownerID: that.data.stuID,
           picUrl: that.data.img_url,
           name: e.detail.value.name,
           des: e.detail.value.des,
-          date:e.detail.value.date,
-          time:e.detail.value.time,
-          place:e.detail.value.place,
-          capacity:e.detail.value.capacity,
-          tag1: e.detail.value.tag1,
-          tag2: e.detail.value.tag2,
-          tag3: e.detail.value.tag3,
         },
-        success: function(res) {
+        success: function (res) {
           console.log(res.data);
           if (res.data.status == 0) {
             wx.showToast({
-              title:'fail',
+              title: 'fail',
               icon: 'loading',
               duration: 1500
             })
           } else {
             wx.showToast({
-              title:'success',
+              title: 'success',
               icon: 'success',
               duration: 1000
             })
@@ -98,19 +69,6 @@ Page({
         }
       })
     }
-  },
-
-//日期时间选择器
-  bindDateChange(e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
-  
-  bindTimeChange(e) {
-    this.setData({
-      time: e.detail.value
-    })
   },
 
   //上传图片
@@ -122,7 +80,7 @@ Page({
     // 选择图片
     wx.chooseImage({
       count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['original','compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
@@ -144,7 +102,7 @@ Page({
             //console.log(res.data)
             that.setData({
               img_url: res.data
-            }) 
+            })
           },
           fail: function (res) {
             wx.hideToast();
