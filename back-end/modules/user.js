@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var userSchema = Schema({
     name:String,     //用户姓名
     stuID:String,    //用户ID
+    openID:String,
     sex:String,      //用户性别
     verifyUser:Boolean,   //用户真实性验证标识
     createTime: {       //用户创建时间
