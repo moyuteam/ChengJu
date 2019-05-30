@@ -12,3 +12,5 @@ project.config.json
 
 # Node.js
 node_modules/
+ChengJu.code-workspace
+back-end/connect.js
