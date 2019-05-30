@@ -35,14 +35,16 @@
     </view>
     <view class="line"></view>
     <text>\n\r</text>
-    <text id="word_detail">{{content.des}}</text>
+    <view class="weui-article__h1">
+    <text >{{content.des}}</text>
+    </view>
   
 </scroll-view>
 </view>
   <view class="acti-button">
     <view wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</view>
     <view wx:else form-type="submit" class='submit_btn_after'>已报名</view>
-    <view form-type="reset" class='submit_btn'>分享</view>
+    <view class='submit_btn' open-type='share'>分享</view>
       <view class="mask" wx:if="{{signIn}}"></view>
       <view class="create-modal" wx:if="{{signIn}}">
         <view class="modal-title">确定报名？</view>
@@ -53,6 +55,3 @@
       </view>  
    </view>
 </view>
-
-<view></view>
-<view></view>
