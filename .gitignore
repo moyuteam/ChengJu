@@ -14,3 +14,4 @@ project.config.json
 node_modules/
 ChengJu.code-workspace
 back-end/connect.js
+back-end/AppConfig.md
