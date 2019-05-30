@@ -110,7 +110,7 @@ Page({
     }
     return {
       title: '转发',
-      path: '/pages/index/community/topic/topic?jsonStr=' + this.data.list,
+      path: '/pages/acti_detail/acti_detail',
       success: function (res) {
         console.log('成功', res)
       }

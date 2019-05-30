@@ -151,3 +151,9 @@
     font-weight:400;
     margin-bottom: .9em;
 }
+
+button::after{
+  border:none;
+  color:#EEEEEE;
+
+}

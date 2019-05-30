@@ -42,9 +42,9 @@
 </scroll-view>
 </view>
   <view class="acti-button">
-    <view wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</view>
-    <view wx:else form-type="submit" class='submit_btn_after'>已报名</view>
-    <view class='submit_btn' open-type='share'>分享</view>
+    <button wx:if="{{!content.isJoin}}" form-type="submit" class='submit_btn' bind:tap="onSignIn">报名</button>
+    <button wx:else form-type="submit" class='submit_btn_after'>已报名</button>
+    <button class='submit_btn' open-type='share'>分享</button>
       <view class="mask" wx:if="{{signIn}}"></view>
       <view class="create-modal" wx:if="{{signIn}}">
         <view class="modal-title">确定报名？</view>
