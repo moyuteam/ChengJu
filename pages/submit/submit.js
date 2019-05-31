@@ -101,13 +101,13 @@ Page({
   },
 
 //日期时间选择器
-  bindDateChange(e) {
+  bindDateChange: function(e) {
     this.setData({
       date: e.detail.value
     })
   },
   
-  bindTimeChange(e) {
+  bindTimeChange: function(e) {
     this.setData({
       time: e.detail.value
     })

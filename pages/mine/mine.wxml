@@ -6,7 +6,6 @@
   </view>
 </view>
 
-
 <view class=" {{menuFixed ? 'fixed': ''}}" id="fix">
   <view class='menu'>
     <view class='{{currentData == 0 ? "choose_left_select" : "choose_left_unselect"}}'  data-current = "0" bindtap='checkCurrent'>已报名</view>
@@ -136,9 +135,3 @@
       </swiper-item>  
   
 </swiper>
-
-
-
-
-
-

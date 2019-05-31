@@ -145,3 +145,15 @@
   background-color: #FFA000;
   color: white;
 }
+
+.weui-article__h1 {
+    font-size: 18px;
+    font-weight:400;
+    margin-bottom: .9em;
+}
+
+button::after{
+  border:none;
+  color:#EEEEEE;
+
+}
